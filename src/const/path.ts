@@ -1,0 +1,10 @@
+export const HOME = "/";
+export const ABOUT = "/about";
+export const BLOG = "/blog";
+export const CAREERS = "/careers";
+export const CONTACT = "/contact";
+export const SUPPORT = "/support";
+export const PRIVACY = "/privacy";
+export const TERMS = "/terms";
+export const DOWNLOAD = "/download";
+export const BLOG_POST = "/blog/:slug";
