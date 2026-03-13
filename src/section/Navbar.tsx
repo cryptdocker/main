@@ -11,6 +11,7 @@ const navLinks = [
 	{ label: "Pricing", to: `${PATH.HOME}#pricing` },
 	{ label: "About", to: PATH.ABOUT },
 	{ label: "Blog", to: PATH.BLOG },
+	{ label: "Support / FAQ", to: PATH.SUPPORT },
 ];
 
 export const Navbar: React.FC = () => {
