@@ -12,6 +12,7 @@ const navLinks = [
 	{ label: "About", to: PATH.ABOUT },
 	{ label: "Blog", to: PATH.BLOG },
 	{ label: "Support / FAQ", to: PATH.SUPPORT },
+	{ label: "Docs", to: PATH.DOCUMENTATION },
 ];
 
 export const Navbar: React.FC = () => {
@@ -26,7 +27,6 @@ export const Navbar: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		setMobileOpen(false);
 		window.scrollTo(0, 0);
 	}, [location.pathname]);
 

@@ -4,6 +4,7 @@ export const BLOG = "/blog";
 export const CAREERS = "/careers";
 export const CONTACT = "/contact";
 export const SUPPORT = "/support";
+export const DOCUMENTATION = "/documentation";
 export const PRIVACY = "/privacy";
 export const TERMS = "/terms";
 export const DOWNLOAD = "/download";

@@ -1,0 +1,134 @@
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { PageHeader } from "../layout/PageHeader";
+
+const DOC_MD = `
+## 1. What is CryptDocker?
+
+### 1.1 Definition
+CryptDocker is a desktop app hub built for crypto users. It helps you run many crypto apps (exchanges, wallets, DeFi tools, dashboards) in a single organized workspace—without juggling dozens of browser tabs. Under the hood it uses Electron + Chromium webviews, so your favorite web apps behave like a native desktop experience.
+
+### 1.2 Why was CryptDocker developed?
+Crypto workflows usually require multiple accounts, multiple wallets, and multiple tools running at the same time. In a regular browser, sessions can clash, tabs can eat RAM, and privacy controls are coarse. CryptDocker was developed to provide:
+
+- **Clean organization**: apps grouped into workspaces with fast switching
+- **Isolation**: separated sessions so you can log into multiple accounts safely
+- **Performance**: hibernate idle apps to reduce memory/CPU pressure
+- **Privacy controls**: per-site proxy routing when you need it
+- **Extension support**: Chrome extensions inside your desktop environment
+- **Built-in AI Tools**: instantly analyze risks, summarize news, and ask questions right from your workspace
+
+---
+
+## 2. Who uses CryptDocker?
+
+### 2.1 What does CryptDocker solve?
+- **Too many tabs**: replaces your “crypto tab jungle” with a sidebar of apps and workspaces.
+- **Multiple accounts**: isolates sessions so accounts don’t collide (cookies/localStorage/cache separated by partition).
+- **Heavy dApps**: reduces resource usage by hibernating idle apps and restoring them on demand.
+- **Network separation**: routes specific apps through specific proxies (HTTP/SOCKS5) without affecting everything else.
+- **Scams & Information Overload**: integrated AI analyzes risks and news for every dApp you visit.
+
+### 2.2 Who are CryptDocker’s potential customers?
+- **Traders & investors** managing multiple exchanges, analytics, and alerts
+- **Airdrop & DeFi users** running multiple wallets/accounts with strong session separation
+- **Web3 builders & QA** needing repeatable environments for testing and multi-account flows
+- **Privacy/OPSEC-focused users** who want per-app network routing and less cross-site leakage
+
+---
+
+## 3. What are the alternatives to CryptDocker?
+
+CryptDocker overlaps with “app browsers” and “workspace browsers,” but it’s optimized for crypto workflows: multi-account isolation, extensions, per-site networking controls, and AI risk analysis.
+
+### 3.1 Rambox vs. CryptDocker
+- **Rambox**: general-purpose messaging/productivity app aggregator.
+- **CryptDocker**: crypto-first desktop hub with stronger emphasis on session isolation, extensions (wallets), and per-site proxy routing for dApps.
+
+### 3.2 Shift vs. CryptDocker
+- **Shift**: centered around email/account switching and productivity web apps.
+- **CryptDocker**: designed for running many crypto web apps concurrently, with isolation + hibernation + proxy controls for heavy dApps.
+
+### 3.3 Wavebox vs. CryptDocker
+- **Wavebox**: powerful Chromium workspace browser often used for SaaS.
+- **CryptDocker**: focuses on crypto-native workflows (wallet extensions, session separation for multiple accounts, app/workspace organization tuned for crypto use).
+
+---
+
+## 4. Features of CryptDocker
+
+### 4.1 App management
+Add apps from a catalog or any custom URL, then launch them from a single sidebar.
+
+### 4.2 Workspaces
+Group apps into color-coded workspaces, expand/collapse them, and drag & drop apps between groups.
+
+### 4.3 Session isolation
+Each workspace (and some per-site cases) runs in an isolated Chromium partition—helpful for logging into multiple accounts on the same service at the same time.
+
+### 4.4 Per-site proxies (HTTP/SOCKS5)
+Route specific apps through specific proxy settings. This is useful for privacy, regional routing, or separation between identities.
+
+### 4.5 Smart hibernation
+Automatically hibernate idle apps to save memory and CPU, then wake them when needed.
+
+### 4.6 Chrome extensions inside the app
+Install and use Chrome extensions within CryptDocker. This enables wallet and utility extensions in your desktop workflow.
+
+### 4.7 Unified notifications & badges
+Surface notification counts and badge indicators so you can keep track of activity across apps.
+
+### 4.8 Built-in AI Tools
+CryptDocker integrates AI directly into your workflow to help you make smarter decisions and stay safe:
+- **AI ChatBot**: Get instant answers powered by GPT-5 and web search. Ask about any crypto topic directly from your workspace.
+- **Risk Analysis**: Evaluate any site's safety with AI-powered risk scores, detailed summaries, and security annotations before you connect your wallet.
+- **News Analysis**: Stay informed with AI-curated news for each site, including sentiment analysis, key takeaways, and custom keyword alerts.
+
+---
+
+## 5. How to use CryptDocker
+
+### 5.1 Install
+1. Download CryptDocker for your OS (Windows/macOS/Linux).
+2. Install and launch the app.
+
+### 5.2 Create a workspace
+Create a workspace that matches your workflow (for example: “Trading”, “DeFi”, “Wallets”, “Research”).
+
+### 5.3 Add apps
+Add apps from the built-in catalog or paste a custom URL, then drag them into the right workspace.
+
+### 5.4 Use multiple accounts safely
+If you need multiple accounts for the same service, put them in separate isolated environments (workspaces/partitions). This prevents cookie and localStorage collisions.
+
+### 5.5 Configure a per-site proxy (optional)
+1. Open the app’s settings.
+2. Select **Proxy**.
+3. Choose a connection type (HTTP/SOCKS5), set host/port, and add credentials if required.
+4. The selected site will route through that proxy session.
+
+### 5.6 Enable hibernation (optional)
+Set a hibernation timer for apps you keep open all day. CryptDocker will hibernate them when idle and restore them when you return.
+
+### 5.7 Use AI Tools
+While browsing any app, you can open the built-in AI panel to read the site's security risk analysis, check its latest news, or ask the AI ChatBot any specific questions.
+`;
+
+export const Documentation: React.FC = () => {
+	return (
+		<div className="w-full">
+			<PageHeader
+				label="Resources"
+				title="Documentation"
+				description="A practical overview of what CryptDocker is, who it’s for, how it compares, and how to get started."
+			/>
+			<section className="bg-white py-14">
+				<div className="max-w-4xl mx-auto px-6">
+					<article className="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-a:text-teal-700 hover:prose-a:text-teal-800">
+						<ReactMarkdown remarkPlugins={[remarkGfm]}>{DOC_MD}</ReactMarkdown>
+					</article>
+				</div>
+			</section>
+		</div>
+	);
+};

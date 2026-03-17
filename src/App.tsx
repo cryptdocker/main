@@ -11,6 +11,7 @@ import { Support } from "./page/Support";
 import { Privacy } from "./page/Privacy";
 import { Terms } from "./page/Terms";
 import { Download } from "./page/Download";
+import { Documentation } from "./page/Documentation";
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 					<Route path={PATH.CAREERS} element={<Careers />} />
 					<Route path={PATH.CONTACT} element={<Contact />} />
 					<Route path={PATH.SUPPORT} element={<Support />} />
+					<Route path={PATH.DOCUMENTATION} element={<Documentation />} />
 					<Route path={PATH.PRIVACY} element={<Privacy />} />
 					<Route path={PATH.TERMS} element={<Terms />} />
 					<Route path={PATH.DOWNLOAD} element={<Download />} />

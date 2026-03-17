@@ -25,6 +25,7 @@ const footerLinks = [
 	{
 		title: "Resources",
 		links: [
+			{ label: "Documentation", to: PATH.DOCUMENTATION },
 			{ label: "Support", to: PATH.SUPPORT },
 			{ label: "Privacy Policy", to: PATH.PRIVACY },
 			{ label: "Terms of Service", to: PATH.TERMS },
