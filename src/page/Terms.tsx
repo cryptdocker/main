@@ -64,7 +64,7 @@ const sections = [
 	{
 		title: "13. Contact",
 		content:
-			"For questions about these Terms, contact us at legal@cryptdocker.com.",
+			"For questions about these Terms, contact us at contact@cryptdocker.com.",
 	},
 ];
 

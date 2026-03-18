@@ -1,5 +1,7 @@
 import { IoDownloadOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import { Button } from "../component/Button";
+import { PATH } from "../const";
 
 export const CTA: React.FC = () => {
 	return (
@@ -24,9 +26,11 @@ export const CTA: React.FC = () => {
 								<IoDownloadOutline className="w-5 h-5 mr-2" />
 								Download Now
 							</Button>
-							<Button variant="ghost" size="lg">
-								View Documentation
-							</Button>
+							<Link to={PATH.DOCUMENTATION}>
+								<Button variant="ghost" size="lg">
+									View Documentation
+								</Button>
+							</Link>
 						</div>
 					</div>
 				</div>

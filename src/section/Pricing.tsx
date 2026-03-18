@@ -18,7 +18,6 @@ const plans = [
 			{ text: "Chrome extensions", included: false },
 			{ text: "Per-site proxies", included: false },
 		],
-		cta: "Download Free",
 		highlighted: false,
 	},
 	{
@@ -37,7 +36,6 @@ const plans = [
 			{ text: "Chrome extensions", included: true },
 			{ text: "Per-site proxies", included: true },
 		],
-		cta: "Start Pro Trial",
 		highlighted: true,
 	},
 ];

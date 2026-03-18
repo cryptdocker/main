@@ -77,9 +77,6 @@ export const Navbar: React.FC = () => {
 				</div>
 
 				<div className="hidden md:flex items-center gap-3">
-					<Button variant="outline" size="sm">
-						Sign In
-					</Button>
 					<Link to={PATH.DOWNLOAD}>
 						<Button size="sm">Download</Button>
 					</Link>
@@ -120,9 +117,6 @@ export const Navbar: React.FC = () => {
 						),
 					)}
 					<div className="flex gap-3 pt-2">
-						<Button variant="outline" size="sm" className="flex-1">
-							Sign In
-						</Button>
 						<Link to={PATH.DOWNLOAD} className="flex-1">
 							<Button size="sm" className="w-full">
 								Download

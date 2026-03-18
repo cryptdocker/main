@@ -13,7 +13,6 @@ interface PricingCardProps {
 	period?: string;
 	description: string;
 	features: PricingFeature[];
-	cta: string;
 	highlighted?: boolean;
 	icon: ReactNode;
 }
@@ -24,7 +23,6 @@ export const PricingCard: React.FC<PricingCardProps> = ({
 	period,
 	description,
 	features,
-	cta,
 	highlighted = false,
 	icon,
 }) => {
@@ -54,13 +52,6 @@ export const PricingCard: React.FC<PricingCardProps> = ({
 				<span className="text-4xl font-bold text-slate-900">{price}</span>
 				{period && <span className="text-slate-500">/{period}</span>}
 			</div>
-			<Button
-				variant={highlighted ? "primary" : "outline"}
-				size="lg"
-				className="w-full mb-8"
-			>
-				{cta}
-			</Button>
 			<ul className="space-y-3">
 				{features.map((feature, i) => (
 					<li key={i} className="flex items-center gap-3">

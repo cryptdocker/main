@@ -65,13 +65,13 @@ export const Careers: React.FC = () => {
 							and we'll reach out when something fits.
 						</p>
 						<a
-							href="mailto:careers@cryptdocker.com"
+							href="mailto:contact@cryptdocker.com"
 							className="inline-flex items-center px-6 py-3 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors"
 						>
 							Send Your Resume
 						</a>
 						<p className="text-xs text-slate-400 mt-4">
-							careers@cryptdocker.com
+							contact@cryptdocker.com
 						</p>
 					</div>
 				</div>

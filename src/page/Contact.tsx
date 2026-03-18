@@ -27,10 +27,10 @@ export const Contact: React.FC = () => {
 								For general inquiries and partnerships.
 							</p>
 							<a
-								href="mailto:hello@cryptdocker.com"
+								href="mailto:contact@cryptdocker.com"
 								className="text-sm font-medium text-teal-600 hover:underline"
 							>
-								hello@cryptdocker.com
+								contact@cryptdocker.com
 							</a>
 						</div>
 					</div>

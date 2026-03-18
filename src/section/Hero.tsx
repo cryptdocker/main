@@ -1,6 +1,8 @@
 import { IoDownloadOutline, IoHomeOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import { Button } from "../component/Button";
 import { IMG } from "../assets/image";
+import { PATH } from "../const";
 
 export const Hero: React.FC = () => {
 	return (
@@ -33,9 +35,11 @@ export const Hero: React.FC = () => {
 						<IoDownloadOutline className="w-5 h-5 mr-2" />
 						Download Free
 					</Button>
-					<Button variant="outline" size="lg">
-						Learn More
-					</Button>
+					<Link to={PATH.DOCUMENTATION}>
+						<Button variant="outline" size="lg">
+							Learn More
+						</Button>
+					</Link>
 				</div>
 
 				<div className="relative max-w-4xl mx-auto">

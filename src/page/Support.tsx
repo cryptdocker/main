@@ -31,8 +31,8 @@ const supportOptions = [
 		title: "Email Support",
 		description:
 			"Send us an email and we'll get back to you within 24 hours.",
-		linkText: "support@cryptdocker.com",
-		href: "mailto:support@cryptdocker.com",
+		linkText: "contact@cryptdocker.com",
+		href: "mailto:contact@cryptdocker.com",
 	},
 ];
 
