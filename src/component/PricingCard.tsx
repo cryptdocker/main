@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { IoCheckmark, IoClose } from "react-icons/io5";
-import { Button } from "./Button";
 
 interface PricingFeature {
 	text: string;
