@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "../component/Button";
 import { PATH } from "../const";
 
+const DOWNLOAD_URL = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+
 export const CTA: React.FC = () => {
 	return (
 		<section className="py-24 bg-slate-50/70">
 			<div className="max-w-6xl mx-auto px-6">
-				<div className="relative rounded-3xl bg-gradient-to-br from-teal-600 to-teal-700 p-12 md:p-16 text-center overflow-hidden">
+					<div className="relative rounded-3xl bg-linear-to-br from-teal-600 to-teal-700 p-12 md:p-16 text-center overflow-hidden">
 					<div className="absolute inset-0 opacity-10">
 						<div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-1/2 translate-x-1/2" />
 						<div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full translate-y-1/2 -translate-x-1/2" />
@@ -22,7 +24,13 @@ export const CTA: React.FC = () => {
 							from one secure, intelligent desktop hub.
 						</p>
 						<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-							<Button variant="white" size="lg">
+							<Button
+								variant="white"
+								size="lg"
+								onClick={() => {
+									window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
+								}}
+							>
 								<IoDownloadOutline className="w-5 h-5 mr-2" />
 								Download Now
 							</Button>

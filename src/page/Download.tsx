@@ -18,6 +18,7 @@ const platforms = [
 		format: ".exe installer",
 		requirement: "Windows 10 or later",
 		primary: true,
+		downloadUrl: "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe",
 	},
 	{
 		name: "macOS",
@@ -96,6 +97,10 @@ export const Download: React.FC = () => {
 									variant={p.primary ? "primary" : "outline"}
 									size="lg"
 									className="w-full"
+									onClick={() => {
+										if (!("downloadUrl" in p) || !p.downloadUrl) return;
+										window.open(p.downloadUrl, "_blank", "noopener,noreferrer");
+									}}
 								>
 									<IoDownloadOutline className="w-5 h-5 mr-2" />
 									Download for {p.name}

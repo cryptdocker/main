@@ -4,6 +4,8 @@ import { Button } from "../component/Button";
 import { IMG } from "../assets/image";
 import { PATH } from "../const";
 
+const DOWNLOAD_URL = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+
 export const Hero: React.FC = () => {
 	return (
 		<section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-white via-teal-50/30 to-cyan-50/40">
@@ -31,7 +33,12 @@ export const Hero: React.FC = () => {
 				</p>
 
 				<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-					<Button size="lg">
+					<Button
+						size="lg"
+						onClick={() => {
+							window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
+						}}
+					>
 						<IoDownloadOutline className="w-5 h-5 mr-2" />
 						Download Free
 					</Button>
