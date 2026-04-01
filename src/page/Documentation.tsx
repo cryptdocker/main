@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { PageHeader } from "../layout/PageHeader";
+import { SEO } from "../component/SEO";
 
 const DOC_MD = `
 ## 1. What is CryptDocker?
@@ -117,6 +118,11 @@ While browsing any app, you can open the built-in AI panel to read the site's se
 export const Documentation: React.FC = () => {
 	return (
 		<div className="w-full">
+			<SEO
+				title="Documentation"
+				description="Complete guide to CryptDocker: setup, features, workspace isolation, per-site proxies, Chrome extensions, and AI tools. Everything you need to get started."
+				path="/documentation"
+			/>
 			<PageHeader
 				label="Resources"
 				title="Documentation"

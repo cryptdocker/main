@@ -11,6 +11,7 @@ import { FaWindows, FaApple, FaLinux } from "react-icons/fa";
 import { PageHeader } from "../layout/PageHeader";
 import { Button } from "../component/Button";
 import { PATH } from "../const";
+import { SEO } from "../component/SEO";
 
 type Platform = "Windows" | "macOS" | "Linux";
 
@@ -58,6 +59,11 @@ export const Download: React.FC = () => {
 
 	return (
 		<>
+			<SEO
+				title="Download CryptDocker"
+				description="Download CryptDocker for Windows, macOS, or Linux. Free tier included with auto-updates and signed binaries. Manage all your crypto apps in one workspace."
+				path="/download"
+			/>
 			<PageHeader
 				label="Download"
 				title="Get CryptDocker"

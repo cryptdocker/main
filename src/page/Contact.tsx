@@ -6,6 +6,7 @@ import { FaMedium } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
 import { PageHeader } from "../layout/PageHeader";
 import { Button } from "../component/Button";
+import { SEO } from "../component/SEO";
 
 const FORMSPREE_ID = "xvzvqady";
 
@@ -95,6 +96,11 @@ export const Contact: React.FC = () => {
 
 	return (
 		<>
+			<SEO
+				title="Contact Us"
+				description="Get in touch with the CryptDocker team. Send us a message for support, partnerships, or general inquiries."
+				path="/contact"
+			/>
 			<PageHeader
 				label="Contact"
 				title="Get in Touch"

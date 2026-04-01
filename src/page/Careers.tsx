@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { IoMailOutline } from "react-icons/io5";
 import { PageHeader } from "../layout/PageHeader";
 import { PATH } from "../const";
+import { SEO } from "../component/SEO";
 
 const perks = [
 	{ title: "Fully Remote", description: "Work from anywhere in the world." },
@@ -15,6 +16,11 @@ const perks = [
 export const Careers: React.FC = () => {
 	return (
 		<>
+			<SEO
+				title="Careers"
+				description="Join the CryptDocker team. We're a remote-first company looking for passionate builders to create the best crypto workspace in the world."
+				path="/careers"
+			/>
 			<PageHeader
 				label="Careers"
 				title="Build the Future With Us"

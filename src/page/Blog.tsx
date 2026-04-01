@@ -4,6 +4,7 @@ import { IoArrowForward } from "react-icons/io5";
 import { PageHeader } from "../layout/PageHeader";
 import { blogPosts } from "../content/blog";
 import { PATH } from "../const";
+import { SEO } from "../component/SEO";
 
 const categories = ["All", ...new Set(blogPosts.map((p) => p.category))];
 
@@ -14,6 +15,11 @@ export const Blog: React.FC = () => {
 
 	return (
 		<>
+			<SEO
+				title="Blog"
+				description="Product updates, tutorials, and insights on crypto tooling. Learn about CryptDocker features, security best practices, and DeFi workspace tips."
+				path="/blog"
+			/>
 			<PageHeader
 				label="Blog"
 				title="News & Insights"

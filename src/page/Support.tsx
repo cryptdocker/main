@@ -6,6 +6,7 @@ import {
 } from "react-icons/io5";
 import { PageHeader } from "../layout/PageHeader";
 import { PATH } from "../const";
+import { SEO } from "../component/SEO";
 
 const supportOptions = [
 	{
@@ -54,9 +55,25 @@ const faqs = [
 	},
 ];
 
+const faqJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map((faq) => ({
+		"@type": "Question",
+		name: faq.q,
+		acceptedAnswer: { "@type": "Answer", text: faq.a },
+	})),
+};
+
 export const Support: React.FC = () => {
 	return (
 		<>
+			<SEO
+				title="Support & FAQ"
+				description="Get help with CryptDocker. Browse FAQs about custom apps, multiple accounts, per-site proxies, AI tools, subscriptions, and data encryption."
+				path="/support"
+				jsonLd={faqJsonLd}
+			/>
 			<PageHeader
 				label="Support"
 				title="How Can We Help?"

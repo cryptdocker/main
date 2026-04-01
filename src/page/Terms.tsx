@@ -1,4 +1,5 @@
 import { PageHeader } from "../layout/PageHeader";
+import { SEO } from "../component/SEO";
 
 const sections = [
 	{
@@ -71,6 +72,11 @@ const sections = [
 export const Terms: React.FC = () => {
 	return (
 		<>
+			<SEO
+				title="Terms of Service"
+				description="CryptDocker terms of service. Read about account registration, subscriptions, acceptable use, AI features disclaimer, and intellectual property."
+				path="/terms"
+			/>
 			<PageHeader
 				label="Legal"
 				title="Terms of Service"

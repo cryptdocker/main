@@ -1,4 +1,5 @@
 import { PageHeader } from "../layout/PageHeader";
+import { SEO } from "../component/SEO";
 
 const sections = [
 	{
@@ -72,6 +73,11 @@ const sections = [
 export const Privacy: React.FC = () => {
 	return (
 		<>
+			<SEO
+				title="Privacy Policy"
+				description="CryptDocker privacy policy. Learn how we collect, use, and safeguard your information including session isolation, AI data handling, and your rights."
+				path="/privacy"
+			/>
 			<PageHeader
 				label="Legal"
 				title="Privacy Policy"

@@ -7,6 +7,7 @@ import {
 } from "react-icons/io5";
 import { PageHeader } from "../layout/PageHeader";
 import { PATH } from "../const";
+import { SEO } from "../component/SEO";
 
 const values = [
 	{
@@ -44,6 +45,11 @@ const milestones = [
 export const About: React.FC = () => {
 	return (
 		<>
+			<SEO
+				title="About Us"
+				description="CryptDocker is a security-first crypto workspace. Learn about our mission, values, and the team building the future of crypto tooling."
+				path="/about"
+			/>
 			<PageHeader
 				label="About Us"
 				title="Building the Future of Crypto Tooling"
