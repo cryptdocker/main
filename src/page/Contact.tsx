@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { IoMailOutline } from "react-icons/io5";
 import { FaLinkedin, FaTelegram } from "react-icons/fa";
@@ -51,6 +51,25 @@ export const Contact: React.FC = () => {
 	const [message, setMessage] = useState(prefillMessage);
 	const [errors, setErrors] = useState<FormErrors>({});
 	const [touched, setTouched] = useState<Record<string, boolean>>({});
+	const [showConfirmation, setShowConfirmation] = useState(false);
+	const prevSucceeded = useRef(false);
+
+	useEffect(() => {
+		if (formState.succeeded && !prevSucceeded.current) {
+			setShowConfirmation(true);
+			const timer = setTimeout(() => {
+				setShowConfirmation(false);
+				setName("");
+				setEmail("");
+				setSubject("");
+				setMessage("");
+				setErrors({});
+				setTouched({});
+			}, 5000);
+			return () => clearTimeout(timer);
+		}
+		prevSucceeded.current = formState.succeeded;
+	}, [formState.succeeded]);
 
 	const handleBlur = (field: string) => {
 		setTouched((prev) => ({ ...prev, [field]: true }));
@@ -109,7 +128,7 @@ export const Contact: React.FC = () => {
 							Send Us a Message
 						</h2>
 
-						{formState.succeeded ? (
+						{showConfirmation ? (
 							<div className="text-center py-12 px-6 rounded-2xl border border-teal-100 bg-teal-50">
 								<div className="w-14 h-14 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center mx-auto mb-4">
 									<IoMailOutline className="w-7 h-7" />
