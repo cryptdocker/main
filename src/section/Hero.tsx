@@ -11,7 +11,7 @@ const DOWNLOAD_URL =
 
 const HERO_LABELS = [
 	"Now available for Windows",
-	"MacOS & Linux are coming soon",
+	"Coming soon for MacOS & Linux",
 ];
 
 const FADE_MS = 300;
@@ -47,13 +47,19 @@ export const Hero: React.FC = () => {
 			<div className="absolute bottom-20 left-[5%] w-96 h-96 bg-cyan-200/20 rounded-full blur-3xl" />
 
 			<div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16">
-				<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 border border-teal-100 text-teal-700 text-sm font-medium mb-8 text-left">
-					<span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
+				<div
+					className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 text-left ${
+						labelIndex === 0
+							? "bg-teal-50 border border-teal-100 text-teal-700"
+							: "bg-yellow-50 border border-yellow-100 text-yellow-700"}`}
+				>
+					<span
+						className={`w-2 h-2 rounded-full animate-pulse ${labelIndex === 0 ? "bg-teal-500" : "bg-yellow-500"}`}
+					/>
 					<span
 						aria-live="polite"
-						className="transition-opacity duration-300"
-						style={{ opacity: visible ? 1 : 0 }}
-					>
+						className={`transition-opacity duration-300 ${labelIndex === 0 ? "text-teal-700" : "text-yellow-700"}`}
+						style={{ opacity: visible ? 1 : 0 }}>
 						{HERO_LABELS[labelIndex]}
 					</span>
 				</div>
@@ -72,7 +78,7 @@ export const Hero: React.FC = () => {
 					per-site proxies — everything you need, unified.
 				</p>
 
-					<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+				<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
 					<div className="flex flex-col items-center gap-1">
 						<Button
 							size="lg"
@@ -81,8 +87,7 @@ export const Hero: React.FC = () => {
 								if (isWindows) {
 									window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
 								}
-							}}
-						>
+							}}>
 							<IoDownloadOutline className="w-5 h-5 mr-2" />
 							Download for {clientOS}
 						</Button>
