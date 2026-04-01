@@ -36,10 +36,9 @@ const values = [
 ];
 
 const milestones = [
-	{ year: "2023", event: "CryptDocker founded with a vision to unify crypto workflows" },
-	{ year: "2024", event: "Launched v1.0 with workspace management and Chrome extension support" },
-	{ year: "2025", event: "Introduced AI-powered risk analysis, news insights, and GPT-5 chatbot" },
-	{ year: "2026", event: "Expanded to 50,000+ users across 80 countries worldwide" },
+	{ year: "2025 Q3", event: "CryptDocker founded — prototyped the unified crypto workspace concept" },
+	{ year: "2025 Q4", event: "Launched v1.0 with workspace management, per-site proxy, and Chrome extension support" },
+	{ year: "2026 Q1", event: "Introduced AI-powered risk analysis, news insights, and expanded to 1,000+ users across 8 countries" },
 ];
 
 export const About: React.FC = () => {
@@ -70,23 +69,19 @@ export const About: React.FC = () => {
 								browser. We're your crypto command center.
 							</p>
 						</div>
-						<div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl p-8">
-							<div className="grid grid-cols-2 gap-6 text-center">
+						<div className="bg-linear-to-br from-teal-50 to-cyan-50 rounded-2xl p-8">
+							<div className="grid grid-cols-1 gap-6 text-center">
 								<div>
-									<div className="text-3xl font-bold text-teal-600">50K+</div>
+									<div className="text-3xl font-bold text-teal-600">1K+</div>
 									<div className="text-sm text-slate-500 mt-1">Active Users</div>
 								</div>
 								<div>
-									<div className="text-3xl font-bold text-teal-600">80+</div>
+									<div className="text-3xl font-bold text-teal-600">8+</div>
 									<div className="text-sm text-slate-500 mt-1">Countries</div>
 								</div>
 								<div>
-									<div className="text-3xl font-bold text-teal-600">500+</div>
+									<div className="text-3xl font-bold text-teal-600">450+</div>
 									<div className="text-sm text-slate-500 mt-1">Supported Apps</div>
-								</div>
-								<div>
-									<div className="text-3xl font-bold text-teal-600">99.9%</div>
-									<div className="text-sm text-slate-500 mt-1">Uptime</div>
 								</div>
 							</div>
 						</div>
@@ -130,9 +125,9 @@ export const About: React.FC = () => {
 						<div className="space-y-10">
 							{milestones.map((m) => (
 								<div key={m.year} className="relative pl-12">
-									<div className="absolute left-0 w-8 h-8 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-xs font-bold border-2 border-white">
-										{m.year.slice(2)}
-									</div>
+								<div className="absolute left-0 w-8 h-8 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-[10px] font-bold border-2 border-white">
+									{m.year.split(" ")[1]}
+								</div>
 									<div>
 										<span className="text-sm font-semibold text-teal-600">
 											{m.year}

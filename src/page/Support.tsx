@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import {
 	IoBookOutline,
-	IoChatbubbleOutline,
 	IoMailOutline,
 	IoChevronForward,
-	IoSearchOutline,
 } from "react-icons/io5";
 import { PageHeader } from "../layout/PageHeader";
 import { PATH } from "../const";
@@ -16,15 +14,8 @@ const supportOptions = [
 		description:
 			"Browse guides, tutorials, and API references for everything CryptDocker.",
 		linkText: "View Docs",
-		href: "#",
-	},
-	{
-		icon: <IoChatbubbleOutline className="w-6 h-6" />,
-		title: "Live Chat",
-		description:
-			"Chat with our support team in real time. Available Mon–Fri, 9AM–6PM UTC.",
-		linkText: "Start Chat",
-		href: "#",
+		href: PATH.DOCUMENTATION,
+		internal: true,
 	},
 	{
 		icon: <IoMailOutline className="w-6 h-6" />,
@@ -74,7 +65,7 @@ export const Support: React.FC = () => {
 
 			<section className="py-20 bg-white">
 				<div className="max-w-4xl mx-auto px-6">
-					<div className="max-w-xl mx-auto mb-16">
+					{/* <div className="max-w-xl mx-auto mb-16">
 						<div className="relative">
 							<IoSearchOutline className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
 							<input
@@ -83,29 +74,38 @@ export const Support: React.FC = () => {
 								className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition"
 							/>
 						</div>
-					</div>
+					</div> */}
 
-					<div className="grid md:grid-cols-3 gap-6 mb-20">
-						{supportOptions.map((opt) => (
-							<a
-								key={opt.title}
-								href={opt.href}
-								className="group p-6 rounded-2xl border border-slate-100 bg-white hover:border-teal-200 hover:shadow-lg transition-all duration-300 text-center"
-							>
-								<div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mx-auto mb-4">
-									{opt.icon}
-								</div>
-								<h3 className="font-semibold text-slate-900 mb-1">
-									{opt.title}
-								</h3>
-								<p className="text-sm text-slate-500 mb-3">
-									{opt.description}
-								</p>
-								<span className="text-sm font-medium text-teal-600">
-									{opt.linkText}
-								</span>
-							</a>
-						))}
+					<div className="grid md:grid-cols-2 gap-6 mb-20">
+						{supportOptions.map((opt) => {
+							const cardClass =
+								"group p-6 rounded-2xl border border-slate-100 bg-white hover:border-teal-200 hover:shadow-lg transition-all duration-300 text-center";
+							const content = (
+								<>
+									<div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mx-auto mb-4">
+										{opt.icon}
+									</div>
+									<h3 className="font-semibold text-slate-900 mb-1">
+										{opt.title}
+									</h3>
+									<p className="text-sm text-slate-500 mb-3">
+										{opt.description}
+									</p>
+									<span className="text-sm font-medium text-teal-600">
+										{opt.linkText}
+									</span>
+								</>
+							);
+							return opt.internal ? (
+								<Link key={opt.title} to={opt.href} className={cardClass}>
+									{content}
+								</Link>
+							) : (
+								<a key={opt.title} href={opt.href} className={cardClass}>
+									{content}
+								</a>
+							);
+						})}
 					</div>
 
 					<h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">

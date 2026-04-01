@@ -1,21 +1,61 @@
 import { IoDownloadOutline, IoHomeOutline } from "react-icons/io5";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../component/Button";
 import { IMG } from "../assets/image";
 import { PATH } from "../const";
+import { detectOS } from "../utils/detectOS";
 
-const DOWNLOAD_URL = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+const DOWNLOAD_URL =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+
+const HERO_LABELS = [
+	"Now available for Windows",
+	"MacOS & Linux are coming soon",
+];
+
+const FADE_MS = 300;
+const INTERVAL_MS = 5000;
 
 export const Hero: React.FC = () => {
+	const [labelIndex, setLabelIndex] = useState(0);
+	const [visible, setVisible] = useState(true);
+	const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+	const clientOS = useMemo(() => detectOS(), []);
+	const isWindows = clientOS === "Windows";
+
+	const cycle = useCallback(() => {
+		setVisible(false);
+		timeoutRef.current = setTimeout(() => {
+			setLabelIndex((prev) => (prev + 1) % HERO_LABELS.length);
+			setVisible(true);
+		}, FADE_MS);
+	}, []);
+
+	useEffect(() => {
+		const id = window.setInterval(cycle, INTERVAL_MS);
+		return () => {
+			window.clearInterval(id);
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		};
+	}, [cycle]);
+
 	return (
 		<section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-white via-teal-50/30 to-cyan-50/40">
 			<div className="absolute top-20 right-[10%] w-72 h-72 bg-teal-200/20 rounded-full blur-3xl" />
 			<div className="absolute bottom-20 left-[5%] w-96 h-96 bg-cyan-200/20 rounded-full blur-3xl" />
 
 			<div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16">
-				<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 border border-teal-100 text-teal-700 text-sm font-medium mb-8">
+				<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 border border-teal-100 text-teal-700 text-sm font-medium mb-8 text-left">
 					<span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-					Now available for Windows, macOS & Linux
+					<span
+						aria-live="polite"
+						className="transition-opacity duration-300"
+						style={{ opacity: visible ? 1 : 0 }}
+					>
+						{HERO_LABELS[labelIndex]}
+					</span>
 				</div>
 
 				<h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight mb-6 tracking-tight">
@@ -32,16 +72,26 @@ export const Hero: React.FC = () => {
 					per-site proxies — everything you need, unified.
 				</p>
 
-				<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-					<Button
-						size="lg"
-						onClick={() => {
-							window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
-						}}
-					>
-						<IoDownloadOutline className="w-5 h-5 mr-2" />
-						Download Free
-					</Button>
+					<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+					<div className="flex flex-col items-center gap-1">
+						<Button
+							size="lg"
+							disabled={!isWindows}
+							onClick={() => {
+								if (isWindows) {
+									window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
+								}
+							}}
+						>
+							<IoDownloadOutline className="w-5 h-5 mr-2" />
+							Download for {clientOS}
+						</Button>
+						{!isWindows && (
+							<span className="text-xs text-slate-400">
+								Coming soon — available for Windows now
+							</span>
+						)}
+					</div>
 					<Link to={PATH.DOCUMENTATION}>
 						<Button variant="outline" size="lg">
 							Learn More

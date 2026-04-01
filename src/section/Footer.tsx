@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { FaGithub, FaYoutube } from "react-icons/fa";
-import { SiX } from "react-icons/si";
+import { FaLinkedin, FaTelegram } from "react-icons/fa";
+import { FaMedium } from "react-icons/fa6";
 import { IMG } from "../assets/image";
 import { PATH } from "../const";
 
@@ -91,28 +91,34 @@ export const Footer: React.FC = () => {
 						&copy; {new Date().getFullYear()} CryptDocker. All rights reserved.
 					</p>
 					<div className="flex items-center gap-6">
-						<a
-							href="#"
-							aria-label="X (Twitter)"
-							className="text-slate-400 hover:text-teal-600 transition-colors"
-						>
-							<SiX className="w-5 h-5" />
-						</a>
-						<a
-							href="#"
-							aria-label="GitHub"
-							className="text-slate-400 hover:text-teal-600 transition-colors"
-						>
-							<FaGithub className="w-5 h-5" />
-						</a>
-						<a
-							href="#"
-							aria-label="YouTube"
-							className="text-slate-400 hover:text-teal-600 transition-colors"
-						>
-							<FaYoutube className="w-5 h-5" />
-						</a>
-					</div>
+					<a
+						href="https://linkedin.com/company/cryptdocker"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="LinkedIn"
+						className="text-slate-400 hover:text-teal-600 transition-colors"
+					>
+						<FaLinkedin className="w-5 h-5" />
+					</a>
+					<a
+						href="https://medium.com/@cryptdocker"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Medium"
+						className="text-slate-400 hover:text-teal-600 transition-colors"
+					>
+						<FaMedium className="w-5 h-5" />
+					</a>
+					<a
+						href="https://t.me/cryptdocker"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Telegram"
+						className="text-slate-400 hover:text-teal-600 transition-colors"
+					>
+						<FaTelegram className="w-5 h-5" />
+					</a>
+				</div>
 				</div>
 			</div>
 		</footer>

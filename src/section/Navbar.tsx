@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { Button } from "../component/Button";
 import { IMG } from "../assets/image";
 import { PATH } from "../const";
+import { detectOS } from "../utils/detectOS";
 
 const navLinks = [
 	{ label: "Features", to: `${PATH.HOME}#features` },
@@ -19,16 +20,13 @@ export const Navbar: React.FC = () => {
 	const [scrolled, setScrolled] = useState(false);
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const location = useLocation();
+	const isWindows = useMemo(() => detectOS() === "Windows", []);
 
 	useEffect(() => {
 		const onScroll = () => setScrolled(window.scrollY > 10);
 		window.addEventListener("scroll", onScroll);
 		return () => window.removeEventListener("scroll", onScroll);
 	}, []);
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [location.pathname]);
 
 	const isHash = (to: string) => to.includes("#");
 
@@ -76,10 +74,16 @@ export const Navbar: React.FC = () => {
 					)}
 				</div>
 
-				<div className="hidden md:flex items-center gap-3">
-					<Link to={PATH.DOWNLOAD}>
-						<Button size="sm">Download</Button>
-					</Link>
+					<div className="hidden md:flex items-center gap-3">
+					{isWindows ? (
+						<Link to={PATH.DOWNLOAD}>
+							<Button size="sm">Download</Button>
+						</Link>
+					) : (
+						<Button size="sm" disabled title="Coming soon for your OS">
+							Download
+						</Button>
+					)}
 				</div>
 
 				<button
@@ -116,12 +120,23 @@ export const Navbar: React.FC = () => {
 							</Link>
 						),
 					)}
-					<div className="flex gap-3 pt-2">
-						<Link to={PATH.DOWNLOAD} className="flex-1">
-							<Button size="sm" className="w-full">
+						<div className="flex gap-3 pt-2">
+						{isWindows ? (
+							<Link to={PATH.DOWNLOAD} className="flex-1">
+								<Button size="sm" className="w-full">
+									Download
+								</Button>
+							</Link>
+						) : (
+							<Button
+								size="sm"
+								className="w-full"
+								disabled
+								title="Coming soon for your OS"
+							>
 								Download
 							</Button>
-						</Link>
+						)}
 					</div>
 				</div>
 			)}

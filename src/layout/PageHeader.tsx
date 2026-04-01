@@ -10,7 +10,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 	description,
 }) => {
 	return (
-		<section className="bg-gradient-to-br from-white via-teal-50/30 to-cyan-50/40 py-20 md:py-28">
+		<section className="bg-linear-to-br from-white via-teal-50/30 to-cyan-50/40 py-20 md:py-28">
 			<div className="max-w-3xl mx-auto px-6 text-center">
 				{label && (
 					<span className="inline-block text-teal-600 text-sm font-semibold tracking-wide uppercase mb-3">

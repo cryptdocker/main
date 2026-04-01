@@ -31,9 +31,15 @@ export const Button: React.FC<ButtonProps> = ({
 	children,
 	...props
 }) => {
+	const disabled = props.disabled;
+
 	return (
 		<button
-			className={`inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 cursor-pointer ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+			className={`inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 ${
+				disabled
+					? "opacity-50 cursor-not-allowed"
+					: "cursor-pointer"
+			} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
 			{...props}
 		>
 			{children}

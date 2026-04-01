@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import { IoCheckmark, IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { Button } from "./Button";
 
 interface PricingFeature {
 	text: string;
@@ -14,6 +16,7 @@ interface PricingCardProps {
 	features: PricingFeature[];
 	highlighted?: boolean;
 	icon: ReactNode;
+	contactLink?: string;
 }
 
 export const PricingCard: React.FC<PricingCardProps> = ({
@@ -24,10 +27,11 @@ export const PricingCard: React.FC<PricingCardProps> = ({
 	features,
 	highlighted = false,
 	icon,
+	contactLink,
 }) => {
 	return (
 		<div
-			className={`relative rounded-2xl p-8 transition-all duration-300 ${
+			className={`relative rounded-2xl p-6 transition-all duration-300 ${
 				highlighted
 					? "bg-white border-2 border-teal-500 shadow-xl"
 					: "bg-white border border-slate-200 hover:border-slate-300 hover:shadow-lg"
@@ -51,7 +55,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
 				<span className="text-4xl font-bold text-slate-900">{price}</span>
 				{period && <span className="text-slate-500">/{period}</span>}
 			</div>
-			<ul className="space-y-3">
+				<ul className="space-y-3">
 				{features.map((feature, i) => (
 					<li key={i} className="flex items-center gap-3">
 						{feature.included ? (
@@ -69,6 +73,13 @@ export const PricingCard: React.FC<PricingCardProps> = ({
 					</li>
 				))}
 			</ul>
+			{contactLink && (
+				<Link to={contactLink} className="block mt-8">
+					<Button variant="outline" size="md" className="w-full">
+						Contact Us
+					</Button>
+				</Link>
+			)}
 		</div>
 	);
 };
