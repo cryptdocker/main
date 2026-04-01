@@ -1,4 +1,4 @@
-import { IoEllipseOutline, IoSparkles } from "react-icons/io5";
+import { IoEllipseOutline, IoSparkles, IoStar } from "react-icons/io5";
 import { SectionHeading } from "../component/SectionHeading";
 import { PricingCard } from "../component/PricingCard";
 import { PATH } from "../const";
@@ -55,7 +55,7 @@ const plans = [
 		price: "$199",
 		period: "once",
 		description: "Full access for life.",
-		icon: <IoSparkles className="w-5 h-5" />,
+		icon: <IoStar className="w-5 h-5" />,
 		features: [
 			{ text: "All current and future Pro features", included: true },
 			{ text: "No recurring payments", included: true },
