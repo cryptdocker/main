@@ -29,7 +29,9 @@ const platforms = [
 		name: "macOS" as Platform,
 		icon: <FaApple className="w-8 h-8" />,
 		format: ".dmg (Universal)",
+		size: "172 MB",
 		requirement: "macOS 12 Monterey or later",
+		downloadUrl: "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg",
 	},
 	{
 		name: "Linux" as Platform,

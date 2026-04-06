@@ -5,11 +5,14 @@ import { Button } from "../component/Button";
 import { PATH } from "../const";
 import { detectOS } from "../utils/detectOS";
 
-const DOWNLOAD_URL = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+const DOWNLOAD_URL_WINDOWS = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+const DOWNLOAD_URL_MACOS = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
 
 export const CTA: React.FC = () => {
 	const clientOS = useMemo(() => detectOS(), []);
 	const isWindows = clientOS === "Windows";
+	const isMacOS = clientOS === "macOS";
+	const canDownload = isWindows || isMacOS;
 
 	return (
 		<section className="py-24 bg-slate-50/70">
@@ -33,19 +36,21 @@ export const CTA: React.FC = () => {
 							<Button
 								variant="white"
 								size="lg"
-								disabled={!isWindows}
+								disabled={!canDownload}
 								onClick={() => {
 									if (isWindows) {
-										window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
+										window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
+									} else if (isMacOS) {
+										window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
 									}
 								}}
 							>
 								<IoDownloadOutline className="w-5 h-5 mr-2" />
 								Download for {clientOS}
 							</Button>
-							{!isWindows && (
+							{!canDownload && (
 								<span className="text-xs text-teal-200">
-									Coming soon — available for Windows now
+									Coming soon for Linux
 								</span>
 							)}
 						</div>

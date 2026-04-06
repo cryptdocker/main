@@ -6,12 +6,14 @@ import { IMG } from "../assets/image";
 import { PATH } from "../const";
 import { detectOS } from "../utils/detectOS";
 
-const DOWNLOAD_URL =
+const DOWNLOAD_URL_WINDOWS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+const DOWNLOAD_URL_MACOS =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
 
 const HERO_LABELS = [
-	"Now available for Windows",
-	"Coming soon for MacOS & Linux",
+	"Now available for Windows & macOS",
+	"Coming soon for Linux",
 ];
 
 const FADE_MS = 300;
@@ -24,6 +26,8 @@ export const Hero: React.FC = () => {
 
 	const clientOS = useMemo(() => detectOS(), []);
 	const isWindows = clientOS === "Windows";
+	const isMacOS = clientOS === "macOS";
+	const canDownload = isWindows || isMacOS;
 
 	const cycle = useCallback(() => {
 		setVisible(false);
@@ -82,18 +86,20 @@ export const Hero: React.FC = () => {
 					<div className="flex flex-col items-center gap-1">
 						<Button
 							size="lg"
-							disabled={!isWindows}
+							disabled={!canDownload}
 							onClick={() => {
 								if (isWindows) {
-									window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
+									window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
+								} else if (isMacOS) {
+									window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
 								}
 							}}>
 							<IoDownloadOutline className="w-5 h-5 mr-2" />
 							Download for {clientOS}
 						</Button>
-						{!isWindows && (
+						{!canDownload && (
 							<span className="text-xs text-slate-400">
-								Coming soon — available for Windows now
+								Coming soon for Linux
 							</span>
 						)}
 					</div>
