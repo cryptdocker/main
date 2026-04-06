@@ -7,12 +7,14 @@ import { detectOS } from "../utils/detectOS";
 
 const DOWNLOAD_URL_WINDOWS = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
 const DOWNLOAD_URL_MACOS = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
+const DOWNLOAD_URL_LINUX = "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage";
 
 export const CTA: React.FC = () => {
 	const clientOS = useMemo(() => detectOS(), []);
 	const isWindows = clientOS === "Windows";
 	const isMacOS = clientOS === "macOS";
-	const canDownload = isWindows || isMacOS;
+	const isLinux = clientOS === "Linux";
+	const canDownload = isWindows || isMacOS || isLinux;
 
 	return (
 		<section className="py-24 bg-slate-50/70">
@@ -42,6 +44,8 @@ export const CTA: React.FC = () => {
 										window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
 									} else if (isMacOS) {
 										window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
+									} else if (isLinux) {
+										window.open(DOWNLOAD_URL_LINUX, "_blank", "noopener,noreferrer");
 									}
 								}}
 							>

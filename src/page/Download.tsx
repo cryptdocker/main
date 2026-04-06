@@ -39,6 +39,9 @@ const platforms = [
 		icon: <FaLinux className="w-8 h-8" />,
 		format: ".AppImage",
 		requirement: "Ubuntu 20.04+ / Fedora 36+",
+		version: "v1.0.0",
+		size: "152 MB",
+		downloadUrl: "https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage",
 	},
 ];
 
@@ -116,7 +119,7 @@ export const Download: React.FC = () => {
 							) : (
 								<div className="flex items-center justify-center mb-6">
 									<span className="px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-medium">
-										Coming Soon · {p.format}
+										Coming Soon
 									</span>
 								</div>
 							)}

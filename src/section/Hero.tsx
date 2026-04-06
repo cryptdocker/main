@@ -10,10 +10,11 @@ const DOWNLOAD_URL_WINDOWS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
 const DOWNLOAD_URL_MACOS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
+const DOWNLOAD_URL_LINUX = 
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage"
 
 const HERO_LABELS = [
-	"Now available for Windows & macOS",
-	"Coming soon for Linux",
+	"Now available for Windows, macOS & Linux",
 ];
 
 const FADE_MS = 300;
@@ -27,7 +28,8 @@ export const Hero: React.FC = () => {
 	const clientOS = useMemo(() => detectOS(), []);
 	const isWindows = clientOS === "Windows";
 	const isMacOS = clientOS === "macOS";
-	const canDownload = isWindows || isMacOS;
+	const isLinux = clientOS === "Linux";
+	const canDownload = isWindows || isMacOS || isLinux;
 
 	const cycle = useCallback(() => {
 		setVisible(false);
@@ -92,6 +94,8 @@ export const Hero: React.FC = () => {
 									window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
 								} else if (isMacOS) {
 									window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
+								} else if (isLinux) {
+									window.open(DOWNLOAD_URL_LINUX, "_blank", "noopener,noreferrer");
 								}
 							}}>
 							<IoDownloadOutline className="w-5 h-5 mr-2" />
