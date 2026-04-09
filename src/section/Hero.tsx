@@ -1,9 +1,8 @@
-import { IoDownloadOutline, IoHomeOutline } from "react-icons/io5";
+import { IoDownloadOutline } from "react-icons/io5";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../component/Button";
-import { IMG } from "../assets/image";
 import { PATH } from "../const";
 import { detectOS } from "../utils/detectOS";
 
@@ -16,12 +15,21 @@ const DOWNLOAD_URL_LINUX =
 
 const HERO_LABELS = ["Now available for Windows, macOS & Linux"];
 
+const SLIDES = [
+	"https://i.ibb.co/kVhzV5cy/slide-1.png",
+	"https://i.ibb.co/yc9wHjqx/slide-2.png",
+	"https://i.ibb.co/nMzTKDL2/slide-3.png",
+	"https://i.ibb.co/jPJkmFwb/slide-4.png",
+];
+
 const FADE_MS = 300;
 const INTERVAL_MS = 5000;
+const SLIDE_INTERVAL_MS = 4000;
 
 export const Hero: React.FC = () => {
 	const [labelIndex, setLabelIndex] = useState(0);
 	const [visible, setVisible] = useState(true);
+	const [slideIndex, setSlideIndex] = useState(0);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
 	const clientOS = useMemo(() => detectOS(), []);
@@ -46,6 +54,14 @@ export const Hero: React.FC = () => {
 		};
 	}, [cycle]);
 
+	useEffect(() => {
+		const id = window.setInterval(
+			() => setSlideIndex((prev) => (prev + 1) % SLIDES.length),
+			SLIDE_INTERVAL_MS,
+		);
+		return () => window.clearInterval(id);
+	}, []);
+
 	return (
 		<section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 			<div className="absolute inset-0 mesh-gradient" />
@@ -55,7 +71,7 @@ export const Hero: React.FC = () => {
 			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-violet-500/3 rounded-full blur-3xl" />
 			<div className="absolute top-40 left-[20%] w-48 h-48 bg-amber-500/5 rounded-full blur-3xl animate-float" />
 
-			<div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16">
+			<div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16 w-full">
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -133,53 +149,36 @@ export const Hero: React.FC = () => {
 					initial={{ opacity: 0, y: 40, scale: 0.95 }}
 					animate={{ opacity: 1, y: 0, scale: 1 }}
 					transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
-					className="relative max-w-4xl mx-auto"
+					className="relative w-full max-w-7xl mx-auto"
 				>
-					<div className="rounded-2xl glass-strong overflow-hidden glow-violet">
-						<div className="flex items-center justify-between gap-2 px-4 py-3 bg-linear-to-r from-violet-600/80 to-violet-500/80 border-b border-white/10">
-							<div className="flex items-center gap-2">
-								<img src={IMG.Logo} className="w-6" />
-								<div className="text-xs text-white/90 font-medium">
-									CryptDocker
-								</div>
-							</div>
-							<div className="flex gap-1.5">
-								<div className="w-3 h-3 rounded-full bg-red-400/80" />
-								<div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-								<div className="w-3 h-3 rounded-full bg-green-400/80" />
-							</div>
-						</div>
+					<div className="w-full relative rounded-2xl glass-strong overflow-hidden glow-violet aspect-video">
+						<AnimatePresence mode="wait">
+							<motion.img
+								key={slideIndex}
+								src={SLIDES[slideIndex]}
+								alt={`CryptDocker screenshot ${slideIndex + 1}`}
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.5 }}
+								className="absolute inset-0 w-full h-full object-cover"
+							/>
+						</AnimatePresence>
 
-						<div className="flex h-64 sm:h-80">
-							<div className="w-14 sm:w-16 bg-white/2 border-r border-white/6 flex flex-col items-center py-4 gap-3">
-								<div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl flex items-center justify-center bg-linear-to-br from-violet-600 to-violet-500 shadow-lg shadow-violet-500/20">
-									<img src={IMG.Logo} className="w-6" />
-								</div>
-								<hr className="border border-white/6 w-9 sm:w-10" />
-								<img src={IMG.CMC} className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg" />
-								<img src={IMG.CGK} className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg" />
-								<img src={IMG.ESC} className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg" />
-								<div className="w-9 sm:w-10 h-9 sm:h-10 rounded-md bg-white/6 grid grid-cols-2 items-center justify-center">
-									<div className="w-full h-full flex items-center justify-center">
-										<img src={IMG.ESC} className="w-3.5 h-3.5" />
-									</div>
-									<div className="w-full h-full flex items-center justify-center">
-										<img src={IMG.BSC} className="w-3.5 h-3.5" />
-									</div>
-									<div className="w-full h-full flex items-center justify-center">
-										<img src={IMG.PSC} className="w-3.5 h-3.5" />
-									</div>
-									<div className="w-full h-full flex items-center justify-center">
-										<img src={IMG.ASC} className="w-3.5 h-3.5" />
-									</div>
-								</div>
-							</div>
-
-							<div className="flex-1 bg-transparent">
-								<div className="w-full h-6 px-2 bg-white/2 flex items-center justify-between border-b border-white/4">
-									<IoHomeOutline size={12} className="text-slate-500" />
-								</div>
-							</div>
+						<div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+							{SLIDES.map((_, i) => (
+								<button
+									key={i}
+									type="button"
+									aria-label={`Go to slide ${i + 1}`}
+									className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+										i === slideIndex
+											? "bg-violet-400 w-6"
+											: "bg-white/30 hover:bg-white/50"
+									}`}
+									onClick={() => setSlideIndex(i)}
+								/>
+							))}
 						</div>
 					</div>
 
