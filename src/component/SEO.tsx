@@ -2,9 +2,9 @@ import { Helmet } from "react-helmet-async";
 
 const SITE_NAME = "CryptDocker";
 const SITE_URL = "https://cryptdocker.com";
-const DEFAULT_TITLE = "CryptDocker — Your All-in-One Crypto App Hub";
+const DEFAULT_TITLE = "CryptDocker — A Dedicated Secure Desktop Environment";
 const DEFAULT_DESCRIPTION =
-	"Manage all your crypto apps, exchanges, and DeFi platforms in one secure desktop workspace with built-in AI tools, Chrome extensions, and per-site proxies.";
+	"A dedicated, secure desktop environment for your crypto workflow — run exchanges, DeFi, and tools side-by-side with built-in AI tools, Chrome extensions, and per-site proxies.";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 interface SEOProps {

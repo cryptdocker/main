@@ -33,8 +33,8 @@ const sections = [
 		title: "4. AI Features & Data Handling",
 		content: [
 			"AI ChatBot conversations are processed by our AI provider and are not stored beyond the active session unless you explicitly save them.",
-			"Risk Analysis scores are generated in real-time and are not associated with your personal identity.",
-			"News Analysis uses publicly available data and does not access your private browsing history.",
+			"Real-Time Contract Auditing scores are generated in real time and are not associated with your personal identity.",
+			"Market Sentiment Engine uses publicly available data and does not access your private browsing history.",
 		],
 	},
 	{

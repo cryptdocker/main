@@ -71,17 +71,17 @@ export const Hero: React.FC = () => {
 				</div>
 
 				<h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight mb-6 tracking-tight">
-					Your All-in-One
+					A Dedicated, Secure
 					<br />
 					<span className="text-transparent bg-clip-text bg-linear-to-r from-teal-600 to-cyan-500">
-						Crypto App Hub
+						Desktop Environment
 					</span>
 				</h1>
 
 				<p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-					Manage all your crypto apps, exchanges, and DeFi platforms in one
-					secure desktop workspace. Built-in AI tools, Chrome extensions, and
-					per-site proxies — everything you need, unified.
+					An installed desktop app that gives you a dedicated, secure environment
+					for your crypto workflow — run exchanges, DeFi, and tools side-by-side
+					with built-in AI tools, Chrome extensions, and per-site proxies.
 				</p>
 
 				<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">

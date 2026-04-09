@@ -72,7 +72,7 @@ export const Pricing: React.FC = () => {
 			<div className="max-w-6xl mx-auto px-6">
 				<SectionHeading
 					label="Pricing"
-					title="Simple, Transparent Pricing"
+					title="Flexible Plans for Professional Traders"
 					description="Start free, upgrade when you're ready. Pay with crypto or card."
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">

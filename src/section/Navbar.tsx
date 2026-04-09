@@ -1,15 +1,25 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { IoMenu, IoClose } from "react-icons/io5";
+import { IoMenu, IoClose, IoChevronDown } from "react-icons/io5";
 import { Button } from "../component/Button";
 import { IMG } from "../assets/image";
 import { PATH } from "../const";
 import { detectOS } from "../utils/detectOS";
 
+const DOWNLOAD_URL_WINDOWS =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+const DOWNLOAD_URL_MACOS =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
+const DOWNLOAD_URL_LINUX =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage";
+
 const navLinks = [
 	{ label: "Features", to: `${PATH.HOME}#features` },
 	{ label: "AI Tools", to: `${PATH.HOME}#ai` },
 	{ label: "Pricing", to: `${PATH.HOME}#pricing` },
+];
+
+const resourceLinks = [
 	{ label: "About", to: PATH.ABOUT },
 	{ label: "Blog", to: PATH.BLOG },
 	{ label: "Support / FAQ", to: PATH.SUPPORT },
@@ -19,8 +29,25 @@ const navLinks = [
 export const Navbar: React.FC = () => {
 	const [scrolled, setScrolled] = useState(false);
 	const [mobileOpen, setMobileOpen] = useState(false);
+	const [resourcesOpen, setResourcesOpen] = useState(false);
+	const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
 	const location = useLocation();
-	const isWindows = useMemo(() => detectOS() === "Windows", []);
+	const clientOS = useMemo(() => detectOS(), []);
+	const isWindows = clientOS === "Windows";
+	const isMacOS = clientOS === "macOS";
+	const isLinux = clientOS === "Linux";
+	const canDownload = isWindows || isMacOS || isLinux;
+	const resourcesRef = useRef<HTMLDivElement | null>(null);
+
+	const downloadNow = () => {
+		if (isWindows) {
+			window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
+		} else if (isMacOS) {
+			window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
+		} else if (isLinux) {
+			window.open(DOWNLOAD_URL_LINUX, "_blank", "noopener,noreferrer");
+		}
+	};
 
 	useEffect(() => {
 		const onScroll = () => setScrolled(window.scrollY > 10);
@@ -29,6 +56,26 @@ export const Navbar: React.FC = () => {
 	}, []);
 
 	const isHash = (to: string) => to.includes("#");
+
+	useEffect(() => {
+		setResourcesOpen(false);
+		setMobileOpen(false);
+		setMobileResourcesOpen(false);
+	}, [location.pathname]);
+
+	useEffect(() => {
+		if (!resourcesOpen) return;
+		const onPointerDown = (e: MouseEvent | TouchEvent) => {
+			if (!resourcesRef.current) return;
+			if (!resourcesRef.current.contains(e.target as Node)) setResourcesOpen(false);
+		};
+		document.addEventListener("mousedown", onPointerDown);
+		document.addEventListener("touchstart", onPointerDown);
+		return () => {
+			document.removeEventListener("mousedown", onPointerDown);
+			document.removeEventListener("touchstart", onPointerDown);
+		};
+	}, [resourcesOpen]);
 
 	return (
 		<nav
@@ -72,18 +119,73 @@ export const Navbar: React.FC = () => {
 							</Link>
 						),
 					)}
+
+					<div className="relative" ref={resourcesRef}>
+						<button
+							type="button"
+							className={`inline-flex items-center gap-1 text-sm transition-colors cursor-pointer ${
+								resourcesOpen
+									? "text-teal-600 font-medium"
+									: "text-slate-600 hover:text-teal-600"
+							}`}
+							aria-haspopup="menu"
+							aria-expanded={resourcesOpen}
+							onClick={() => setResourcesOpen((v) => !v)}
+						>
+							Resources
+							<IoChevronDown
+								className={`w-4 h-4 transition-transform ${
+									resourcesOpen ? "rotate-180" : ""
+								}`}
+							/>
+						</button>
+
+						{resourcesOpen && (
+							<div
+								role="menu"
+								aria-label="Resources"
+								className="absolute top-full mt-3 right-0 w-52 rounded-xl border border-slate-200/70 bg-white shadow-lg overflow-hidden"
+							>
+								<div className="py-2">
+									{resourceLinks.map((link) => (
+										<Link
+											key={link.to}
+											to={link.to}
+											role="menuitem"
+											className={`block px-4 py-2.5 text-sm transition-colors ${
+												location.pathname === link.to
+													? "text-teal-600 bg-teal-50/60 font-medium"
+													: "text-slate-700 hover:bg-slate-50"
+											}`}
+											onClick={() => setResourcesOpen(false)}
+										>
+											{link.label}
+										</Link>
+									))}
+								</div>
+							</div>
+						)}
+					</div>
 				</div>
 
 					<div className="hidden md:flex items-center gap-3">
-					{isWindows ? (
-						<Link to={PATH.DOWNLOAD}>
-							<Button size="sm">Download</Button>
-						</Link>
-					) : (
-						<Button size="sm" disabled title="Coming soon for your OS">
+					<Link
+						to={PATH.DOWNLOAD}
+						onClick={(e) => {
+							if (canDownload) {
+								e.preventDefault();
+								downloadNow();
+							}
+						}}
+					>
+						<Button
+							size="sm"
+							disabled={!canDownload}
+							title={!canDownload ? "Coming soon for your OS" : undefined}
+						>
 							Download
 						</Button>
-					)}
+					</Link>
 				</div>
 
 				<button
@@ -120,23 +222,59 @@ export const Navbar: React.FC = () => {
 							</Link>
 						),
 					)}
+
+					<div className="pt-1">
+						<button
+							type="button"
+							className="w-full flex items-center justify-between text-sm text-slate-600 hover:text-teal-600 py-2 cursor-pointer"
+							aria-expanded={mobileResourcesOpen}
+							onClick={() => setMobileResourcesOpen((v) => !v)}
+						>
+							<span>Resources</span>
+							<IoChevronDown
+								className={`w-4 h-4 transition-transform ${
+									mobileResourcesOpen ? "rotate-180" : ""
+								}`}
+							/>
+						</button>
+
+						{mobileResourcesOpen && (
+							<div className="mt-1 pl-3 border-l border-slate-100 space-y-1">
+								{resourceLinks.map((link) => (
+									<Link
+										key={link.to}
+										to={link.to}
+										className="block text-sm text-slate-600 hover:text-teal-600 py-2"
+										onClick={() => setMobileOpen(false)}
+									>
+										{link.label}
+									</Link>
+								))}
+							</div>
+						)}
+					</div>
+
 						<div className="flex gap-3 pt-2">
-						{isWindows ? (
-							<Link to={PATH.DOWNLOAD} className="flex-1">
-								<Button size="sm" className="w-full">
-									Download
-								</Button>
-							</Link>
-						) : (
+						<Link
+							to={PATH.DOWNLOAD}
+							className="w-full"
+							onClick={(e) => {
+								if (canDownload) {
+									e.preventDefault();
+									downloadNow();
+								}
+								setMobileOpen(false);
+							}}
+						>
 							<Button
 								size="sm"
 								className="w-full"
-								disabled
-								title="Coming soon for your OS"
+								disabled={!canDownload}
+								title={!canDownload ? "Coming soon for your OS" : undefined}
 							>
 								Download
 							</Button>
-						)}
+						</Link>
 					</div>
 				</div>
 			)}

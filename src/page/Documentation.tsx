@@ -82,8 +82,8 @@ Surface notification counts and badge indicators so you can keep track of activi
 ### 4.8 Built-in AI Tools
 CryptDocker integrates AI directly into your workflow to help you make smarter decisions and stay safe:
 - **AI ChatBot**: Get instant answers powered by GPT-5 and web search. Ask about any crypto topic directly from your workspace.
-- **Risk Analysis**: Evaluate any site's safety with AI-powered risk scores, detailed summaries, and security annotations before you connect your wallet.
-- **News Analysis**: Stay informed with AI-curated news for each site, including sentiment analysis, key takeaways, and custom keyword alerts.
+- **Real-Time Contract Auditing**: Audit token and dApp contracts in real time with defensive AI checks, risk scoring, and clear annotations before you connect your wallet.
+- **Market Sentiment Engine**: Convert headlines into signals with sentiment, key takeaways, and keyword alerts — so you can protect capital and move faster.
 
 ---
 
@@ -112,7 +112,7 @@ If you need multiple accounts for the same service, put them in separate isolate
 Set a hibernation timer for apps you keep open all day. CryptDocker will hibernate them when idle and restore them when you return.
 
 ### 5.7 Use AI Tools
-While browsing any app, you can open the built-in AI panel to read the site's security risk analysis, check its latest news, or ask the AI ChatBot any specific questions.
+While browsing any app, you can open the built-in AI panel to audit contract risk, check market sentiment, or ask the AI ChatBot any specific questions.
 `;
 
 export const Documentation: React.FC = () => {

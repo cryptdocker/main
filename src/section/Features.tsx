@@ -54,7 +54,7 @@ export const Features: React.FC = () => {
 			<div className="max-w-6xl mx-auto px-6">
 				<SectionHeading
 					label="Features"
-					title="Everything You Need, Unified"
+					title="Advanced Crypto Hub Features"
 					description="CryptDocker brings all your crypto tools together in one secure, organized desktop experience."
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

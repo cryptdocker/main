@@ -50,9 +50,8 @@ export const Footer: React.FC = () => {
 							</span>
 						</Link>
 						<p className="text-sm text-slate-500 leading-relaxed">
-							Your all-in-one crypto app hub.
-							<br />
-							Secure, intelligent, and unified.
+							A dedicated, secure desktop environment
+							for your crypto workflow.
 						</p>
 					</div>
 

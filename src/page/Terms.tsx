@@ -35,7 +35,7 @@ const sections = [
 	{
 		title: "7. AI Features Disclaimer",
 		content:
-			"AI-powered features (ChatBot, Risk Analysis, News Analysis) are provided for informational purposes only and should not be considered financial, legal, or security advice. AI responses may contain inaccuracies. Always perform your own due diligence before making financial decisions.",
+			"AI-powered features (ChatBot, Real-Time Contract Auditing, Market Sentiment Engine) are provided for informational purposes only and should not be considered financial, legal, or security advice. AI responses may contain inaccuracies. Always perform your own due diligence before making financial decisions.",
 	},
 	{
 		title: "8. Intellectual Property",

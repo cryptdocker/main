@@ -14,16 +14,16 @@ const tools = [
 		gradient: "from-teal-500 to-emerald-500",
 	},
 	{
-		title: "Risk Analysis",
+		title: "Real-Time Contract Auditing",
 		description:
-			"Evaluate any site's safety with AI-powered risk scores, detailed summaries, and security annotations before you connect.",
+			"Audit token and dApp contracts in real time with defensive AI checks, risk scoring, and clear annotations before you connect your wallet.",
 		icon: <IoShieldCheckmarkOutline className="w-7 h-7" />,
 		gradient: "from-cyan-500 to-blue-500",
 	},
 	{
-		title: "News Analysis",
+		title: "Market Sentiment Engine",
 		description:
-			"Stay informed with AI-curated news for each site. Get sentiment analysis, key takeaways, and custom keyword alerts.",
+			"Convert headlines into signals with sentiment, key takeaways, and keyword alerts — so you can protect capital and move faster.",
 		icon: <IoNewspaperOutline className="w-7 h-7" />,
 		gradient: "from-violet-500 to-purple-500",
 	},
@@ -35,8 +35,8 @@ export const AITools: React.FC = () => {
 			<div className="max-w-6xl mx-auto px-6">
 				<SectionHeading
 					label="AI-Powered"
-					title="Intelligence Built In"
-					description="Make smarter decisions with AI tools integrated directly into your workflow."
+					title="Defensive Intelligence"
+					description="Protect your capital with AI tools built into your desktop environment — audit risk, track sentiment, and act with confidence."
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 					{tools.map((tool) => (
@@ -44,9 +44,9 @@ export const AITools: React.FC = () => {
 							key={tool.title}
 							className="relative group rounded-2xl bg-white border border-slate-100 p-8 hover:shadow-xl transition-all duration-300 overflow-hidden"
 						>
-							<div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300 from-teal-500 to-cyan-500" />
+							<div className="absolute inset-0 bg-linear-to-br opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300 from-teal-500 to-cyan-500" />
 							<div
-								className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.gradient} text-white flex items-center justify-center mb-6`}
+								className={`w-14 h-14 rounded-2xl bg-linear-to-br ${tool.gradient} text-white flex items-center justify-center mb-6`}
 							>
 								{tool.icon}
 							</div>

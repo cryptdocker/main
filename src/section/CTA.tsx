@@ -30,8 +30,8 @@ export const CTA: React.FC = () => {
 						Ready to Streamline Your Crypto Workflow?
 					</h2>
 					<p className="text-teal-100 text-lg max-w-xl mx-auto mb-8">
-						Join thousands of crypto enthusiasts who manage all their apps
-						from one secure, intelligent desktop hub.
+						Join crypto teams and power users who run their workflow inside a
+						dedicated, secure desktop environment.
 					</p>
 					<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
 						<div className="flex flex-col items-center gap-1">
