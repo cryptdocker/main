@@ -1,21 +1,26 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { motion, type HTMLMotionProps } from "framer-motion";
+import type { ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "outline" | "white" | "ghost";
 type Size = "sm" | "md" | "lg";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
 	variant?: Variant;
 	size?: Size;
 	children: ReactNode;
 }
 
 const variantStyles: Record<Variant, string> = {
-	primary: "bg-teal-600 text-white hover:bg-teal-700 shadow-sm",
-	secondary: "bg-teal-50 text-teal-700 hover:bg-teal-100",
+	primary:
+		"bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:from-violet-500 hover:to-violet-400",
+	secondary:
+		"bg-white/6 text-violet-300 hover:bg-white/10 border border-white/[0.08]",
 	outline:
-		"border border-slate-300 text-slate-700 hover:border-teal-500 hover:text-teal-600",
-	white: "bg-white text-teal-700 hover:bg-teal-50 shadow-sm",
-	ghost: "border border-white/30 text-white hover:bg-white/10",
+		"border border-white/[0.12] text-slate-300 hover:border-violet-500/50 hover:text-violet-300 hover:bg-white/3",
+	white:
+		"bg-white text-violet-700 hover:bg-violet-50 shadow-lg shadow-white/10",
+	ghost:
+		"border border-white/[0.15] text-white hover:bg-white/8 hover:border-white/[0.25]",
 };
 
 const sizeStyles: Record<Size, string> = {
@@ -34,15 +39,16 @@ export const Button: React.FC<ButtonProps> = ({
 	const disabled = props.disabled;
 
 	return (
-		<button
-			className={`inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 ${
-				disabled
-					? "opacity-50 cursor-not-allowed"
-					: "cursor-pointer"
+		<motion.button
+			whileHover={disabled ? undefined : { scale: 1.02 }}
+			whileTap={disabled ? undefined : { scale: 0.98 }}
+			transition={{ type: "spring", stiffness: 400, damping: 17 }}
+			className={`inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 ${
+				disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"
 			} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
 			{...props}
 		>
 			{children}
-		</button>
+		</motion.button>
 	);
 };

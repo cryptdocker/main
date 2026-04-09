@@ -24,13 +24,13 @@ Crypto workflows usually require multiple accounts, multiple wallets, and multip
 ## 2. Who uses CryptDocker?
 
 ### 2.1 What does CryptDocker solve?
-- **Too many tabs**: replaces your “crypto tab jungle” with a sidebar of apps and workspaces.
-- **Multiple accounts**: isolates sessions so accounts don’t collide (cookies/localStorage/cache separated by partition).
+- **Too many tabs**: replaces your "crypto tab jungle" with a sidebar of apps and workspaces.
+- **Multiple accounts**: isolates sessions so accounts don't collide (cookies/localStorage/cache separated by partition).
 - **Heavy dApps**: reduces resource usage by hibernating idle apps and restoring them on demand.
 - **Network separation**: routes specific apps through specific proxies (HTTP/SOCKS5) without affecting everything else.
 - **Scams & Information Overload**: integrated AI analyzes risks and news for every dApp you visit.
 
-### 2.2 Who are CryptDocker’s potential customers?
+### 2.2 Who are CryptDocker's potential customers?
 - **Traders & investors** managing multiple exchanges, analytics, and alerts
 - **Airdrop & DeFi users** running multiple wallets/accounts with strong session separation
 - **Web3 builders & QA** needing repeatable environments for testing and multi-account flows
@@ -40,7 +40,7 @@ Crypto workflows usually require multiple accounts, multiple wallets, and multip
 
 ## 3. What are the alternatives to CryptDocker?
 
-CryptDocker overlaps with “app browsers” and “workspace browsers,” but it’s optimized for crypto workflows: multi-account isolation, extensions, per-site networking controls, and AI risk analysis.
+CryptDocker overlaps with "app browsers" and "workspace browsers," but it's optimized for crypto workflows: multi-account isolation, extensions, per-site networking controls, and AI risk analysis.
 
 ### 3.1 Rambox vs. CryptDocker
 - **Rambox**: general-purpose messaging/productivity app aggregator.
@@ -94,7 +94,7 @@ CryptDocker integrates AI directly into your workflow to help you make smarter d
 2. Install and launch the app.
 
 ### 5.2 Create a workspace
-Create a workspace that matches your workflow (for example: “Trading”, “DeFi”, “Wallets”, “Research”).
+Create a workspace that matches your workflow (for example: "Trading", "DeFi", "Wallets", "Research").
 
 ### 5.3 Add apps
 Add apps from the built-in catalog or paste a custom URL, then drag them into the right workspace.
@@ -103,7 +103,7 @@ Add apps from the built-in catalog or paste a custom URL, then drag them into th
 If you need multiple accounts for the same service, put them in separate isolated environments (workspaces/partitions). This prevents cookie and localStorage collisions.
 
 ### 5.5 Configure a per-site proxy (optional)
-1. Open the app’s settings.
+1. Open the app's settings.
 2. Select **Proxy**.
 3. Choose a connection type (HTTP/SOCKS5), set host/port, and add credentials if required.
 4. The selected site will route through that proxy session.
@@ -126,11 +126,11 @@ export const Documentation: React.FC = () => {
 			<PageHeader
 				label="Resources"
 				title="Documentation"
-				description="A practical overview of what CryptDocker is, who it’s for, how it compares, and how to get started."
+				description="A practical overview of what CryptDocker is, who it's for, how it compares, and how to get started."
 			/>
-			<section className="bg-white py-14">
+			<section className="py-14">
 				<div className="max-w-4xl mx-auto px-6">
-					<article className="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-a:text-teal-700 hover:prose-a:text-teal-800">
+					<article className="prose prose-dark max-w-none prose-headings:scroll-mt-24 prose-a:no-underline hover:prose-a:underline">
 						<ReactMarkdown remarkPlugins={[remarkGfm]}>{DOC_MD}</ReactMarkdown>
 					</article>
 				</div>

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
 	IoSpeedometerOutline,
 	IoBrowsersOutline,
@@ -48,8 +49,9 @@ const callouts = [
 
 export const WorkflowStory: React.FC = () => {
 	return (
-		<section className="py-24 bg-white">
-			<div className="max-w-6xl mx-auto px-6">
+		<section className="relative py-24 overflow-hidden">
+			<div className="absolute inset-0 mesh-gradient opacity-30" />
+			<div className="relative z-10 max-w-6xl mx-auto px-6">
 				<SectionHeading
 					label="Workflow"
 					title="End the browser tab chaos"
@@ -57,57 +59,65 @@ export const WorkflowStory: React.FC = () => {
 				/>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-					{stats.map((s) => (
-						<div
+					{stats.map((s, i) => (
+						<motion.div
 							key={s.label}
-							className="rounded-2xl border border-slate-100 bg-slate-50/50 p-6"
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true, margin: "-50px" }}
+							transition={{ duration: 0.5, delay: i * 0.1 }}
+							className="rounded-2xl glass p-6"
 						>
 							<div className="flex items-center justify-between">
-								<div className="flex items-center gap-2 text-slate-500">
-									<span className="w-9 h-9 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-teal-700">
+								<div className="flex items-center gap-2 text-slate-400">
+									<span className="w-9 h-9 rounded-xl bg-white/6 border border-white/8 flex items-center justify-center text-violet-400">
 										{s.icon}
 									</span>
 									<span className="text-sm font-medium">{s.label}</span>
 								</div>
-								<div className="text-xl font-extrabold text-slate-900">
+								<div className="text-xl font-extrabold text-white">
 									{s.value}
 								</div>
 							</div>
-						</div>
+						</motion.div>
 					))}
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					{callouts.map((c) => (
-						<div
+					{callouts.map((c, i) => (
+						<motion.div
 							key={c.title}
-							className="rounded-3xl border border-slate-100 bg-white p-8 hover:shadow-xl transition-all duration-300"
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true, margin: "-50px" }}
+							transition={{ duration: 0.5, delay: i * 0.15 }}
+							whileHover={{ y: -4, transition: { duration: 0.2 } }}
+							className="rounded-3xl glass p-8 hover:bg-white/5 transition-all duration-500"
 						>
 							<div className="flex items-start gap-4">
-								<div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+								<div className="w-12 h-12 rounded-2xl bg-violet-500/15 text-violet-400 flex items-center justify-center shrink-0">
 									{c.icon}
 								</div>
 								<div className="flex-1">
-									<h3 className="text-xl font-bold text-slate-900">
+									<h3 className="text-xl font-bold text-white">
 										{c.title}
 									</h3>
-									<p className="text-slate-500 mt-1">{c.subtitle}</p>
+									<p className="text-slate-400 mt-1">{c.subtitle}</p>
 								</div>
 							</div>
 
-							<ul className="mt-6 space-y-3 text-slate-600">
+							<ul className="mt-6 space-y-3 text-slate-300">
 								{c.points.map((p) => (
 									<li key={p} className="flex gap-3">
-										<span className="mt-2 w-1.5 h-1.5 rounded-full bg-teal-500 shrink-0" />
+										<span className="mt-2 w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0" />
 										<span className="text-[15px] leading-relaxed">{p}</span>
 									</li>
 								))}
 							</ul>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>
 		</section>
 	);
 };
-

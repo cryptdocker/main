@@ -50,16 +50,17 @@ const features = [
 
 export const Features: React.FC = () => {
 	return (
-		<section id="features" className="py-24 bg-white">
-			<div className="max-w-6xl mx-auto px-6">
+		<section id="features" className="relative py-24 overflow-hidden">
+			<div className="absolute inset-0 mesh-gradient opacity-50" />
+			<div className="relative z-10 max-w-6xl mx-auto px-6">
 				<SectionHeading
 					label="Features"
 					title="Advanced Crypto Hub Features"
 					description="CryptDocker brings all your crypto tools together in one secure, organized desktop experience."
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{features.map((feature) => (
-						<FeatureCard key={feature.title} {...feature} />
+					{features.map((feature, i) => (
+						<FeatureCard key={feature.title} index={i} {...feature} />
 					))}
 				</div>
 			</div>

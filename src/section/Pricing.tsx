@@ -1,4 +1,4 @@
-import { IoEllipseOutline, IoSparkles, IoStar } from "react-icons/io5";
+import { IoInfiniteOutline, IoSparkles, IoStar } from "react-icons/io5";
 import { SectionHeading } from "../component/SectionHeading";
 import { PricingCard } from "../component/PricingCard";
 import { PATH } from "../const";
@@ -19,7 +19,7 @@ const plans = [
 		name: "Free",
 		price: "$0",
 		description: "Get started for free.",
-		icon: <IoEllipseOutline className="w-5 h-5" />,
+		icon: <IoStar className="w-5 h-5" />,
 		features: [
 			{ text: "Up to 10 apps", included: true },
 			{ text: "3 workspaces", included: true },
@@ -55,7 +55,7 @@ const plans = [
 		price: "$199",
 		period: "once",
 		description: "Full access for life.",
-		icon: <IoStar className="w-5 h-5" />,
+		icon: <IoInfiniteOutline className="w-5 h-5" />,
 		features: [
 			{ text: "All current and future Pro features", included: true },
 			{ text: "No recurring payments", included: true },
@@ -68,34 +68,35 @@ const plans = [
 
 export const Pricing: React.FC = () => {
 	return (
-		<section id="pricing" className="py-24 bg-white">
-			<div className="max-w-6xl mx-auto px-6">
+		<section id="pricing" className="relative py-24 overflow-hidden">
+			<div className="absolute inset-0 mesh-gradient opacity-40" />
+			<div className="relative z-10 max-w-6xl mx-auto px-6">
 				<SectionHeading
 					label="Pricing"
 					title="Flexible Plans for Professional Traders"
 					description="Start free, upgrade when you're ready. Pay with crypto or card."
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-					{plans.map((plan) => (
-						<PricingCard key={plan.name} {...plan} />
+					{plans.map((plan, i) => (
+						<PricingCard key={plan.name} index={i} {...plan} />
 					))}
 				</div>
-			<div className="text-center mt-10">
-				<div className="inline-flex items-center gap-4 text-sm text-slate-400">
-					<span>Accepted payments:</span>
-					<div className="flex items-center gap-3">
-						{paymentMethods.map(({ name, icon }) => (
-							<div
-								key={name}
-								className="flex items-center gap-1.5 px-1 py-1.5 rounded-lg"
-								title={name}
-							>
-								<img src={icon} alt={name} className="h-5 w-auto" />
-							</div>
-						))}
+				<div className="text-center mt-10">
+					<div className="inline-flex items-center gap-4 text-sm text-slate-500">
+						<span>Accepted payments:</span>
+						<div className="flex items-center gap-3">
+							{paymentMethods.map(({ name, icon }) => (
+								<div
+									key={name}
+									className="flex items-center gap-1.5 px-1 py-1.5 rounded-lg"
+									title={name}
+								>
+									<img src={icon} alt={name} className="h-5 w-auto" />
+								</div>
+							))}
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		</section>
 	);

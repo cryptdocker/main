@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { PageHeader } from "../layout/PageHeader";
 import { SEO } from "../component/SEO";
 
@@ -84,9 +85,9 @@ export const Privacy: React.FC = () => {
 				description="Last updated: March 1, 2026"
 			/>
 
-			<section className="py-20 bg-white">
+			<section className="py-20">
 				<div className="max-w-3xl mx-auto px-6">
-					<p className="text-slate-500 leading-relaxed mb-12">
+					<p className="text-slate-400 leading-relaxed mb-12">
 						CryptDocker ("we", "our", "us") is committed to protecting your
 						privacy. This Privacy Policy explains how we collect, use, and
 						safeguard your information when you use our desktop application and
@@ -94,22 +95,28 @@ export const Privacy: React.FC = () => {
 					</p>
 
 					<div className="space-y-10">
-						{sections.map((section) => (
-							<div key={section.title}>
-								<h2 className="text-xl font-bold text-slate-900 mb-4">
+						{sections.map((section, i) => (
+							<motion.div
+								key={section.title}
+								initial={{ opacity: 0, y: 15 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								viewport={{ once: true }}
+								transition={{ duration: 0.4, delay: i * 0.03 }}
+							>
+								<h2 className="text-xl font-bold text-white mb-4">
 									{section.title}
 								</h2>
 								<ul className="space-y-3">
-									{section.content.map((item, i) => (
+									{section.content.map((item, j) => (
 										<li
-											key={i}
-											className="text-slate-500 leading-relaxed text-[15px] pl-4 border-l-2 border-slate-100"
+											key={j}
+											className="text-slate-400 leading-relaxed text-[15px] pl-4 border-l-2 border-violet-500/20"
 										>
 											{item}
 										</li>
 									))}
 								</ul>
-							</div>
+							</motion.div>
 						))}
 					</div>
 				</div>

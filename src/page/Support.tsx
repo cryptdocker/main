@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
 	IoBookOutline,
 	IoMailOutline,
@@ -47,7 +48,7 @@ const faqs = [
 	},
 	{
 		q: "How do I cancel my Pro subscription?",
-		a: "Go to Settings → Billing and click 'Cancel Plan'. You'll retain Pro access until the end of your billing period.",
+		a: "Go to Settings \u2192 Billing and click 'Cancel Plan'. You'll retain Pro access until the end of your billing period.",
 	},
 	{
 		q: "Is my data encrypted?",
@@ -80,38 +81,32 @@ export const Support: React.FC = () => {
 				description="Find answers, reach our team, or browse the documentation."
 			/>
 
-			<section className="py-20 bg-white">
+			<section className="py-20">
 				<div className="max-w-4xl mx-auto px-6">
-					{/* <div className="max-w-xl mx-auto mb-16">
-						<div className="relative">
-							<IoSearchOutline className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-							<input
-								type="text"
-								placeholder="Search for help articles..."
-								className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition"
-							/>
-						</div>
-					</div> */}
-
 					<div className="grid md:grid-cols-2 gap-6 mb-20">
-						{supportOptions.map((opt) => {
+						{supportOptions.map((opt, i) => {
 							const cardClass =
-								"group p-6 rounded-2xl border border-slate-100 bg-white hover:border-teal-200 hover:shadow-lg transition-all duration-300 text-center";
+								"group p-6 rounded-2xl glass hover:bg-white/5 transition-all duration-300 text-center";
 							const content = (
-								<>
-									<div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mx-auto mb-4">
+								<motion.div
+									initial={{ opacity: 0, y: 20 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: i * 0.1 }}
+								>
+									<div className="w-12 h-12 rounded-xl bg-violet-500/15 text-violet-400 flex items-center justify-center mx-auto mb-4">
 										{opt.icon}
 									</div>
-									<h3 className="font-semibold text-slate-900 mb-1">
+									<h3 className="font-semibold text-white mb-1">
 										{opt.title}
 									</h3>
 									<p className="text-sm text-slate-500 mb-3">
 										{opt.description}
 									</p>
-									<span className="text-sm font-medium text-teal-600">
+									<span className="text-sm font-medium text-violet-400">
 										{opt.linkText}
 									</span>
-								</>
+								</motion.div>
 							);
 							return opt.internal ? (
 								<Link key={opt.title} to={opt.href} className={cardClass}>
@@ -125,33 +120,35 @@ export const Support: React.FC = () => {
 						})}
 					</div>
 
-					<h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">
+					<h2 className="text-2xl font-bold text-white mb-8 text-center">
 						Frequently Asked Questions
 					</h2>
 					<div className="max-w-2xl mx-auto space-y-4">
-						{faqs.map((faq) => (
-							<details
+						{faqs.map((faq, i) => (
+							<motion.details
 								key={faq.q}
-								className="group rounded-xl border border-slate-100 bg-white"
+								initial={{ opacity: 0, y: 10 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								viewport={{ once: true }}
+								transition={{ duration: 0.4, delay: i * 0.05 }}
+								className="group rounded-xl glass"
 							>
-								<summary className="flex items-center justify-between cursor-pointer p-5 text-slate-900 font-medium text-[15px]">
+								<summary className="flex items-center justify-between cursor-pointer p-5 text-white font-medium text-[15px]">
 									{faq.q}
-									<IoChevronForward className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+									<IoChevronForward className="w-4 h-4 text-slate-500 group-open:rotate-90 transition-transform" />
 								</summary>
-								<div className="px-5 pb-5 text-sm text-slate-500 leading-relaxed">
+								<div className="px-5 pb-5 text-sm text-slate-400 leading-relaxed">
 									{faq.a}
 								</div>
-							</details>
+							</motion.details>
 						))}
 					</div>
 
 					<div className="mt-16 text-center">
-						<p className="text-slate-500 mb-4">
-							Still need help?
-						</p>
+						<p className="text-slate-500 mb-4">Still need help?</p>
 						<Link
 							to={PATH.CONTACT}
-							className="inline-flex items-center px-6 py-3 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors"
+							className="inline-flex items-center px-6 py-3 bg-linear-to-r from-violet-600 to-violet-500 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-300"
 						>
 							Contact Us
 						</Link>

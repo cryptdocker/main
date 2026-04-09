@@ -4,6 +4,7 @@ import { IoMailOutline } from "react-icons/io5";
 import { FaLinkedin, FaTelegram } from "react-icons/fa";
 import { FaMedium } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import { PageHeader } from "../layout/PageHeader";
 import { Button } from "../component/Button";
 import { SEO } from "../component/SEO";
@@ -88,10 +89,10 @@ export const Contact: React.FC = () => {
 	};
 
 	const inputClass = (field: keyof FormErrors) =>
-		`w-full px-4 py-2.5 rounded-lg border text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 transition ${
+		`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-200 bg-white/4 placeholder:text-slate-600 focus:outline-none focus:ring-1 transition ${
 			touched[field] && errors[field]
-				? "border-red-400 focus:border-red-500 focus:ring-red-500"
-				: "border-slate-200 focus:border-teal-500 focus:ring-teal-500"
+				? "border-red-500/50 focus:border-red-500 focus:ring-red-500/30"
+				: "border-white/[0.08] focus:border-violet-500/50 focus:ring-violet-500/30"
 		}`;
 
 	return (
@@ -107,54 +108,58 @@ export const Contact: React.FC = () => {
 				description="Questions or ideas? Get in touch."
 			/>
 
-			<section className="py-20 bg-white">
+			<section className="py-20">
 				<div className="max-w-5xl mx-auto px-6">
-					<div className="max-w-sm mx-auto mb-16">
-						<div className="p-6 rounded-2xl border border-slate-100 bg-white text-center">
-							<div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mx-auto mb-4">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						transition={{ duration: 0.5 }}
+						className="max-w-sm mx-auto mb-16"
+					>
+						<div className="p-6 rounded-2xl glass text-center">
+							<div className="w-12 h-12 rounded-xl bg-violet-500/15 text-violet-400 flex items-center justify-center mx-auto mb-4">
 								<IoMailOutline className="w-6 h-6" />
 							</div>
-							<h3 className="font-semibold text-slate-900 mb-1">
-								Email
-							</h3>
+							<h3 className="font-semibold text-white mb-1">Email</h3>
 							<p className="text-sm text-slate-500 mb-2">
 								For general inquiries and partnerships.
 							</p>
 							<a
 								href="mailto:contact@cryptdocker.com"
-								className="text-sm font-medium text-teal-600 hover:underline"
+								className="text-sm font-medium text-violet-400 hover:underline"
 							>
 								contact@cryptdocker.com
 							</a>
 						</div>
-					</div>
+					</motion.div>
 
 					<div className="max-w-2xl mx-auto">
-						<h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
+						<h2 className="text-2xl font-bold text-white mb-6 text-center">
 							Send Us a Message
 						</h2>
 
 						{showConfirmation ? (
-							<div className="text-center py-12 px-6 rounded-2xl border border-teal-100 bg-teal-50">
-								<div className="w-14 h-14 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center mx-auto mb-4">
+							<motion.div
+								initial={{ opacity: 0, scale: 0.95 }}
+								animate={{ opacity: 1, scale: 1 }}
+								className="text-center py-12 px-6 rounded-2xl glass glow-violet"
+							>
+								<div className="w-14 h-14 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center mx-auto mb-4">
 									<IoMailOutline className="w-7 h-7" />
 								</div>
-								<h3 className="text-xl font-semibold text-slate-900 mb-2">
+								<h3 className="text-xl font-semibold text-white mb-2">
 									Message Sent!
 								</h3>
-								<p className="text-sm text-slate-600">
-									Thanks for reaching out. We'll get back to
-									you as soon as possible.
+								<p className="text-sm text-slate-400">
+									Thanks for reaching out. We'll get back to you as soon as possible.
 								</p>
-							</div>
+							</motion.div>
 						) : (
-							<form
-								className="space-y-5"
-								onSubmit={handleSubmit}
-							>
+							<form className="space-y-5" onSubmit={handleSubmit}>
 								<div className="grid sm:grid-cols-2 gap-5">
 									<div>
-										<label className="block text-sm font-medium text-slate-700 mb-1.5">
+										<label className="block text-sm font-medium text-slate-300 mb-1.5">
 											Name
 										</label>
 										<input
@@ -162,20 +167,16 @@ export const Contact: React.FC = () => {
 											name="name"
 											placeholder="Your name"
 											value={name}
-											onChange={(e) =>
-												setName(e.target.value)
-											}
+											onChange={(e) => setName(e.target.value)}
 											onBlur={() => handleBlur("name")}
 											className={inputClass("name")}
 										/>
 										{touched.name && errors.name && (
-											<p className="mt-1 text-xs text-red-500">
-												{errors.name}
-											</p>
+											<p className="mt-1 text-xs text-red-400">{errors.name}</p>
 										)}
 									</div>
 									<div>
-										<label className="block text-sm font-medium text-slate-700 mb-1.5">
+										<label className="block text-sm font-medium text-slate-300 mb-1.5">
 											Email
 										</label>
 										<input
@@ -183,27 +184,23 @@ export const Contact: React.FC = () => {
 											name="email"
 											placeholder="you@example.com"
 											value={email}
-											onChange={(e) =>
-												setEmail(e.target.value)
-											}
+											onChange={(e) => setEmail(e.target.value)}
 											onBlur={() => handleBlur("email")}
 											className={inputClass("email")}
 										/>
 										{touched.email && errors.email && (
-											<p className="mt-1 text-xs text-red-500">
-												{errors.email}
-											</p>
+											<p className="mt-1 text-xs text-red-400">{errors.email}</p>
 										)}
 										<ValidationError
 											prefix="Email"
 											field="email"
 											errors={formState.errors}
-											className="mt-1 text-xs text-red-500"
+											className="mt-1 text-xs text-red-400"
 										/>
 									</div>
 								</div>
 								<div>
-									<label className="block text-sm font-medium text-slate-700 mb-1.5">
+									<label className="block text-sm font-medium text-slate-300 mb-1.5">
 										Subject
 									</label>
 									<input
@@ -211,20 +208,16 @@ export const Contact: React.FC = () => {
 										name="subject"
 										placeholder="What's this about?"
 										value={subject}
-										onChange={(e) =>
-											setSubject(e.target.value)
-										}
+										onChange={(e) => setSubject(e.target.value)}
 										onBlur={() => handleBlur("subject")}
 										className={inputClass("subject")}
 									/>
 									{touched.subject && errors.subject && (
-										<p className="mt-1 text-xs text-red-500">
-											{errors.subject}
-										</p>
+										<p className="mt-1 text-xs text-red-400">{errors.subject}</p>
 									)}
 								</div>
 								<div>
-									<label className="block text-sm font-medium text-slate-700 mb-1.5">
+									<label className="block text-sm font-medium text-slate-300 mb-1.5">
 										Message
 									</label>
 									<textarea
@@ -232,16 +225,12 @@ export const Contact: React.FC = () => {
 										rows={5}
 										placeholder="Tell us more..."
 										value={message}
-										onChange={(e) =>
-											setMessage(e.target.value)
-										}
+										onChange={(e) => setMessage(e.target.value)}
 										onBlur={() => handleBlur("message")}
 										className={`${inputClass("message")} resize-none`}
 									/>
 									{touched.message && errors.message && (
-										<p className="mt-1 text-xs text-red-500">
-											{errors.message}
-										</p>
+										<p className="mt-1 text-xs text-red-400">{errors.message}</p>
 									)}
 								</div>
 								<Button
@@ -249,25 +238,21 @@ export const Contact: React.FC = () => {
 									className="w-full"
 									disabled={formState.submitting}
 								>
-									{formState.submitting
-										? "Sending..."
-										: "Send Message"}
+									{formState.submitting ? "Sending..." : "Send Message"}
 								</Button>
 							</form>
 						)}
 					</div>
 
 					<div className="mt-16 text-center">
-						<p className="text-sm text-slate-400 mb-4">
-							You can also find us on
-						</p>
+						<p className="text-sm text-slate-500 mb-4">You can also find us on</p>
 						<div className="flex items-center justify-center gap-5">
 							<a
 								href="https://linkedin.com/company/cryptdocker"
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="LinkedIn"
-								className="text-slate-400 hover:text-teal-600 transition-colors"
+								className="text-slate-500 hover:text-violet-400 transition-colors duration-200"
 							>
 								<FaLinkedin className="w-5 h-5" />
 							</a>
@@ -276,7 +261,7 @@ export const Contact: React.FC = () => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Medium"
-								className="text-slate-400 hover:text-teal-600 transition-colors"
+								className="text-slate-500 hover:text-violet-400 transition-colors duration-200"
 							>
 								<FaMedium className="w-5 h-5" />
 							</a>
@@ -285,7 +270,7 @@ export const Contact: React.FC = () => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Telegram"
-								className="text-slate-400 hover:text-teal-600 transition-colors"
+								className="text-slate-500 hover:text-violet-400 transition-colors duration-200"
 							>
 								<FaTelegram className="w-5 h-5" />
 							</a>
