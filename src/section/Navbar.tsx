@@ -178,23 +178,14 @@ export const Navbar: React.FC = () => {
 				</div>
 
 				<div className="hidden md:flex items-center gap-3">
-					<Link
-						to={PATH.DOWNLOAD}
-						onClick={(e) => {
-							if (canDownload) {
-								e.preventDefault();
-								downloadNow();
-							}
-						}}
+					<Button
+						size="sm"
+						disabled={!canDownload}
+						title={!canDownload ? "Coming soon for your OS" : undefined}
+						onClick={downloadNow}
 					>
-						<Button
-							size="sm"
-							disabled={!canDownload}
-							title={!canDownload ? "Coming soon for your OS" : undefined}
-						>
-							Download
-						</Button>
-					</Link>
+						Download
+					</Button>
 				</div>
 
 				<button
@@ -271,26 +262,18 @@ export const Navbar: React.FC = () => {
 						</div>
 
 						<div className="flex gap-3 pt-2">
-							<Link
-								to={PATH.DOWNLOAD}
+							<Button
+								size="sm"
 								className="w-full"
-								onClick={(e) => {
-									if (canDownload) {
-										e.preventDefault();
-										downloadNow();
-									}
+								disabled={!canDownload}
+								title={!canDownload ? "Coming soon for your OS" : undefined}
+								onClick={() => {
+									downloadNow();
 									setMobileOpen(false);
 								}}
 							>
-								<Button
-									size="sm"
-									className="w-full"
-									disabled={!canDownload}
-									title={!canDownload ? "Coming soon for your OS" : undefined}
-								>
-									Download
-								</Button>
-							</Link>
+								Download
+							</Button>
 						</div>
 					</motion.div>
 				)}
