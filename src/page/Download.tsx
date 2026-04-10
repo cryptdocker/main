@@ -54,7 +54,7 @@ function detectOS(): Platform {
 }
 
 const features = [
-	"Free tier included \u2014 no credit card required",
+	"Free tier included - no credit card required",
 	"Auto-updates built in",
 	"All platforms share the same feature set",
 	"Secure, signed binaries",

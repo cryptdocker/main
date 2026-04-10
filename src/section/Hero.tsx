@@ -76,7 +76,7 @@ export const Hero: React.FC = () => {
 			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-violet-500/3 rounded-full blur-3xl" />
 			<div className="absolute top-40 left-[20%] w-48 h-48 bg-amber-500/5 rounded-full blur-3xl animate-float" />
 
-			<div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16 w-full">
+			<div className="relative z-10 max-w-8xl mx-auto px-6 text-center pt-24 pb-16 w-full">
 				{HERO_LABELS.length > 0 && (
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
@@ -97,7 +97,7 @@ export const Hero: React.FC = () => {
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7, delay: 0.2 }}
-					className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+					className="text-8xl font-extrabold text-white leading-tight mb-6 tracking-tight">
 					A Dedicated, Secure
 					<br />
 					<span className="text-gradient animate-shimmer">
@@ -187,7 +187,7 @@ export const Hero: React.FC = () => {
 					initial={{ opacity: 0, y: 40, scale: 0.95 }}
 					animate={{ opacity: 1, y: 0, scale: 1 }}
 					transition={{ duration: 0.8, delay: 0.85, ease: "easeOut" }}
-					className="relative w-full max-w-7xl mx-auto">
+					className="relative w-full max-w-8xl mx-auto">
 					<div className="w-full relative rounded-2xl glass-strong overflow-hidden glow-violet aspect-video">
 						<AnimatePresence mode="wait">
 							<motion.img

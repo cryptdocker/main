@@ -70,13 +70,13 @@ export const Pricing: React.FC = () => {
 	return (
 		<section id="pricing" className="relative py-24 overflow-hidden">
 			<div className="absolute inset-0 mesh-gradient opacity-40" />
-			<div className="relative z-10 max-w-6xl mx-auto px-6">
+			<div className="relative z-10 max-w-8xl mx-auto px-6">
 				<SectionHeading
 					label="Pricing"
 					title="Flexible Plans for Professional Traders"
 					description="Start free, upgrade when you're ready. Pay with crypto or card."
 				/>
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-8xl mx-auto">
 					{plans.map((plan, i) => (
 						<PricingCard key={plan.name} index={i} {...plan} />
 					))}

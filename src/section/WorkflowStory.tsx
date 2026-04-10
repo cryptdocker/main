@@ -51,7 +51,7 @@ export const WorkflowStory: React.FC = () => {
 	return (
 		<section className="relative py-24 overflow-hidden">
 			<div className="absolute inset-0 mesh-gradient opacity-30" />
-			<div className="relative z-10 max-w-6xl mx-auto px-6">
+			<div className="relative z-10 max-w-8xl mx-auto px-6">
 				<SectionHeading
 					label="Workflow"
 					title="End the browser tab chaos"

@@ -62,7 +62,7 @@ export const BlogPost: React.FC = () => {
 							{post.category}
 						</span>
 						<span className="text-sm text-slate-500">{post.date}</span>
-						<span className="text-sm text-slate-500">\u00B7 {post.readTime}</span>
+						<span className="text-sm text-slate-500">&middot; {post.readTime}</span>
 					</div>
 
 					<h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">

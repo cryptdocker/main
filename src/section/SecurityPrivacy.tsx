@@ -11,13 +11,13 @@ const points = [
 	{
 		title: "Local-only storage",
 		description:
-			"Everything stays on your machine. Sessions, workspaces, app data \u2014 none of it touches our servers. We can't see inside your workspace because we never have access to it.",
+			"Everything stays on your machine. Sessions, workspaces, app data - none of it touches our servers. We can't see inside your workspace because we never have access to it.",
 		icon: <IoCloudOfflineOutline className="w-6 h-6" />,
 	},
 	{
 		title: "AES-256 encrypted at rest",
 		description:
-			"Sensitive local data is encrypted with AES-256 \u2014 the same standard used by banks and government agencies. Your setup is protected even if your device is compromised.",
+			"Sensitive local data is encrypted with AES-256 - the same standard used by banks and government agencies. Your setup is protected even if your device is compromised.",
 		icon: <IoLockClosedOutline className="w-6 h-6" />,
 	},
 	{
@@ -29,7 +29,7 @@ const points = [
 	{
 		title: "No telemetry, no API logs",
 		description:
-			"We don't log the dApps you visit, the contracts you interact with, or the tokens you hold. Your trading activity is your business \u2014 not ours.",
+			"We don't log the dApps you visit, the contracts you interact with, or the tokens you hold. Your trading activity is your business - not ours.",
 		icon: <IoEyeOffOutline className="w-6 h-6" />,
 	},
 ];
@@ -38,7 +38,7 @@ export const SecurityPrivacy: React.FC = () => {
 	return (
 		<section className="relative py-24 overflow-hidden">
 			<div className="absolute top-20 left-[10%] w-64 h-64 bg-cyan-500/4 rounded-full blur-3xl" />
-			<div className="relative z-10 max-w-6xl mx-auto px-6">
+			<div className="relative z-10 max-w-8xl mx-auto px-6">
 				<SectionHeading
 					label="Secure & Private"
 					title="You shouldn't have to trust us. You don't."

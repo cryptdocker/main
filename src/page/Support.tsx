@@ -58,7 +58,7 @@ const faqs = [
 	},
 	{
 		q: "How do I cancel my Pro subscription?",
-		a: "Go to Settings \u2192 Billing and click 'Cancel Plan'. You'll retain Pro access until the end of your billing period.",
+		a: "Go to Settings → Billing and click 'Cancel Plan'. You'll retain Pro access until the end of your billing period.",
 	},
 	{
 		q: "Is my data encrypted?",

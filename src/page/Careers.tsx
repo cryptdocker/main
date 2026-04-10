@@ -11,7 +11,7 @@ const perks = [
 	{ title: "Equity", description: "Share in our success with meaningful stock options." },
 	{ title: "Flexible Hours", description: "We care about output, not hours logged." },
 	{ title: "Learning Budget", description: "$2,000/year for conferences, courses, and books." },
-	{ title: "Latest Hardware", description: "Choose your own setup \u2014 laptop, monitor, peripherals." },
+	{ title: "Latest Hardware", description: "Choose your own setup - laptop, monitor, peripherals." },
 ];
 
 export const Careers: React.FC = () => {
@@ -35,7 +35,7 @@ export const Careers: React.FC = () => {
 					</h2>
 					<p className="text-slate-400 leading-relaxed mb-10 max-w-2xl">
 						We're a small, senior team that ships fast and cares deeply about
-						craft. No bureaucracy, no useless meetings \u2014 just focused work on
+						craft. No bureaucracy, no useless meetings - just focused work on
 						products people love.
 					</p>
 					<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

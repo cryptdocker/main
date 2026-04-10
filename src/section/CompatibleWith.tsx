@@ -27,7 +27,7 @@ const brands = [
 export const CompatibleWith: React.FC = () => {
 	return (
 		<section className="relative py-16 overflow-hidden">
-			<div className="relative z-10 max-w-6xl mx-auto px-6">
+			<div className="relative z-10 max-w-8xl mx-auto px-6">
 				<SectionHeading
 					label="Ecosystem"
 					title="Compatible with the tools you already trust"

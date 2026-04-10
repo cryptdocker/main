@@ -15,7 +15,7 @@ const values = [
 		icon: <IoShieldCheckmarkOutline className="w-6 h-6" />,
 		title: "Security First",
 		description:
-			"Every decision we make starts with security. Your data, your keys, your privacy \u2014 always protected.",
+			"Every decision we make starts with security. Your data, your keys, your privacy — always protected.",
 	},
 	{
 		icon: <IoPeopleOutline className="w-6 h-6" />,
@@ -33,12 +33,12 @@ const values = [
 		icon: <IoSparkles className="w-6 h-6" />,
 		title: "Simplicity",
 		description:
-			"Powerful tools don\u2019t have to be complicated. We distill complexity into elegant, intuitive interfaces.",
+			"Powerful tools don't have to be complicated. We distill complexity into elegant, intuitive interfaces.",
 	},
 ];
 
 const milestones = [
-	{ year: "2025 Q3", event: "CryptDocker founded \u2014 prototyped the unified crypto workspace concept" },
+	{ year: "2025 Q3", event: "CryptDocker founded - prototyped the unified crypto workspace concept" },
 	{ year: "2025 Q4", event: "Launched v1.0 with workspace management, per-site proxy, and Chrome extension support" },
 	{ year: "2026 Q1", event: "Introduced AI-powered risk analysis, news insights, and expanded to 1,000+ users across 8 countries" },
 ];
@@ -54,7 +54,7 @@ export const About: React.FC = () => {
 			<PageHeader
 				label="About Us"
 				title="Building the Future of Crypto Tooling"
-				description="CryptDocker was born from a simple idea \u2014 managing dozens of crypto apps shouldn\u2019t be painful."
+				description="CryptDocker was born from a simple idea - managing dozens of crypto apps shouldn't be painful."
 			/>
 
 			<section className="py-20">
@@ -77,8 +77,8 @@ export const About: React.FC = () => {
 							</p>
 							<p className="text-slate-400 leading-relaxed">
 								With built-in AI analysis, per-site proxy support, isolated
-								sessions, and Chrome extensions \u2014 we\u2019re not just another
-								browser. We\u2019re your crypto command center.
+								sessions, and Chrome extensions - we're not just another
+								browser. We're your crypto command center.
 							</p>
 						</motion.div>
 						<motion.div
@@ -176,7 +176,7 @@ export const About: React.FC = () => {
 						Want to join our team?
 					</h2>
 					<p className="text-slate-400 mb-6">
-						We\u2019re always looking for passionate people who love crypto and great
+						We're always looking for passionate people who love crypto and great
 						software.
 					</p>
 					<Link

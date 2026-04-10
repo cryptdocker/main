@@ -22,7 +22,7 @@ export const CTA: React.FC = () => {
 
 	return (
 		<section className="py-24">
-			<div className="max-w-6xl mx-auto px-6">
+			<div className="max-w-8xl mx-auto px-6">
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}

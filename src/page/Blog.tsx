@@ -64,7 +64,7 @@ export const Blog: React.FC = () => {
 										</span>
 										<span className="text-xs text-slate-500">{post.date}</span>
 										<span className="text-xs text-slate-500">
-											\u00B7 {post.readTime}
+											&middot; {post.readTime}
 										</span>
 									</div>
 									<h3 className="text-lg font-semibold text-white mb-2 group-hover:text-violet-400 transition-colors">

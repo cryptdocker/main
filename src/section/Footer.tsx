@@ -62,7 +62,7 @@ export const Footer: React.FC = () => {
 		<footer className="border-t border-white/6">
 			{/* CTA banner */}
 			<div className="relative overflow-hidden bg-linear-to-r from-violet-600/10 via-violet-500/5 to-transparent border-b border-white/6">
-				<div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+				<div className="max-w-8xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
 					<div>
 						<h3 className="text-lg font-semibold text-white mb-1">
 							Ready to streamline your crypto workflow?
@@ -94,7 +94,7 @@ export const Footer: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="max-w-6xl mx-auto px-6 py-16">
+			<div className="max-w-8xl mx-auto px-6 py-16">
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-8">
 					<div className="col-span-2 md:col-span-1">
 						<Link

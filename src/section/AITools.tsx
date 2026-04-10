@@ -18,7 +18,7 @@ const tools = [
 	{
 		title: "Real-Time Contract Auditing",
 		description:
-			"Auto-scan every contract before you sign. Risk scores, red-flag annotations, and defensive checks surface rug vectors so you don\u2019t have to trust — you verify.",
+			"Auto-scan every contract before you sign. Risk scores, red-flag annotations, and defensive checks surface rug vectors so you don't have to trust — you verify.",
 		icon: <IoShieldCheckmarkOutline className="w-7 h-7" />,
 		gradient: "from-cyan-500 to-blue-500",
 		glow: "shadow-cyan-500/20",
@@ -39,11 +39,11 @@ export const AITools: React.FC = () => {
 			<div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/4 rounded-full blur-3xl" />
 			<div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/4 rounded-full blur-3xl" />
 
-			<div className="relative z-10 max-w-6xl mx-auto px-6">
+			<div className="relative z-10 max-w-8xl mx-auto px-6">
 				<SectionHeading
 					label="AI-Powered"
 					title="Intelligence Built In"
-					description="Edge isn\u2019t optional. Audit contracts before you sign, catch sentiment shifts before the crowd, and run every decision through AI — right from your desktop."
+					description="Edge isn't optional. Audit contracts before you sign, catch sentiment shifts before the crowd, and run every decision through AI — right from your desktop."
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 					{tools.map((tool, i) => (
