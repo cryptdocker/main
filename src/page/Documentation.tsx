@@ -1,7 +1,19 @@
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { IoDownloadOutline, IoArrowForward } from "react-icons/io5";
 import { PageHeader } from "../layout/PageHeader";
 import { SEO } from "../component/SEO";
+import { PATH } from "../const";
+import { detectOS } from "../utils/detectOS";
+
+const DOWNLOAD_URL_WINDOWS =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+const DOWNLOAD_URL_MACOS =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
+const DOWNLOAD_URL_LINUX =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage";
 
 const DOC_MD = `
 ## 1. What is CryptDocker?
@@ -116,6 +128,18 @@ While browsing any app, you can open the built-in AI panel to audit contract ris
 `;
 
 export const Documentation: React.FC = () => {
+	const clientOS = useMemo(() => detectOS(), []);
+	const isWindows = clientOS === "Windows";
+	const isMacOS = clientOS === "macOS";
+	const isLinux = clientOS === "Linux";
+	const canDownload = isWindows || isMacOS || isLinux;
+
+	const downloadNow = () => {
+		if (isWindows) window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
+		else if (isMacOS) window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
+		else if (isLinux) window.open(DOWNLOAD_URL_LINUX, "_blank", "noopener,noreferrer");
+	};
+
 	return (
 		<div className="w-full">
 			<SEO
@@ -133,6 +157,40 @@ export const Documentation: React.FC = () => {
 					<article className="prose prose-dark max-w-none prose-headings:scroll-mt-24 prose-a:no-underline hover:prose-a:underline">
 						<ReactMarkdown remarkPlugins={[remarkGfm]}>{DOC_MD}</ReactMarkdown>
 					</article>
+				</div>
+			</section>
+
+			<section className="pb-20">
+				<div className="max-w-4xl mx-auto px-6">
+					<div className="rounded-2xl bg-linear-to-br from-violet-600/15 via-violet-500/8 to-transparent border border-violet-500/20 p-10 text-center">
+						<h3 className="text-2xl font-bold text-white mb-3">
+							Ready to get started?
+						</h3>
+						<p className="text-slate-400 mb-8 max-w-lg mx-auto">
+							Download CryptDocker and set up your secure crypto workspace in under a minute.
+						</p>
+						<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+							<button
+								onClick={downloadNow}
+								disabled={!canDownload}
+								className={`inline-flex items-center gap-2 px-7 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${
+									canDownload
+										? "bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 cursor-pointer"
+										: "bg-white/6 text-slate-500 cursor-not-allowed"
+								}`}
+							>
+								<IoDownloadOutline className="w-5 h-5" />
+								Download Now
+							</button>
+							<Link
+								to={PATH.SUPPORT}
+								className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-medium text-slate-300 border border-white/12 rounded-xl hover:border-violet-500/50 hover:text-violet-300 transition-all duration-300"
+							>
+								Need help?
+								<IoArrowForward className="w-4 h-4" />
+							</Link>
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>

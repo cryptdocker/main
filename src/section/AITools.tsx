@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import {
 	IoChatbubbleOutline,
 	IoShieldCheckmarkOutline,
-	IoNewspaperOutline,
+	IoPulseOutline,
 } from "react-icons/io5";
 import { SectionHeading } from "../component/SectionHeading";
 
@@ -10,7 +10,7 @@ const tools = [
 	{
 		title: "AI ChatBot",
 		description:
-			"Get instant answers powered by GPT-5 and web search. Ask about any crypto topic directly from your workspace.",
+			"GPT-5 with live web search, on tap. Research tokens, decode contract logic, or pressure-test a thesis — without leaving your workspace.",
 		icon: <IoChatbubbleOutline className="w-7 h-7" />,
 		gradient: "from-violet-500 to-fuchsia-500",
 		glow: "shadow-violet-500/20",
@@ -18,16 +18,16 @@ const tools = [
 	{
 		title: "Real-Time Contract Auditing",
 		description:
-			"Audit token and dApp contracts in real time with defensive AI checks, risk scoring, and clear annotations before you connect your wallet.",
+			"Auto-scan every contract before you sign. Risk scores, red-flag annotations, and defensive checks surface rug vectors so you don\u2019t have to trust — you verify.",
 		icon: <IoShieldCheckmarkOutline className="w-7 h-7" />,
 		gradient: "from-cyan-500 to-blue-500",
 		glow: "shadow-cyan-500/20",
 	},
 	{
-		title: "Market Sentiment Engine",
+		title: "Real-Time Sentiment Alpha",
 		description:
-			"Convert headlines into signals with sentiment, key takeaways, and keyword alerts — so you can protect capital and move faster.",
-		icon: <IoNewspaperOutline className="w-7 h-7" />,
+			"Headlines distilled into actionable signals — sentiment shifts, keyword spikes, and momentum alerts delivered before the crowd reacts.",
+		icon: <IoPulseOutline className="w-7 h-7" />,
 		gradient: "from-amber-500 to-orange-500",
 		glow: "shadow-amber-500/20",
 	},
@@ -42,8 +42,8 @@ export const AITools: React.FC = () => {
 			<div className="relative z-10 max-w-6xl mx-auto px-6">
 				<SectionHeading
 					label="AI-Powered"
-					title="Defensive Intelligence"
-					description="Protect your capital with AI tools built into your desktop environment — audit risk, track sentiment, and act with confidence."
+					title="Intelligence Built In"
+					description="Edge isn\u2019t optional. Audit contracts before you sign, catch sentiment shifts before the crowd, and run every decision through AI — right from your desktop."
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 					{tools.map((tool, i) => (

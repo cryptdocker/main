@@ -1,4 +1,10 @@
-import { IoDownloadOutline } from "react-icons/io5";
+import {
+	IoDownloadOutline,
+	IoLockClosedOutline,
+	IoServerOutline,
+	IoEyeOffOutline,
+	IoShieldCheckmarkOutline,
+} from "react-icons/io5";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -156,9 +162,31 @@ export const Hero: React.FC = () => {
 				</motion.div>
 
 				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.6, delay: 0.7 }}
+					className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-16"
+				>
+					{[
+						{ icon: <IoLockClosedOutline className="w-4 h-4" />, label: "AES-256 Encrypted" },
+						{ icon: <IoServerOutline className="w-4 h-4" />, label: "Local Storage Only" },
+						{ icon: <IoEyeOffOutline className="w-4 h-4" />, label: "No API Logs" },
+						{ icon: <IoShieldCheckmarkOutline className="w-4 h-4" />, label: "Zero Access to Keys" },
+					].map((badge) => (
+						<span
+							key={badge.label}
+							className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400"
+						>
+							<span className="text-emerald-400">{badge.icon}</span>
+							{badge.label}
+						</span>
+					))}
+				</motion.div>
+
+				<motion.div
 					initial={{ opacity: 0, y: 40, scale: 0.95 }}
 					animate={{ opacity: 1, y: 0, scale: 1 }}
-					transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
+					transition={{ duration: 0.8, delay: 0.85, ease: "easeOut" }}
 					className="relative w-full max-w-7xl mx-auto">
 					<div className="w-full relative rounded-2xl glass-strong overflow-hidden glow-violet aspect-video">
 						<AnimatePresence mode="wait">

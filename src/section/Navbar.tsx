@@ -91,7 +91,15 @@ export const Navbar: React.FC = () => {
 			}`}
 		>
 			<div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-				<Link to={PATH.HOME} className="flex items-center gap-2.5 group">
+				<Link
+					to={PATH.HOME}
+					className="flex items-center gap-2.5 group"
+					onClick={() => {
+						if (location.pathname === PATH.HOME) {
+							window.scrollTo({ top: 0, behavior: "smooth" });
+						}
+					}}
+				>
 					<div className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-violet-500 flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:shadow-violet-500/40 transition-shadow duration-300">
 						<img src={IMG.Logo} className="w-6" />
 					</div>

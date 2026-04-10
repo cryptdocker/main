@@ -1,8 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useMemo } from "react";
 import { FaLinkedin, FaTelegram } from "react-icons/fa";
 import { FaMedium } from "react-icons/fa6";
+import { IoDownloadOutline } from "react-icons/io5";
 import { IMG } from "../assets/image";
 import { PATH } from "../const";
+import { detectOS } from "../utils/detectOS";
+
+const DOWNLOAD_URL_WINDOWS =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
+const DOWNLOAD_URL_MACOS =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
+const DOWNLOAD_URL_LINUX =
+	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage";
 
 const footerLinks = [
 	{
@@ -34,14 +44,68 @@ const footerLinks = [
 ];
 
 export const Footer: React.FC = () => {
+	const location = useLocation();
 	const isHash = (to: string) => to.includes("#");
+	const clientOS = useMemo(() => detectOS(), []);
+	const isWindows = clientOS === "Windows";
+	const isMacOS = clientOS === "macOS";
+	const isLinux = clientOS === "Linux";
+	const canDownload = isWindows || isMacOS || isLinux;
+
+	const downloadNow = () => {
+		if (isWindows) window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
+		else if (isMacOS) window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
+		else if (isLinux) window.open(DOWNLOAD_URL_LINUX, "_blank", "noopener,noreferrer");
+	};
 
 	return (
 		<footer className="border-t border-white/6">
+			{/* CTA banner */}
+			<div className="relative overflow-hidden bg-linear-to-r from-violet-600/10 via-violet-500/5 to-transparent border-b border-white/6">
+				<div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+					<div>
+						<h3 className="text-lg font-semibold text-white mb-1">
+							Ready to streamline your crypto workflow?
+						</h3>
+						<p className="text-sm text-slate-400">
+							Download CryptDocker free and organize everything in one secure desktop hub.
+						</p>
+					</div>
+					<div className="flex items-center gap-3 shrink-0">
+						<button
+							onClick={downloadNow}
+							disabled={!canDownload}
+							className={`inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 ${
+								canDownload
+									? "bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 cursor-pointer"
+									: "bg-white/6 text-slate-500 cursor-not-allowed"
+							}`}
+						>
+							<IoDownloadOutline className="w-4 h-4" />
+							Download Now
+						</button>
+						<Link
+							to={PATH.DOCUMENTATION}
+							className="px-5 py-2.5 text-sm font-medium text-slate-300 border border-white/12 rounded-xl hover:border-violet-500/50 hover:text-violet-300 transition-all duration-300"
+						>
+							Learn More
+						</Link>
+					</div>
+				</div>
+			</div>
+
 			<div className="max-w-6xl mx-auto px-6 py-16">
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-8">
 					<div className="col-span-2 md:col-span-1">
-						<Link to={PATH.HOME} className="flex items-center gap-2.5 mb-4 group">
+						<Link
+							to={PATH.HOME}
+							className="flex items-center gap-2.5 mb-4 group"
+							onClick={() => {
+								if (location.pathname === PATH.HOME) {
+									window.scrollTo({ top: 0, behavior: "smooth" });
+								}
+							}}
+						>
 							<div className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-violet-500 flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:shadow-violet-500/40 transition-shadow duration-300">
 								<img src={IMG.Logo} className="w-6" />
 							</div>
