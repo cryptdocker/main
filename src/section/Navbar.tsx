@@ -86,7 +86,7 @@ export const Navbar: React.FC = () => {
 			transition={{ duration: 0.5, ease: "easeOut" }}
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
 				scrolled
-					? "bg-dark-base/80 backdrop-blur-xl border-b border-white/6 shadow-2xl shadow-black/20"
+					? "bg-dark-base/80 backdrop-blur-xl shadow-2xl shadow-black/20"
 					: "bg-transparent"
 			}`}
 		>
@@ -152,7 +152,7 @@ export const Navbar: React.FC = () => {
 									transition={{ duration: 0.15 }}
 									role="menu"
 									aria-label="Resources"
-									className="absolute top-full mt-3 right-0 w-52 rounded-xl glass-strong overflow-hidden"
+									className="absolute top-full mt-3 right-0 w-52 rounded-xl bg-dark-surface border border-white/8 shadow-xl shadow-black/40 overflow-hidden"
 								>
 									<div className="py-2">
 										{resourceLinks.map((link) => (

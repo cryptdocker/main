@@ -13,8 +13,6 @@ const DOWNLOAD_URL_MACOS =
 const DOWNLOAD_URL_LINUX =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage";
 
-const HERO_LABELS = ["Now available for Windows, macOS & Linux"];
-
 const SLIDES = [
 	"https://i.ibb.co/kVhzV5cy/slide-1.png",
 	"https://i.ibb.co/yc9wHjqx/slide-2.png",
@@ -31,6 +29,7 @@ export const Hero: React.FC = () => {
 	const [visible, setVisible] = useState(true);
 	const [slideIndex, setSlideIndex] = useState(0);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+	const HERO_LABELS: string[] = useMemo(() => [], []);
 
 	const clientOS = useMemo(() => detectOS(), []);
 	const isWindows = clientOS === "Windows";
@@ -72,28 +71,27 @@ export const Hero: React.FC = () => {
 			<div className="absolute top-40 left-[20%] w-48 h-48 bg-amber-500/5 rounded-full blur-3xl animate-float" />
 
 			<div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16 w-full">
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 0.1 }}
-					className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 glass"
-				>
-					<span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
-					<span
-						aria-live="polite"
-						className="transition-opacity duration-300 text-slate-300"
-						style={{ opacity: visible ? 1 : 0 }}
-					>
-						{HERO_LABELS[labelIndex]}
-					</span>
-				</motion.div>
+				{HERO_LABELS.length > 0 && (
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6, delay: 0.1 }}
+						className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 glass">
+						<span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+						<span
+							aria-live="polite"
+							className="transition-opacity duration-300 text-slate-300"
+							style={{ opacity: visible ? 1 : 0 }}>
+							{HERO_LABELS[labelIndex]}
+						</span>
+					</motion.div>
+				)}
 
 				<motion.h1
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7, delay: 0.2 }}
-					className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight"
-				>
+					className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
 					A Dedicated, Secure
 					<br />
 					<span className="text-gradient animate-shimmer">
@@ -105,37 +103,49 @@ export const Hero: React.FC = () => {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6, delay: 0.4 }}
-					className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
-				>
-					An installed desktop app that gives you a dedicated, secure environment
-					for your crypto workflow — run exchanges, DeFi, and tools side-by-side
-					with built-in AI tools, Chrome extensions, and per-site proxies.
+					className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+					An installed desktop app that gives you a dedicated, secure
+					environment for your crypto workflow — run exchanges, DeFi, and tools
+					side-by-side with built-in AI tools, Chrome extensions, and per-site
+					proxies.
 				</motion.p>
 
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6, delay: 0.55 }}
-					className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
-				>
+					className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
 					<div className="flex flex-col items-center gap-1">
 						<Button
 							size="lg"
 							disabled={!canDownload}
 							onClick={() => {
 								if (isWindows)
-									window.open(DOWNLOAD_URL_WINDOWS, "_blank", "noopener,noreferrer");
+									window.open(
+										DOWNLOAD_URL_WINDOWS,
+										"_blank",
+										"noopener,noreferrer",
+									);
 								else if (isMacOS)
-									window.open(DOWNLOAD_URL_MACOS, "_blank", "noopener,noreferrer");
+									window.open(
+										DOWNLOAD_URL_MACOS,
+										"_blank",
+										"noopener,noreferrer",
+									);
 								else if (isLinux)
-									window.open(DOWNLOAD_URL_LINUX, "_blank", "noopener,noreferrer");
-							}}
-						>
+									window.open(
+										DOWNLOAD_URL_LINUX,
+										"_blank",
+										"noopener,noreferrer",
+									);
+							}}>
 							<IoDownloadOutline className="w-5 h-5 mr-2" />
 							Download for {clientOS}
 						</Button>
 						{!canDownload && (
-							<span className="text-xs text-slate-500">Coming soon for Linux</span>
+							<span className="text-xs text-slate-500">
+								Coming soon for Linux
+							</span>
 						)}
 					</div>
 					<Link to={PATH.DOCUMENTATION}>
@@ -149,8 +159,7 @@ export const Hero: React.FC = () => {
 					initial={{ opacity: 0, y: 40, scale: 0.95 }}
 					animate={{ opacity: 1, y: 0, scale: 1 }}
 					transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
-					className="relative w-full max-w-7xl mx-auto"
-				>
+					className="relative w-full max-w-7xl mx-auto">
 					<div className="w-full relative rounded-2xl glass-strong overflow-hidden glow-violet aspect-video">
 						<AnimatePresence mode="wait">
 							<motion.img
