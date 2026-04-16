@@ -21,6 +21,7 @@ const plans = [
 		description: "Get started for free.",
 		icon: <IoStar className="w-5 h-5" />,
 		features: [
+			{ text: "15-day trial for every new account", included: true },
 			{ text: "Up to 10 apps", included: true },
 			{ text: "3 workspaces", included: true },
 			{ text: "Basic notifications", included: true },
@@ -39,6 +40,7 @@ const plans = [
 		description: "All premium features unlocked.",
 		icon: <IoSparkles className="w-5 h-5" />,
 		features: [
+			{ text: "15-day trial for every new account", included: true },
 			{ text: "Unlimited apps", included: true },
 			{ text: "Unlimited workspaces", included: true },
 			{ text: "Smart notifications", included: true },
@@ -57,6 +59,7 @@ const plans = [
 		description: "Full access for life.",
 		icon: <IoInfiniteOutline className="w-5 h-5" />,
 		features: [
+			{ text: "15-day trial for every new account", included: true },
 			{ text: "All current and future Pro features", included: true },
 			{ text: "No recurring payments", included: true },
 			{ text: "Priority support", included: true },
@@ -74,7 +77,15 @@ export const Pricing: React.FC = () => {
 				<SectionHeading
 					label="Pricing"
 					title="Flexible Plans for Professional Traders"
-					description="Start free, upgrade when you're ready. Pay with crypto or card."
+					description={
+						<>
+							<span className="font-semibold text-gradient">
+								15-day trial for every new account
+							</span>
+							—even if you only use Free. Upgrade when you need more. Pay with
+							crypto or card.
+						</>
+					}
 				/>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-8xl mx-auto">
 					{plans.map((plan, i) => (

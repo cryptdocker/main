@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
 interface SectionHeadingProps {
 	label?: string;
 	title: string;
-	description?: string;
+	description?: ReactNode;
 }
 
 export const SectionHeading: React.FC<SectionHeadingProps> = ({
