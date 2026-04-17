@@ -31,7 +31,9 @@ export const Navbar: React.FC = () => {
 	const [scrolled, setScrolled] = useState(false);
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [resourcesOpen, setResourcesOpen] = useState(false);
+	const [productsOpen, setProductsOpen] = useState(false);
 	const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+	const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
 	const location = useLocation();
 	const clientOS = useMemo(() => detectOS(), []);
 	const isWindows = clientOS === "Windows";
@@ -39,6 +41,7 @@ export const Navbar: React.FC = () => {
 	const isLinux = clientOS === "Linux";
 	const canDownload = isWindows || isMacOS || isLinux;
 	const resourcesRef = useRef<HTMLDivElement | null>(null);
+	const productsRef = useRef<HTMLDivElement | null>(null);
 
 	const downloadNow = () => {
 		if (isWindows) {
@@ -60,8 +63,10 @@ export const Navbar: React.FC = () => {
 
 	useEffect(() => {
 		setResourcesOpen(false);
+		setProductsOpen(false);
 		setMobileOpen(false);
 		setMobileResourcesOpen(false);
+		setMobileProductsOpen(false);
 	}, [location.pathname]);
 
 	useEffect(() => {
@@ -78,6 +83,21 @@ export const Navbar: React.FC = () => {
 			document.removeEventListener("touchstart", onPointerDown);
 		};
 	}, [resourcesOpen]);
+
+	useEffect(() => {
+		if (!productsOpen) return;
+		const onPointerDown = (e: MouseEvent | TouchEvent) => {
+			if (!productsRef.current) return;
+			if (!productsRef.current.contains(e.target as Node))
+				setProductsOpen(false);
+		};
+		document.addEventListener("mousedown", onPointerDown);
+		document.addEventListener("touchstart", onPointerDown);
+		return () => {
+			document.removeEventListener("mousedown", onPointerDown);
+			document.removeEventListener("touchstart", onPointerDown);
+		};
+	}, [productsOpen]);
 
 	return (
 		<motion.nav
@@ -130,6 +150,76 @@ export const Navbar: React.FC = () => {
 							</Link>
 						),
 					)}
+
+					<div className="relative" ref={productsRef}>
+						<button
+							type="button"
+							className={`inline-flex items-center gap-1 text-sm transition-colors duration-200 cursor-pointer ${
+								productsOpen
+									? "text-violet-400 font-medium"
+									: "text-slate-400 hover:text-violet-400"
+							}`}
+							aria-haspopup="menu"
+							aria-expanded={productsOpen}
+							onClick={() => setProductsOpen((v) => !v)}
+						>
+							Products
+							<IoChevronDown
+								className={`w-4 h-4 transition-transform duration-200 ${
+									productsOpen ? "rotate-180" : ""
+								}`}
+							/>
+						</button>
+
+						<AnimatePresence>
+							{productsOpen && (
+								<motion.div
+									initial={{ opacity: 0, y: 8, scale: 0.96 }}
+									animate={{ opacity: 1, y: 0, scale: 1 }}
+									exit={{ opacity: 0, y: 8, scale: 0.96 }}
+									transition={{ duration: 0.15 }}
+									role="menu"
+									aria-label="Products"
+									className="absolute top-full mt-3 right-0 w-60 rounded-xl bg-dark-surface border border-white/8 shadow-xl shadow-black/40 overflow-hidden"
+								>
+									<div className="py-2">
+										<Link
+											to={PATH.DOWNLOAD}
+											role="menuitem"
+											className="block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-violet-400"
+											onClick={() => setProductsOpen(false)}
+										>
+											CryptDocker
+										</Link>
+										<button
+											type="button"
+											role="menuitem"
+											className="w-full text-left block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-violet-400 cursor-pointer"
+											onClick={() => {
+												setProductsOpen(false);
+												window.open(
+													"https://trade.cryptdocker.com",
+													"_blank",
+													"noopener,noreferrer",
+												);
+											}}
+										>
+											TradeGPT
+										</button>
+										<div
+											role="menuitem"
+											aria-disabled="true"
+											className="px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed"
+											title="Coming soon"
+										>
+											MentalShield{" "}
+											<span className="text-xs">(Coming Soon)</span>
+										</div>
+									</div>
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</div>
 
 					<div className="relative" ref={resourcesRef}>
 						<button
@@ -237,6 +327,55 @@ export const Navbar: React.FC = () => {
 								</Link>
 							),
 						)}
+
+						<div className="pt-1">
+							<button
+								type="button"
+								className="w-full flex items-center justify-between text-sm text-slate-400 hover:text-violet-400 py-2 cursor-pointer"
+								aria-expanded={mobileProductsOpen}
+								onClick={() => setMobileProductsOpen((v) => !v)}
+							>
+								<span>Products</span>
+								<IoChevronDown
+									className={`w-4 h-4 transition-transform ${
+										mobileProductsOpen ? "rotate-180" : ""
+									}`}
+								/>
+							</button>
+
+							{mobileProductsOpen && (
+								<div className="mt-1 pl-3 border-l border-white/8 space-y-1">
+									<Link
+										to={PATH.DOWNLOAD}
+										className="block text-sm text-slate-400 hover:text-violet-400 py-2"
+										onClick={() => setMobileOpen(false)}
+									>
+										CryptDocker
+									</Link>
+									<button
+										type="button"
+										className="w-full text-left block text-sm text-slate-400 hover:text-violet-400 py-2 cursor-pointer"
+										onClick={() => {
+											window.open(
+												"https://trade.cryptdocker.com",
+												"_blank",
+												"noopener,noreferrer",
+											);
+											setMobileOpen(false);
+										}}
+									>
+										TradeGPT
+									</button>
+									<div
+										aria-disabled="true"
+										className="block text-sm text-slate-600 py-2 cursor-not-allowed"
+										title="Coming soon"
+									>
+										MentalShield (Coming Soon)
+									</div>
+								</div>
+							)}
+						</div>
 
 						<div className="pt-1">
 							<button

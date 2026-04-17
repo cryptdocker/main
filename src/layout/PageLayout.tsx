@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Navbar } from "../section/Navbar";
 import { Footer } from "../section/Footer";
 import { ScrollToHash } from "../component/ScrollToHash";
+import { TradeGPTBadge } from "../component/TradeGPTBadge";
 
 export const PageLayout: React.FC = () => {
 	const location = useLocation();
@@ -11,6 +12,7 @@ export const PageLayout: React.FC = () => {
 		<div className="w-full relative overflow-x-hidden bg-dark-base min-h-screen">
 			<ScrollToHash />
 			<Navbar />
+			{location.pathname === "/" && <TradeGPTBadge />}
 			<AnimatePresence mode="wait">
 				<motion.main
 					key={location.pathname}
