@@ -122,7 +122,7 @@ export const About: React.FC = () => {
 								transition={{ duration: 0.5, delay: i * 0.1 }}
 								className="glass rounded-2xl p-6 hover:bg-white/5 transition-all duration-300"
 							>
-								<div className="w-12 h-12 rounded-xl bg-violet-500/15 text-violet-400 flex items-center justify-center mb-4">
+								<div className="w-12 h-12 rounded-xl bg-teal-500/15 text-teal-400 flex items-center justify-center mb-4">
 									{v.icon}
 								</div>
 								<h3 className="text-lg font-semibold text-white mb-2">
@@ -143,7 +143,7 @@ export const About: React.FC = () => {
 						Our Journey
 					</h2>
 					<div className="relative">
-						<div className="absolute left-4 top-0 bottom-0 w-px bg-linear-to-b from-violet-500/50 to-transparent" />
+						<div className="absolute left-4 top-0 bottom-0 w-px bg-linear-to-b from-teal-500/50 to-transparent" />
 						<div className="space-y-10">
 							{milestones.map((m, i) => (
 								<motion.div
@@ -154,11 +154,11 @@ export const About: React.FC = () => {
 									transition={{ duration: 0.5, delay: i * 0.15 }}
 									className="relative pl-12"
 								>
-									<div className="absolute left-0 w-8 h-8 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center text-[10px] font-bold border-2 border-dark-base">
+									<div className="absolute left-0 w-8 h-8 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center text-[10px] font-bold border-2 border-dark-base">
 										{m.year.split(" ")[1]}
 									</div>
 									<div>
-										<span className="text-sm font-semibold text-violet-400">
+										<span className="text-sm font-semibold text-teal-400">
 											{m.year}
 										</span>
 										<p className="text-slate-400 mt-1">{m.event}</p>
@@ -181,7 +181,7 @@ export const About: React.FC = () => {
 					</p>
 					<Link
 						to={PATH.CAREERS}
-						className="inline-flex items-center px-6 py-3 bg-linear-to-r from-violet-600 to-violet-500 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-300"
+						className="inline-flex items-center px-6 py-3 bg-linear-to-r from-teal-600 to-teal-500 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-teal-500/25 transition-all duration-300"
 					>
 						View Open Positions
 					</Link>

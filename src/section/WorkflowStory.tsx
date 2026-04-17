@@ -70,7 +70,7 @@ export const WorkflowStory: React.FC = () => {
 						>
 							<div className="flex items-center justify-between">
 								<div className="flex items-center gap-2 text-slate-400">
-									<span className="w-9 h-9 rounded-xl bg-white/6 border border-white/8 flex items-center justify-center text-violet-400">
+									<span className="w-9 h-9 rounded-xl bg-white/6 border border-white/8 flex items-center justify-center text-teal-400">
 										{s.icon}
 									</span>
 									<span className="text-sm font-medium">{s.label}</span>
@@ -95,7 +95,7 @@ export const WorkflowStory: React.FC = () => {
 							className="rounded-3xl glass p-8 hover:bg-white/5 transition-all duration-500"
 						>
 							<div className="flex items-start gap-4">
-								<div className="w-12 h-12 rounded-2xl bg-violet-500/15 text-violet-400 flex items-center justify-center shrink-0">
+								<div className="w-12 h-12 rounded-2xl bg-teal-500/15 text-teal-400 flex items-center justify-center shrink-0">
 									{c.icon}
 								</div>
 								<div className="flex-1">
@@ -109,7 +109,7 @@ export const WorkflowStory: React.FC = () => {
 							<ul className="mt-6 space-y-3 text-slate-300">
 								{c.points.map((p) => (
 									<li key={p} className="flex gap-3">
-										<span className="mt-2 w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0" />
+										<span className="mt-2 w-1.5 h-1.5 rounded-full bg-teal-500 shrink-0" />
 										<span className="text-[15px] leading-relaxed">{p}</span>
 									</li>
 								))}

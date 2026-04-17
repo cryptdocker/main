@@ -83,7 +83,7 @@ export const Careers: React.FC = () => {
 						</p>
 						<a
 							href="mailto:contact@cryptdocker.com"
-							className="inline-flex items-center px-6 py-3 bg-linear-to-r from-violet-600 to-violet-500 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-300"
+							className="inline-flex items-center px-6 py-3 bg-linear-to-r from-teal-600 to-teal-500 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-teal-500/25 transition-all duration-300"
 						>
 							Send Your Resume
 						</a>
@@ -100,7 +100,7 @@ export const Careers: React.FC = () => {
 						Have questions about working at CryptDocker?{" "}
 						<Link
 							to={PATH.CONTACT}
-							className="text-violet-400 font-medium hover:underline"
+							className="text-teal-400 font-medium hover:underline"
 						>
 							Get in touch
 						</Link>

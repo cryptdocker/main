@@ -12,13 +12,13 @@ interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
 
 const variantStyles: Record<Variant, string> = {
 	primary:
-		"bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:from-violet-500 hover:to-violet-400",
+		"bg-linear-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 hover:from-teal-500 hover:to-teal-400",
 	secondary:
-		"bg-white/6 text-violet-300 hover:bg-white/10 border border-white/[0.08]",
+		"bg-white/6 text-teal-300 hover:bg-white/10 border border-white/[0.08]",
 	outline:
-		"border border-white/[0.12] text-slate-300 hover:border-violet-500/50 hover:text-violet-300 hover:bg-white/3",
+		"border border-white/[0.12] text-slate-300 hover:border-teal-500/50 hover:text-teal-300 hover:bg-white/3",
 	white:
-		"bg-white text-violet-700 hover:bg-violet-50 shadow-lg shadow-white/10",
+		"bg-white text-teal-700 hover:bg-teal-50 shadow-lg shadow-white/10",
 	ghost:
 		"border border-white/[0.15] text-white hover:bg-white/8 hover:border-white/[0.25]",
 };

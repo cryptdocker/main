@@ -36,7 +36,7 @@ export const Blog: React.FC = () => {
 								onClick={() => setActive(cat)}
 								className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
 									cat === active
-										? "bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/20"
+										? "bg-linear-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-500/20"
 										: "bg-white/4 text-slate-400 border border-white/8 hover:bg-white/8 hover:text-white"
 								}`}
 							>
@@ -59,7 +59,7 @@ export const Blog: React.FC = () => {
 									className="group block rounded-2xl glass p-6 hover:bg-white/5 transition-all duration-300"
 								>
 									<div className="flex items-center gap-3 mb-4">
-										<span className="px-2.5 py-1 rounded-full bg-violet-500/15 text-violet-400 text-xs font-medium">
+										<span className="px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-400 text-xs font-medium">
 											{post.category}
 										</span>
 										<span className="text-xs text-slate-500">{post.date}</span>
@@ -67,13 +67,13 @@ export const Blog: React.FC = () => {
 											&middot; {post.readTime}
 										</span>
 									</div>
-									<h3 className="text-lg font-semibold text-white mb-2 group-hover:text-violet-400 transition-colors">
+									<h3 className="text-lg font-semibold text-white mb-2 group-hover:text-teal-400 transition-colors">
 										{post.title}
 									</h3>
 									<p className="text-slate-400 text-[15px] leading-relaxed mb-4">
 										{post.excerpt}
 									</p>
-									<span className="inline-flex items-center text-sm font-medium text-violet-400 gap-1 group-hover:gap-2 transition-all">
+									<span className="inline-flex items-center text-sm font-medium text-teal-400 gap-1 group-hover:gap-2 transition-all">
 										Read More
 										<IoArrowForward className="w-4 h-4" />
 									</span>

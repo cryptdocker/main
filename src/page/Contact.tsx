@@ -92,7 +92,7 @@ export const Contact: React.FC = () => {
 		`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-200 bg-white/4 placeholder:text-slate-600 focus:outline-none focus:ring-1 transition ${
 			touched[field] && errors[field]
 				? "border-red-500/50 focus:border-red-500 focus:ring-red-500/30"
-				: "border-white/[0.08] focus:border-violet-500/50 focus:ring-violet-500/30"
+				: "border-white/[0.08] focus:border-teal-500/50 focus:ring-teal-500/30"
 		}`;
 
 	return (
@@ -118,7 +118,7 @@ export const Contact: React.FC = () => {
 						className="max-w-sm mx-auto mb-16"
 					>
 						<div className="p-6 rounded-2xl glass text-center">
-							<div className="w-12 h-12 rounded-xl bg-violet-500/15 text-violet-400 flex items-center justify-center mx-auto mb-4">
+							<div className="w-12 h-12 rounded-xl bg-teal-500/15 text-teal-400 flex items-center justify-center mx-auto mb-4">
 								<IoMailOutline className="w-6 h-6" />
 							</div>
 							<h3 className="font-semibold text-white mb-1">Email</h3>
@@ -127,7 +127,7 @@ export const Contact: React.FC = () => {
 							</p>
 							<a
 								href="mailto:contact@cryptdocker.com"
-								className="text-sm font-medium text-violet-400 hover:underline"
+								className="text-sm font-medium text-teal-400 hover:underline"
 							>
 								contact@cryptdocker.com
 							</a>
@@ -143,9 +143,9 @@ export const Contact: React.FC = () => {
 							<motion.div
 								initial={{ opacity: 0, scale: 0.95 }}
 								animate={{ opacity: 1, scale: 1 }}
-								className="text-center py-12 px-6 rounded-2xl glass glow-violet"
+								className="text-center py-12 px-6 rounded-2xl glass glow-teal"
 							>
-								<div className="w-14 h-14 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center mx-auto mb-4">
+								<div className="w-14 h-14 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center mx-auto mb-4">
 									<IoMailOutline className="w-7 h-7" />
 								</div>
 								<h3 className="text-xl font-semibold text-white mb-2">
@@ -252,7 +252,7 @@ export const Contact: React.FC = () => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="LinkedIn"
-								className="text-slate-500 hover:text-violet-400 transition-colors duration-200"
+								className="text-slate-500 hover:text-teal-400 transition-colors duration-200"
 							>
 								<FaLinkedin className="w-5 h-5" />
 							</a>
@@ -261,7 +261,7 @@ export const Contact: React.FC = () => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Medium"
-								className="text-slate-500 hover:text-violet-400 transition-colors duration-200"
+								className="text-slate-500 hover:text-teal-400 transition-colors duration-200"
 							>
 								<FaMedium className="w-5 h-5" />
 							</a>
@@ -270,7 +270,7 @@ export const Contact: React.FC = () => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Telegram"
-								className="text-slate-500 hover:text-violet-400 transition-colors duration-200"
+								className="text-slate-500 hover:text-teal-400 transition-colors duration-200"
 							>
 								<FaTelegram className="w-5 h-5" />
 							</a>

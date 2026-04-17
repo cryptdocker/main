@@ -116,7 +116,7 @@ export const Support: React.FC = () => {
 									viewport={{ once: true }}
 									transition={{ duration: 0.5, delay: i * 0.1 }}
 								>
-									<div className="w-12 h-12 rounded-xl bg-violet-500/15 text-violet-400 flex items-center justify-center mx-auto mb-4">
+									<div className="w-12 h-12 rounded-xl bg-teal-500/15 text-teal-400 flex items-center justify-center mx-auto mb-4">
 										{opt.icon}
 									</div>
 									<h3 className="font-semibold text-white mb-1">
@@ -125,7 +125,7 @@ export const Support: React.FC = () => {
 									<p className="text-sm text-slate-500 mb-3">
 										{opt.description}
 									</p>
-									<span className="text-sm font-medium text-violet-400">
+									<span className="text-sm font-medium text-teal-400">
 										{opt.linkText}
 									</span>
 								</motion.div>
@@ -170,7 +170,7 @@ export const Support: React.FC = () => {
 						<p className="text-slate-500 mb-4">Still need help?</p>
 						<Link
 							to={PATH.CONTACT}
-							className="inline-flex items-center px-6 py-3 bg-linear-to-r from-violet-600 to-violet-500 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-300"
+							className="inline-flex items-center px-6 py-3 bg-linear-to-r from-teal-600 to-teal-500 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-teal-500/25 transition-all duration-300"
 						>
 							Contact Us
 						</Link>
@@ -180,7 +180,7 @@ export const Support: React.FC = () => {
 
 			<section className="pb-20">
 				<div className="max-w-4xl mx-auto px-6">
-					<div className="rounded-2xl bg-linear-to-br from-violet-600/15 via-violet-500/8 to-transparent border border-violet-500/20 p-10 text-center">
+					<div className="rounded-2xl bg-linear-to-br from-teal-600/15 via-teal-500/8 to-transparent border border-teal-500/20 p-10 text-center">
 						<h3 className="text-2xl font-bold text-white mb-3">
 							Try CryptDocker today
 						</h3>
@@ -193,7 +193,7 @@ export const Support: React.FC = () => {
 								disabled={!canDownload}
 								className={`inline-flex items-center gap-2 px-7 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${
 									canDownload
-										? "bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 cursor-pointer"
+										? "bg-linear-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 cursor-pointer"
 										: "bg-white/6 text-slate-500 cursor-not-allowed"
 								}`}
 							>
@@ -202,7 +202,7 @@ export const Support: React.FC = () => {
 							</button>
 							<Link
 								to={PATH.HOME}
-								className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-medium text-slate-300 border border-white/12 rounded-xl hover:border-violet-500/50 hover:text-violet-300 transition-all duration-300"
+								className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-medium text-slate-300 border border-white/12 rounded-xl hover:border-teal-500/50 hover:text-teal-300 transition-all duration-300"
 							>
 								Back to Homepage
 							</Link>

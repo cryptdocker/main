@@ -12,8 +12,8 @@ const tools = [
 		description:
 			"GPT-5 with live web search, on tap. Research tokens, decode contract logic, or pressure-test a thesis — without leaving your workspace.",
 		icon: <IoChatbubbleOutline className="w-7 h-7" />,
-		gradient: "from-violet-500 to-fuchsia-500",
-		glow: "shadow-violet-500/20",
+		gradient: "from-teal-500 to-cyan-400",
+		glow: "shadow-teal-500/20",
 	},
 	{
 		title: "Real-Time Contract Auditing",
@@ -36,7 +36,7 @@ const tools = [
 export const AITools: React.FC = () => {
 	return (
 		<section id="ai" className="relative py-24 overflow-hidden">
-			<div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/4 rounded-full blur-3xl" />
+			<div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/4 rounded-full blur-3xl" />
 			<div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/4 rounded-full blur-3xl" />
 
 			<div className="relative z-10 max-w-8xl mx-auto px-6">
@@ -56,7 +56,7 @@ export const AITools: React.FC = () => {
 							whileHover={{ y: -6, transition: { duration: 0.2 } }}
 							className="relative group rounded-2xl glass p-8 hover:bg-white/6 transition-all duration-500 overflow-hidden"
 						>
-							<div className="absolute inset-0 bg-linear-to-br opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 from-violet-500 to-cyan-500" />
+							<div className="absolute inset-0 bg-linear-to-br opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 from-teal-500 to-cyan-500" />
 							<div
 								className={`w-14 h-14 rounded-2xl bg-linear-to-br ${tool.gradient} text-white flex items-center justify-center mb-6 shadow-lg ${tool.glow} group-hover:scale-105 transition-transform duration-300`}
 							>

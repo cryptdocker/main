@@ -120,7 +120,7 @@ export const Navbar: React.FC = () => {
 						}
 					}}
 				>
-					<div className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-violet-500 flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:shadow-violet-500/40 transition-shadow duration-300">
+					<div className="w-8 h-8 rounded-lg bg-linear-to-br from-teal-600 to-teal-500 flex items-center justify-center shadow-lg shadow-teal-500/20 group-hover:shadow-teal-500/40 transition-shadow duration-300">
 						<img src={IMG.Logo} className="w-6" />
 					</div>
 					<span className="text-xl font-bold text-white">CryptDocker</span>
@@ -132,7 +132,7 @@ export const Navbar: React.FC = () => {
 							<a
 								key={link.to}
 								href={link.to}
-								className="text-sm text-slate-400 hover:text-violet-400 transition-colors duration-200"
+								className="text-sm text-slate-400 hover:text-teal-400 transition-colors duration-200"
 							>
 								{link.label}
 							</a>
@@ -142,8 +142,8 @@ export const Navbar: React.FC = () => {
 								to={link.to}
 								className={`text-sm transition-colors duration-200 ${
 									location.pathname === link.to
-										? "text-violet-400 font-medium"
-										: "text-slate-400 hover:text-violet-400"
+										? "text-teal-400 font-medium"
+										: "text-slate-400 hover:text-teal-400"
 								}`}
 							>
 								{link.label}
@@ -156,8 +156,8 @@ export const Navbar: React.FC = () => {
 							type="button"
 							className={`inline-flex items-center gap-1 text-sm transition-colors duration-200 cursor-pointer ${
 								productsOpen
-									? "text-violet-400 font-medium"
-									: "text-slate-400 hover:text-violet-400"
+									? "text-teal-400 font-medium"
+									: "text-slate-400 hover:text-teal-400"
 							}`}
 							aria-haspopup="menu"
 							aria-expanded={productsOpen}
@@ -186,7 +186,7 @@ export const Navbar: React.FC = () => {
 										<Link
 											to={PATH.DOWNLOAD}
 											role="menuitem"
-											className="block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-violet-400"
+											className="block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400"
 											onClick={() => setProductsOpen(false)}
 										>
 											CryptDocker
@@ -194,7 +194,7 @@ export const Navbar: React.FC = () => {
 										<button
 											type="button"
 											role="menuitem"
-											className="w-full text-left block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-violet-400 cursor-pointer"
+											className="w-full text-left block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400 cursor-pointer"
 											onClick={() => {
 												setProductsOpen(false);
 												window.open(
@@ -226,8 +226,8 @@ export const Navbar: React.FC = () => {
 							type="button"
 							className={`inline-flex items-center gap-1 text-sm transition-colors duration-200 cursor-pointer ${
 								resourcesOpen
-									? "text-violet-400 font-medium"
-									: "text-slate-400 hover:text-violet-400"
+									? "text-teal-400 font-medium"
+									: "text-slate-400 hover:text-teal-400"
 							}`}
 							aria-haspopup="menu"
 							aria-expanded={resourcesOpen}
@@ -260,8 +260,8 @@ export const Navbar: React.FC = () => {
 												role="menuitem"
 												className={`block px-4 py-2.5 text-sm transition-colors duration-200 ${
 													location.pathname === link.to
-														? "text-violet-400 bg-violet-500/10 font-medium"
-														: "text-slate-300 hover:bg-white/5 hover:text-violet-400"
+														? "text-teal-400 bg-teal-500/10 font-medium"
+														: "text-slate-300 hover:bg-white/5 hover:text-teal-400"
 												}`}
 												onClick={() => setResourcesOpen(false)}
 											>
@@ -312,7 +312,7 @@ export const Navbar: React.FC = () => {
 								<a
 									key={link.to}
 									href={link.to}
-									className="block text-sm text-slate-400 hover:text-violet-400 py-2"
+									className="block text-sm text-slate-400 hover:text-teal-400 py-2"
 									onClick={() => setMobileOpen(false)}
 								>
 									{link.label}
@@ -321,7 +321,7 @@ export const Navbar: React.FC = () => {
 								<Link
 									key={link.to}
 									to={link.to}
-									className="block text-sm text-slate-400 hover:text-violet-400 py-2"
+									className="block text-sm text-slate-400 hover:text-teal-400 py-2"
 								>
 									{link.label}
 								</Link>
@@ -331,7 +331,7 @@ export const Navbar: React.FC = () => {
 						<div className="pt-1">
 							<button
 								type="button"
-								className="w-full flex items-center justify-between text-sm text-slate-400 hover:text-violet-400 py-2 cursor-pointer"
+								className="w-full flex items-center justify-between text-sm text-slate-400 hover:text-teal-400 py-2 cursor-pointer"
 								aria-expanded={mobileProductsOpen}
 								onClick={() => setMobileProductsOpen((v) => !v)}
 							>
@@ -347,14 +347,14 @@ export const Navbar: React.FC = () => {
 								<div className="mt-1 pl-3 border-l border-white/8 space-y-1">
 									<Link
 										to={PATH.DOWNLOAD}
-										className="block text-sm text-slate-400 hover:text-violet-400 py-2"
+										className="block text-sm text-slate-400 hover:text-teal-400 py-2"
 										onClick={() => setMobileOpen(false)}
 									>
 										CryptDocker
 									</Link>
 									<button
 										type="button"
-										className="w-full text-left block text-sm text-slate-400 hover:text-violet-400 py-2 cursor-pointer"
+										className="w-full text-left block text-sm text-slate-400 hover:text-teal-400 py-2 cursor-pointer"
 										onClick={() => {
 											window.open(
 												"https://trade.cryptdocker.com",
@@ -380,7 +380,7 @@ export const Navbar: React.FC = () => {
 						<div className="pt-1">
 							<button
 								type="button"
-								className="w-full flex items-center justify-between text-sm text-slate-400 hover:text-violet-400 py-2 cursor-pointer"
+								className="w-full flex items-center justify-between text-sm text-slate-400 hover:text-teal-400 py-2 cursor-pointer"
 								aria-expanded={mobileResourcesOpen}
 								onClick={() => setMobileResourcesOpen((v) => !v)}
 							>
@@ -398,7 +398,7 @@ export const Navbar: React.FC = () => {
 										<Link
 											key={link.to}
 											to={link.to}
-											className="block text-sm text-slate-400 hover:text-violet-400 py-2"
+											className="block text-sm text-slate-400 hover:text-teal-400 py-2"
 											onClick={() => setMobileOpen(false)}
 										>
 											{link.label}

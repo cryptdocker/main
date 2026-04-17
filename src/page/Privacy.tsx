@@ -110,7 +110,7 @@ export const Privacy: React.FC = () => {
 									{section.content.map((item, j) => (
 										<li
 											key={j}
-											className="text-slate-400 leading-relaxed text-[15px] pl-4 border-l-2 border-violet-500/20"
+											className="text-slate-400 leading-relaxed text-[15px] pl-4 border-l-2 border-teal-500/20"
 										>
 											{item}
 										</li>

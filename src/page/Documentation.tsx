@@ -162,7 +162,7 @@ export const Documentation: React.FC = () => {
 
 			<section className="pb-20">
 				<div className="max-w-4xl mx-auto px-6">
-					<div className="rounded-2xl bg-linear-to-br from-violet-600/15 via-violet-500/8 to-transparent border border-violet-500/20 p-10 text-center">
+					<div className="rounded-2xl bg-linear-to-br from-teal-600/15 via-teal-500/8 to-transparent border border-teal-500/20 p-10 text-center">
 						<h3 className="text-2xl font-bold text-white mb-3">
 							Ready to get started?
 						</h3>
@@ -175,7 +175,7 @@ export const Documentation: React.FC = () => {
 								disabled={!canDownload}
 								className={`inline-flex items-center gap-2 px-7 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${
 									canDownload
-										? "bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 cursor-pointer"
+										? "bg-linear-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 cursor-pointer"
 										: "bg-white/6 text-slate-500 cursor-not-allowed"
 								}`}
 							>
@@ -184,7 +184,7 @@ export const Documentation: React.FC = () => {
 							</button>
 							<Link
 								to={PATH.SUPPORT}
-								className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-medium text-slate-300 border border-white/12 rounded-xl hover:border-violet-500/50 hover:text-violet-300 transition-all duration-300"
+								className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-medium text-slate-300 border border-white/12 rounded-xl hover:border-teal-500/50 hover:text-teal-300 transition-all duration-300"
 							>
 								Need help?
 								<IoArrowForward className="w-4 h-4" />

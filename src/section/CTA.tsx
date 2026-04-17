@@ -30,7 +30,7 @@ export const CTA: React.FC = () => {
 					transition={{ duration: 0.6 }}
 					className="relative rounded-3xl overflow-hidden"
 				>
-					<div className="absolute inset-0 bg-linear-to-br from-violet-600/90 via-violet-700/90 to-violet-900/90" />
+					<div className="absolute inset-0 bg-linear-to-br from-teal-600/90 via-teal-700/90 to-teal-900/90" />
 					<div className="absolute inset-0 mesh-gradient opacity-30" />
 
 					<div className="absolute inset-0 opacity-10">
@@ -42,7 +42,7 @@ export const CTA: React.FC = () => {
 						<h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
 							Ready to Streamline Your Crypto Workflow?
 						</h2>
-						<p className="text-violet-200/80 text-lg max-w-xl mx-auto mb-8">
+						<p className="text-teal-200/80 text-lg max-w-xl mx-auto mb-8">
 							Join crypto teams and power users who run their workflow inside a
 							dedicated, secure desktop environment.
 						</p>
@@ -65,7 +65,7 @@ export const CTA: React.FC = () => {
 									Download for {clientOS}
 								</Button>
 								{!canDownload && (
-									<span className="text-xs text-violet-300/60">
+									<span className="text-xs text-teal-300/60">
 										Coming soon for Linux
 									</span>
 								)}

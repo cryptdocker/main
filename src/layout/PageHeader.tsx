@@ -14,7 +14,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 	return (
 		<section className="relative py-20 md:py-28 overflow-hidden">
 			<div className="absolute inset-0 mesh-gradient" />
-			<div className="absolute top-10 right-[15%] w-64 h-64 bg-violet-500/8 rounded-full blur-3xl animate-float-slow" />
+			<div className="absolute top-10 right-[15%] w-64 h-64 bg-teal-500/8 rounded-full blur-3xl animate-float-slow" />
 			<div className="absolute bottom-10 left-[10%] w-48 h-48 bg-cyan-500/6 rounded-full blur-3xl animate-float" />
 
 			<motion.div

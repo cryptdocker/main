@@ -51,14 +51,14 @@ export const BlogPost: React.FC = () => {
 				>
 					<Link
 						to={PATH.BLOG}
-						className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-violet-400 transition-colors mb-8"
+						className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-teal-400 transition-colors mb-8"
 					>
 						<IoArrowBack className="w-4 h-4" />
 						Back to Blog
 					</Link>
 
 					<div className="flex items-center gap-3 mb-4">
-						<span className="px-2.5 py-1 rounded-full bg-violet-500/15 text-violet-400 text-xs font-medium">
+						<span className="px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-400 text-xs font-medium">
 							{post.category}
 						</span>
 						<span className="text-sm text-slate-500">{post.date}</span>
@@ -86,7 +86,7 @@ export const BlogPost: React.FC = () => {
 								className="group p-5 rounded-xl glass hover:bg-white/5 transition-all"
 							>
 								<span className="text-xs text-slate-500">Previous</span>
-								<p className="text-sm font-semibold text-white mt-1 group-hover:text-violet-400 transition-colors line-clamp-2">
+								<p className="text-sm font-semibold text-white mt-1 group-hover:text-teal-400 transition-colors line-clamp-2">
 									{prevPost.title}
 								</p>
 							</Link>
@@ -99,7 +99,7 @@ export const BlogPost: React.FC = () => {
 								className="group p-5 rounded-xl glass hover:bg-white/5 transition-all text-right"
 							>
 								<span className="text-xs text-slate-500">Next</span>
-								<p className="text-sm font-semibold text-white mt-1 group-hover:text-violet-400 transition-colors line-clamp-2">
+								<p className="text-sm font-semibold text-white mt-1 group-hover:text-teal-400 transition-colors line-clamp-2">
 									{nextPost.title}
 								</p>
 							</Link>

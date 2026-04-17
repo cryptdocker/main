@@ -92,19 +92,19 @@ export const Download: React.FC = () => {
 									whileHover={{ y: -4, transition: { duration: 0.2 } }}
 									className={`relative rounded-2xl p-8 text-center transition-all duration-500 ${
 										highlighted
-											? "glass-strong glow-violet border-violet-500/30"
+											? "glass-strong glow-teal border-teal-500/30"
 											: "glass hover:bg-white/5"
 									}`}
 								>
 									{highlighted && (
-										<div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 bg-linear-to-r from-violet-600 to-violet-500 text-white text-xs font-semibold rounded-full shadow-lg shadow-violet-500/30">
+										<div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 bg-linear-to-r from-teal-600 to-teal-500 text-white text-xs font-semibold rounded-full shadow-lg shadow-teal-500/30">
 											Current OS
 										</div>
 									)}
 									<div
 										className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 ${
 											highlighted
-												? "bg-violet-500/20 text-violet-400"
+												? "bg-teal-500/20 text-teal-400"
 												: "bg-white/6 text-slate-400"
 										}`}
 									>
@@ -158,7 +158,7 @@ export const Download: React.FC = () => {
 					>
 						<div className="rounded-2xl glass p-8">
 							<div className="flex items-center gap-3 mb-5">
-								<IoShieldCheckmarkOutline className="w-6 h-6 text-violet-400" />
+								<IoShieldCheckmarkOutline className="w-6 h-6 text-teal-400" />
 								<h3 className="text-lg font-semibold text-white">
 									What's Included
 								</h3>
@@ -166,7 +166,7 @@ export const Download: React.FC = () => {
 							<ul className="space-y-3">
 								{features.map((f) => (
 									<li key={f} className="flex items-center gap-3">
-										<IoCheckmarkCircleOutline className="w-5 h-5 text-violet-400 shrink-0" />
+										<IoCheckmarkCircleOutline className="w-5 h-5 text-teal-400 shrink-0" />
 										<span className="text-slate-400 text-[15px]">{f}</span>
 									</li>
 								))}
@@ -180,7 +180,7 @@ export const Download: React.FC = () => {
 						</p>
 						<Link
 							to={`${PATH.HOME}#pricing`}
-							className="text-violet-400 font-medium hover:underline"
+							className="text-teal-400 font-medium hover:underline"
 						>
 							Compare Free vs Pro plans
 						</Link>
@@ -202,7 +202,7 @@ export const Download: React.FC = () => {
 							animate={{ scale: 1, opacity: 1 }}
 							exit={{ scale: 0.9, opacity: 0 }}
 							transition={{ type: "spring", damping: 20 }}
-							className="relative glass-strong rounded-2xl shadow-2xl max-w-sm w-full mx-4 p-8 text-center glow-violet"
+							className="relative glass-strong rounded-2xl shadow-2xl max-w-sm w-full mx-4 p-8 text-center glow-teal"
 							onClick={(e) => e.stopPropagation()}
 						>
 							<button

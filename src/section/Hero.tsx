@@ -71,9 +71,9 @@ export const Hero: React.FC = () => {
 		<section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 			<div className="absolute inset-0 mesh-gradient" />
 
-			<div className="absolute top-20 right-[10%] w-80 h-80 bg-violet-500/8 rounded-full blur-3xl animate-float" />
+			<div className="absolute top-20 right-[10%] w-80 h-80 bg-teal-500/8 rounded-full blur-3xl animate-float" />
 			<div className="absolute bottom-32 left-[5%] w-96 h-96 bg-cyan-500/6 rounded-full blur-3xl animate-float-slow" />
-			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-violet-500/3 rounded-full blur-3xl" />
+			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/3 rounded-full blur-3xl" />
 			<div className="absolute top-40 left-[20%] w-48 h-48 bg-amber-500/5 rounded-full blur-3xl animate-float" />
 
 			<div className="relative z-10 max-w-8xl mx-auto px-6 text-center pt-24 pb-16 w-full">
@@ -83,7 +83,7 @@ export const Hero: React.FC = () => {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6, delay: 0.1 }}
 						className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 glass">
-						<span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+						<span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
 						<span
 							aria-live="polite"
 							className="transition-opacity duration-300 text-slate-300"
@@ -188,7 +188,7 @@ export const Hero: React.FC = () => {
 					animate={{ opacity: 1, y: 0, scale: 1 }}
 					transition={{ duration: 0.8, delay: 0.85, ease: "easeOut" }}
 					className="relative w-full max-w-8xl mx-auto">
-					<div className="w-full relative rounded-2xl glass-strong overflow-hidden glow-violet aspect-video">
+					<div className="w-full relative rounded-2xl glass-strong overflow-hidden glow-teal aspect-video">
 						<AnimatePresence mode="wait">
 							<motion.img
 								key={slideIndex}
@@ -210,7 +210,7 @@ export const Hero: React.FC = () => {
 									aria-label={`Go to slide ${i + 1}`}
 									className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
 										i === slideIndex
-											? "bg-violet-400 w-6"
+											? "bg-teal-400 w-6"
 											: "bg-white/30 hover:bg-white/50"
 									}`}
 									onClick={() => setSlideIndex(i)}
@@ -219,7 +219,7 @@ export const Hero: React.FC = () => {
 						</div>
 					</div>
 
-					<div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-violet-500/10 blur-3xl rounded-full" />
+					<div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-teal-500/10 blur-3xl rounded-full" />
 				</motion.div>
 			</div>
 		</section>

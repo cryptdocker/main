@@ -3,11 +3,11 @@
 
 @theme {
 	--font-sans: "Inter", system-ui, -apple-system, sans-serif;
-	--color-dark-base: #06060f;
-	--color-dark-surface: #0c0c1d;
-	--color-dark-card: #111127;
-	--color-accent: #8B5CF6;
-	--color-accent-light: #A78BFA;
+	--color-dark-base: #03131a;
+	--color-dark-surface: #051e28;
+	--color-dark-card: #0a2833;
+	--color-accent: #14B8A6;
+	--color-accent-light: #5EEAD4;
 	--color-accent-cyan: #22D3EE;
 	--color-accent-gold: #FBBF24;
 	--spacing-8xl: 1440px;
@@ -40,15 +40,15 @@ body {
 	background: var(--color-dark-base);
 }
 ::-webkit-scrollbar-thumb {
-	background: rgba(139, 92, 246, 0.3);
+	background: rgba(20, 184, 166, 0.3);
 	border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-	background: rgba(139, 92, 246, 0.5);
+	background: rgba(20, 184, 166, 0.5);
 }
 
 ::selection {
-	background: rgba(139, 92, 246, 0.3);
+	background: rgba(20, 184, 166, 0.3);
 	color: #fff;
 }
 
@@ -100,7 +100,7 @@ body {
 }
 
 .text-gradient {
-	background: linear-gradient(135deg, #8B5CF6, #06B6D4, #8B5CF6);
+	background: linear-gradient(135deg, #14B8A6, #22D3EE, #2DD4BF);
 	background-size: 200% auto;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -113,8 +113,8 @@ body {
 	background-clip: text;
 }
 
-.glow-violet {
-	box-shadow: 0 0 40px rgba(139, 92, 246, 0.15), 0 0 80px rgba(139, 92, 246, 0.05);
+.glow-teal {
+	box-shadow: 0 0 40px rgba(20, 184, 166, 0.18), 0 0 80px rgba(20, 184, 166, 0.06);
 }
 .glow-cyan {
 	box-shadow: 0 0 40px rgba(6, 182, 212, 0.15), 0 0 80px rgba(6, 182, 212, 0.05);
@@ -125,8 +125,8 @@ body {
 
 .mesh-gradient {
 	background:
-		radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
-		radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+		radial-gradient(ellipse at 20% 20%, rgba(20, 184, 166, 0.14) 0%, transparent 50%),
+		radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.09) 0%, transparent 50%),
 		radial-gradient(ellipse at 50% 50%, rgba(251, 191, 36, 0.04) 0%, transparent 50%);
 }
 
@@ -134,15 +134,15 @@ body {
 	--tw-prose-body: #94a3b8;
 	--tw-prose-headings: #f1f5f9;
 	--tw-prose-lead: #94a3b8;
-	--tw-prose-links: #a78bfa;
+	--tw-prose-links: #5eead4;
 	--tw-prose-bold: #e2e8f0;
 	--tw-prose-counters: #64748b;
 	--tw-prose-bullets: #64748b;
 	--tw-prose-hr: rgba(255,255,255,0.08);
 	--tw-prose-quotes: #cbd5e1;
-	--tw-prose-quote-borders: rgba(139,92,246,0.3);
+	--tw-prose-quote-borders: rgba(20,184,166,0.3);
 	--tw-prose-captions: #64748b;
-	--tw-prose-code: #a78bfa;
+	--tw-prose-code: #5eead4;
 	--tw-prose-pre-code: #e2e8f0;
 	--tw-prose-pre-bg: rgba(0,0,0,0.4);
 	--tw-prose-th-borders: rgba(255,255,255,0.1);
