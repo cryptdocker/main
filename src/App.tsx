@@ -12,6 +12,9 @@ import { Privacy } from "./page/Privacy";
 import { Terms } from "./page/Terms";
 import { Download } from "./page/Download";
 import { Documentation } from "./page/Documentation";
+import { WalletAnalysis } from "./page/WalletAnalysis";
+import { SiteAnalysis } from "./page/SiteAnalysis";
+import { NewsAnalysis } from "./page/NewsAnalysis";
 
 function App() {
 	return (
@@ -29,6 +32,12 @@ function App() {
 					<Route path={PATH.PRIVACY} element={<Privacy />} />
 					<Route path={PATH.TERMS} element={<Terms />} />
 					<Route path={PATH.DOWNLOAD} element={<Download />} />
+					<Route
+						path={PATH.WALLET_ANALYSIS}
+						element={<WalletAnalysis />}
+					/>
+					<Route path={PATH.SITE_ANALYSIS} element={<SiteAnalysis />} />
+					<Route path={PATH.NEWS_ANALYSIS} element={<NewsAnalysis />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

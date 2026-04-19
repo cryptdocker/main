@@ -1,11 +1,21 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { IoMenu, IoClose, IoChevronDown } from "react-icons/io5";
+import {
+	IoMenu,
+	IoClose,
+	IoChevronDown,
+	IoExtensionPuzzleOutline,
+	IoWalletOutline,
+	IoGlobeOutline,
+	IoNewspaperOutline,
+} from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../component/Button";
 import { IMG } from "../assets/image";
 import { PATH } from "../const";
 import { detectOS } from "../utils/detectOS";
+import { IoIosDesktop } from "react-icons/io";
+import { RiRobot2Line } from "react-icons/ri";
 
 const DOWNLOAD_URL_WINDOWS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
@@ -180,21 +190,25 @@ export const Navbar: React.FC = () => {
 									transition={{ duration: 0.15 }}
 									role="menu"
 									aria-label="Products"
-									className="absolute top-full mt-3 right-0 w-60 rounded-xl bg-dark-surface border border-white/8 shadow-xl shadow-black/40 overflow-hidden"
+									className="absolute top-full mt-3 right-0 w-72 rounded-xl bg-dark-surface border border-white/8 shadow-xl shadow-black/40 overflow-hidden"
 								>
 									<div className="py-2">
+										<p className="px-4 pt-1 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+											Apps
+										</p>
 										<Link
 											to={PATH.DOWNLOAD}
 											role="menuitem"
-											className="block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400"
+											className="flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400"
 											onClick={() => setProductsOpen(false)}
 										>
+											<IoIosDesktop className="w-4 h-4 text-teal-400" />
 											CryptDocker
 										</Link>
 										<button
 											type="button"
 											role="menuitem"
-											className="w-full text-left block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400 cursor-pointer"
+											className="flex items-center gap-2.5 px-4 py-2.5 w-full text-left text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400 cursor-pointer"
 											onClick={() => {
 												setProductsOpen(false);
 												window.open(
@@ -204,17 +218,65 @@ export const Navbar: React.FC = () => {
 												);
 											}}
 										>
+											<RiRobot2Line className="w-4 h-4 text-teal-400" />
 											TradeGPT
 										</button>
 										<div
 											role="menuitem"
 											aria-disabled="true"
-											className="px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed"
+											className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed"
 											title="Coming soon"
 										>
-											MentalShield{" "}
-											<span className="text-xs">(Coming Soon)</span>
+											<IoExtensionPuzzleOutline className="w-4 h-4" />
+											MentalShield
+											<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-600">
+												Soon
+											</span>
 										</div>
+
+										<div className="my-2 h-px bg-white/6" />
+										<p className="px-4 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+											Analysis Tools
+										</p>
+										<Link
+											to={PATH.WALLET_ANALYSIS}
+											role="menuitem"
+											className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors duration-200 ${
+												location.pathname === PATH.WALLET_ANALYSIS
+													? "text-teal-400 bg-teal-500/10 font-medium"
+													: "text-slate-300 hover:bg-white/5 hover:text-teal-400"
+											}`}
+											onClick={() => setProductsOpen(false)}
+										>
+											<IoWalletOutline className="w-4 h-4 text-teal-400" />
+											Wallet Analysis
+										</Link>
+										<Link
+											to={PATH.SITE_ANALYSIS}
+											role="menuitem"
+											className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors duration-200 ${
+												location.pathname === PATH.SITE_ANALYSIS
+													? "text-teal-400 bg-teal-500/10 font-medium"
+													: "text-slate-300 hover:bg-white/5 hover:text-teal-400"
+											}`}
+											onClick={() => setProductsOpen(false)}
+										>
+											<IoGlobeOutline className="w-4 h-4 text-teal-400" />
+											Site Analysis
+										</Link>
+										<Link
+											to={PATH.NEWS_ANALYSIS}
+											role="menuitem"
+											className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors duration-200 ${
+												location.pathname === PATH.NEWS_ANALYSIS
+													? "text-teal-400 bg-teal-500/10 font-medium"
+													: "text-slate-300 hover:bg-white/5 hover:text-teal-400"
+											}`}
+											onClick={() => setProductsOpen(false)}
+										>
+											<IoNewspaperOutline className="w-4 h-4 text-teal-400" />
+											News Analysis
+										</Link>
 									</div>
 								</motion.div>
 							)}
@@ -345,16 +407,20 @@ export const Navbar: React.FC = () => {
 
 							{mobileProductsOpen && (
 								<div className="mt-1 pl-3 border-l border-white/8 space-y-1">
+									<p className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 pt-1">
+										Apps
+									</p>
 									<Link
 										to={PATH.DOWNLOAD}
-										className="block text-sm text-slate-400 hover:text-teal-400 py-2"
+										className="flex items-center gap-2 text-sm text-slate-400 hover:text-teal-400 py-2"
 										onClick={() => setMobileOpen(false)}
 									>
+										<IoIosDesktop />
 										CryptDocker
 									</Link>
 									<button
 										type="button"
-										className="w-full text-left block text-sm text-slate-400 hover:text-teal-400 py-2 cursor-pointer"
+										className="flex items-center gap-2 w-full text-left text-sm text-slate-400 hover:text-teal-400 py-2 cursor-pointer"
 										onClick={() => {
 											window.open(
 												"https://trade.cryptdocker.com",
@@ -364,15 +430,48 @@ export const Navbar: React.FC = () => {
 											setMobileOpen(false);
 										}}
 									>
+										<RiRobot2Line />
 										TradeGPT
 									</button>
 									<div
 										aria-disabled="true"
-										className="block text-sm text-slate-600 py-2 cursor-not-allowed"
+										className="flex items-center gap-2 text-sm text-slate-600 py-2 cursor-not-allowed"
 										title="Coming soon"
 									>
-										MentalShield (Coming Soon)
+										<IoExtensionPuzzleOutline />
+										MentalShield
+										<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-600">
+											Soon
+										</span>
 									</div>
+
+									<p className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 pt-3">
+										Analysis Tools
+									</p>
+									<Link
+										to={PATH.WALLET_ANALYSIS}
+										className="flex items-center gap-2 text-sm text-slate-400 hover:text-teal-400 py-2"
+										onClick={() => setMobileOpen(false)}
+									>
+										<IoWalletOutline />
+										Wallet Analysis
+									</Link>
+									<Link
+										to={PATH.SITE_ANALYSIS}
+										className="flex items-center gap-2 text-sm text-slate-400 hover:text-teal-400 py-2"
+										onClick={() => setMobileOpen(false)}
+									>
+										<IoGlobeOutline />
+										Site Analysis
+									</Link>
+									<Link
+										to={PATH.NEWS_ANALYSIS}
+										className="flex items-center gap-2 text-sm text-slate-400 hover:text-teal-400 py-2"
+										onClick={() => setMobileOpen(false)}
+									>
+										<IoNewspaperOutline />
+										News Analysis
+									</Link>
 								</div>
 							)}
 						</div>
