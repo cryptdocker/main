@@ -71,7 +71,7 @@ const plans = [
 
 export const Pricing: React.FC = () => {
 	return (
-		<section id="pricing" className="relative py-24 overflow-hidden">
+		<section id="pricing" className="section-scroll-target relative py-24 overflow-hidden">
 			<div className="absolute inset-0 mesh-gradient opacity-40" />
 			<div className="relative z-10 max-w-8xl mx-auto px-6">
 				<SectionHeading

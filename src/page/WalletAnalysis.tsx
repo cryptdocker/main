@@ -112,6 +112,7 @@ export const WalletAnalysis: React.FC = () => {
 						transition={{ duration: 0.5 }}
 						onSubmit={onSubmit}
 						className="glass rounded-2xl p-5 sm:p-6"
+						aria-busy={loading}
 					>
 						<label className="flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-slate-400 mb-3">
 							<IoWalletOutline className="w-4 h-4 text-teal-400" />
@@ -128,11 +129,13 @@ export const WalletAnalysis: React.FC = () => {
 								className="flex-1 min-w-0 px-4 py-3 rounded-xl border border-white/8 bg-white/4 text-slate-200 placeholder:text-slate-600 font-mono text-sm focus:outline-none focus:ring-1 focus:ring-teal-500/30 focus:border-teal-500/50 transition"
 							/>
 							<Button
+								type="submit"
 								size="lg"
 								disabled={!valid || loading}
 								title={!valid ? "Enter a valid 0x address or tx hash" : undefined}
+								aria-busy={loading}
 							>
-								<IoSearchOutline className="w-5 h-5 mr-2" />
+								<IoSearchOutline className="w-5 h-5 mr-2 shrink-0" aria-hidden />
 								{loading ? "Analyzing…" : "Analyze"}
 							</Button>
 						</div>

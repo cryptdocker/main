@@ -4,8 +4,11 @@ import {
 	IoGlobeOutline,
 	IoSearchOutline,
 	IoAlertCircleOutline,
-	IoShieldCheckmarkOutline,
-	IoStar,
+	IoNewspaperOutline,
+	IoTrendingUp,
+	IoTrendingDown,
+	IoPulse,
+	IoOpenOutline,
 } from "react-icons/io5";
 import { PageHeader } from "../layout/PageHeader";
 import { Button } from "../component/Button";
@@ -29,48 +32,25 @@ function extractHost(input: string): string | null {
 	}
 }
 
-function scoreTone(score: number) {
-	if (score >= 4)
+function sentimentStyle(sentiment: string | undefined) {
+	const s = (sentiment || "").toLowerCase();
+	if (s === "bullish")
 		return {
-			label: "Trusted",
-			wrap: "border-emerald-500/30 bg-emerald-500/10",
-			text: "text-emerald-300",
-			badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+			label: "Bullish",
+			icon: <IoTrendingUp className="w-4 h-4" />,
+			wrap: "border-emerald-500/40 bg-emerald-500/15 text-emerald-300",
 		};
-	if (score >= 2.5)
+	if (s === "bearish")
 		return {
-			label: "Mixed signals",
-			wrap: "border-amber-500/30 bg-amber-500/10",
-			text: "text-amber-300",
-			badge: "bg-amber-500/20 text-amber-300 border-amber-500/40",
-		};
-	if (score > 0)
-		return {
-			label: "High risk",
-			wrap: "border-red-500/30 bg-red-500/10",
-			text: "text-red-300",
-			badge: "bg-red-500/20 text-red-300 border-red-500/40",
+			label: "Bearish",
+			icon: <IoTrendingDown className="w-4 h-4" />,
+			wrap: "border-red-500/40 bg-red-500/15 text-red-300",
 		};
 	return {
-		label: "Unknown",
-		wrap: "border-white/8 bg-white/4",
-		text: "text-slate-300",
-		badge: "bg-white/8 text-slate-300 border-white/12",
+		label: "Neutral",
+		icon: <IoPulse className="w-4 h-4" />,
+		wrap: "border-white/12 bg-white/8 text-slate-300",
 	};
-}
-
-function Stars({ value, max = 5 }: { value: number; max?: number }) {
-	const filled = Math.round(Math.max(0, Math.min(max, value)));
-	return (
-		<span className="inline-flex items-center gap-0.5 align-middle">
-			{Array.from({ length: max }).map((_, i) => (
-				<IoStar
-					key={i}
-					className={`w-4 h-4 ${i < filled ? "text-amber-400" : "text-white/15"}`}
-				/>
-			))}
-		</span>
-	);
 }
 
 export const SiteAnalysis: React.FC = () => {
@@ -99,20 +79,19 @@ export const SiteAnalysis: React.FC = () => {
 		}
 	};
 
-	const trustScore = data?.trustScore ?? 0;
-	const tone = scoreTone(trustScore);
+	const tone = sentimentStyle(data?.sentiment);
 
 	return (
 		<>
 			<SEO
 				title="Site Analysis"
-				description="Grade any website's trust score from threat intelligence, brand signals, and real review aggregates — before you connect your wallet."
+				description="Get AI-summarized news sentiment and headlines for any domain before you connect your wallet."
 				path="/tools/site-analysis"
 			/>
 			<PageHeader
 				label="Site Analysis"
-				title="Check any site's trust score"
-				description="Enter a URL to pull a combined trust rating from APIVoid threat intel, BrandFetch brand data, and Google / Trustpilot reviews."
+				title="Check any site's news sentiment"
+				description="Enter a URL to pull the latest news and get an AI-summarized sentiment read with headlines and sources."
 			/>
 
 			<section className="pb-24">
@@ -123,6 +102,7 @@ export const SiteAnalysis: React.FC = () => {
 						transition={{ duration: 0.5 }}
 						onSubmit={onSubmit}
 						className="glass rounded-2xl p-5 sm:p-6"
+						aria-busy={loading}
 					>
 						<label className="flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-slate-400 mb-3">
 							<IoGlobeOutline className="w-4 h-4 text-teal-400" />
@@ -139,11 +119,13 @@ export const SiteAnalysis: React.FC = () => {
 								className="flex-1 min-w-0 px-4 py-3 rounded-xl border border-white/8 bg-white/4 text-slate-200 placeholder:text-slate-600 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500/30 focus:border-teal-500/50 transition"
 							/>
 							<Button
+								type="submit"
 								size="lg"
 								disabled={!valid || loading}
 								title={!valid ? "Enter a valid URL or domain" : undefined}
+								aria-busy={loading}
 							>
-								<IoSearchOutline className="w-5 h-5 mr-2" />
+								<IoSearchOutline className="w-5 h-5 mr-2 shrink-0" aria-hidden />
 								{loading ? "Analyzing…" : "Analyze"}
 							</Button>
 						</div>
@@ -169,7 +151,8 @@ export const SiteAnalysis: React.FC = () => {
 
 					{loading && !data && !error && (
 						<div className="mt-6 space-y-3">
-							<div className="h-28 rounded-2xl bg-white/4 border border-white/6 animate-pulse" />
+							<div className="h-32 rounded-2xl bg-white/4 border border-white/6 animate-pulse" />
+							<div className="h-24 rounded-2xl bg-white/4 border border-white/6 animate-pulse" />
 							<div className="h-24 rounded-2xl bg-white/4 border border-white/6 animate-pulse" />
 						</div>
 					)}
@@ -181,82 +164,86 @@ export const SiteAnalysis: React.FC = () => {
 							transition={{ duration: 0.45 }}
 							className="mt-6 space-y-4"
 						>
-							<div className={`rounded-2xl border ${tone.wrap} p-5`}>
+							<div className="rounded-2xl border border-white/8 bg-white/4 p-5">
 								<div className="flex flex-wrap items-start justify-between gap-3">
-									<div className="min-w-0">
-										<p className="text-[11px] uppercase tracking-wider text-slate-400 mb-1">
-											Domain
-										</p>
-										<p className="text-lg font-semibold text-slate-100 break-all">
-											{data.details?.companyName || data.domain}
-										</p>
-										<p className="text-xs text-slate-500 font-mono break-all">
-											{data.domain}
-										</p>
-									</div>
+									<p className="text-xs uppercase tracking-wider text-slate-400 flex items-center gap-2">
+										<IoNewspaperOutline className="w-4 h-4 text-teal-400" />
+										Site News Analysis: {data.domain}
+									</p>
 									<span
-										className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold ${tone.badge}`}
+										className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold ${tone.wrap}`}
 									>
-										<IoShieldCheckmarkOutline className="w-3.5 h-3.5" />
+										{tone.icon}
 										{tone.label}
 									</span>
 								</div>
-								<div className="mt-4 flex flex-wrap items-end gap-6">
-									<div>
-										<p className="text-[11px] uppercase tracking-wider text-slate-400">
-											Trust score
-										</p>
-										<div className="flex items-end gap-2">
-											<p
-												className={`text-4xl font-extrabold tabular-nums ${tone.text}`}
-											>
-												{trustScore.toFixed(1)}
-											</p>
-											<span className="text-sm text-slate-500 pb-1">/ 5</span>
-										</div>
-										<div className="mt-1">
-											<Stars value={trustScore} />
-										</div>
-									</div>
-								</div>
+								{data.summary && (
+									<p className="mt-3 text-slate-200 leading-relaxed">
+										{data.summary}
+									</p>
+								)}
+								{data.takeaway && (
+									<p className="mt-3 text-sm text-slate-400 italic border-l-2 border-teal-500/40 pl-3">
+										Trader takeaway: {data.takeaway}
+									</p>
+								)}
 							</div>
 
-							<div className="grid sm:grid-cols-3 gap-4">
-								<MetricCard
-									title="Threat intel"
-									source="APIVoid"
-									score={
-										data.details?.apivoid
-											? data.details.apivoid.normalized
-											: null
-									}
-									subtitle={
-										data.details?.apivoid
-											? `Raw: ${data.details.apivoid.raw}`
-											: "No data"
-									}
-								/>
-								<MetricCard
-									title="Google reviews"
-									source="Google Maps"
-									score={data.details?.google?.rating ?? null}
-									subtitle={
-										data.details?.google?.reviews
-											? `${data.details.google.reviews.toLocaleString()} reviews`
-											: "No reviews"
-									}
-								/>
-								<MetricCard
-									title="Trustpilot"
-									source="Trustpilot"
-									score={data.details?.trustpilot?.rating ?? null}
-									subtitle={
-										data.details?.trustpilot?.totalReviews
-											? `${data.details.trustpilot.totalReviews.toLocaleString()} reviews`
-											: "No reviews"
-									}
-								/>
-							</div>
+							{data.items && data.items.length > 0 && (
+								<div className="rounded-2xl border border-white/8 bg-white/4 p-5">
+									<p className="text-xs uppercase tracking-wider text-slate-400 mb-3">
+										Headlines ({data.items.length})
+									</p>
+									<ul className="space-y-3">
+										{data.items.slice(0, 15).map((item, i) => (
+											<li
+												key={i}
+												className="flex gap-3 rounded-xl p-2 -mx-2 hover:bg-white/4 transition"
+											>
+												{item.thumbnail ? (
+													<img
+														src={item.thumbnail}
+														alt=""
+														loading="lazy"
+														className="w-16 h-16 rounded-lg object-cover shrink-0 bg-white/4"
+													/>
+												) : (
+													<div className="w-16 h-16 rounded-lg shrink-0 bg-white/4 border border-white/6 flex items-center justify-center">
+														<IoNewspaperOutline className="w-6 h-6 text-slate-600" />
+													</div>
+												)}
+												<div className="min-w-0 flex-1">
+													<a
+														href={item.link}
+														target="_blank"
+														rel="noopener noreferrer"
+														className="text-sm font-medium text-slate-100 hover:text-teal-300 transition-colors line-clamp-2 inline-flex items-start gap-1"
+													>
+														{item.title}
+														<IoOpenOutline className="w-3.5 h-3.5 mt-0.5 shrink-0 opacity-60" />
+													</a>
+													{item.snippet && (
+														<p className="mt-1 text-xs text-slate-400 line-clamp-2">
+															{item.snippet}
+														</p>
+													)}
+													<div className="mt-1 text-[11px] text-slate-500 flex items-center gap-2">
+														{item.source && <span>{item.source}</span>}
+														{item.source && item.date && <span>•</span>}
+														{item.date && <span>{item.date}</span>}
+													</div>
+												</div>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+
+							{data.items && data.items.length === 0 && (
+								<div className="rounded-2xl border border-white/8 bg-white/4 p-5 text-sm text-slate-400">
+									No recent headlines found for this site.
+								</div>
+							)}
 						</motion.div>
 					)}
 				</div>
@@ -264,49 +251,3 @@ export const SiteAnalysis: React.FC = () => {
 		</>
 	);
 };
-
-function MetricCard({
-	title,
-	source,
-	score,
-	subtitle,
-}: {
-	title: string;
-	source: string;
-	score: number | null;
-	subtitle?: string;
-}) {
-	const hasScore = typeof score === "number" && !Number.isNaN(score);
-	return (
-		<div className="rounded-2xl border border-white/8 bg-white/4 p-4">
-			<div className="flex items-baseline justify-between">
-				<p className="text-xs uppercase tracking-wider font-semibold text-slate-400">
-					{title}
-				</p>
-				<span className="text-[10px] uppercase tracking-wider text-slate-500">
-					{source}
-				</span>
-			</div>
-			<div className="mt-2 flex items-end gap-2">
-				{hasScore ? (
-					<>
-						<p className="text-2xl font-bold text-slate-100 tabular-nums">
-							{(score as number).toFixed(1)}
-						</p>
-						<span className="text-xs text-slate-500 pb-1">/ 5</span>
-					</>
-				) : (
-					<p className="text-2xl font-bold text-slate-500">—</p>
-				)}
-			</div>
-			{hasScore && (
-				<div className="mt-1">
-					<Stars value={score as number} />
-				</div>
-			)}
-			{subtitle && (
-				<p className="mt-2 text-xs text-slate-500 truncate">{subtitle}</p>
-			)}
-		</div>
-	);
-}

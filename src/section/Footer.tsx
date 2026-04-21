@@ -73,8 +73,10 @@ export const Footer: React.FC = () => {
 					</div>
 					<div className="flex items-center gap-3 shrink-0">
 						<button
+							type="button"
 							onClick={downloadNow}
 							disabled={!canDownload}
+							title={!canDownload ? "Desktop installers available for Windows, macOS, and Linux" : undefined}
 							className={`inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 ${
 								canDownload
 									? "bg-linear-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 cursor-pointer"

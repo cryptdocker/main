@@ -56,7 +56,7 @@ const features = [
 
 export const Features: React.FC = () => {
 	return (
-		<section id="features" className="relative py-24">
+		<section id="features" className="section-scroll-target relative py-24">
 			<div className="absolute inset-0 overflow-hidden">
 				<div className="absolute inset-0 mesh-gradient opacity-50" />
 			</div>

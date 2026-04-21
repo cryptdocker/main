@@ -56,18 +56,13 @@ export const analyzeWallet = (
 
 /* ---------------- Site Analysis (trust score) ---------------- */
 
-export interface SiteAnalysisDetails {
-	apivoid: { raw: number; normalized: number } | null;
-	companyName: string | null;
-	google: { rating: number | null; reviews: number } | null;
-	trustpilot: { rating: number | null; totalReviews?: number } | null;
-}
-
 export interface SiteAnalysisResponse {
 	success: boolean;
 	domain?: string;
-	trustScore?: number;
-	details?: SiteAnalysisDetails;
+	summary?: string;
+	sentiment?: string;
+	takeaway?: string;
+	items?: NewsAnalysisItem[];
 	error?: string;
 }
 

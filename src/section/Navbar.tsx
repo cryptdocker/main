@@ -69,6 +69,23 @@ export const Navbar: React.FC = () => {
 		return () => window.removeEventListener("scroll", onScroll);
 	}, []);
 
+	useEffect(() => {
+		if (!mobileOpen) return;
+		document.body.style.overflow = "hidden";
+		const onKeyDown = (e: KeyboardEvent) => {
+			if (e.key === "Escape") {
+				setMobileOpen(false);
+				setMobileProductsOpen(false);
+				setMobileResourcesOpen(false);
+			}
+		};
+		window.addEventListener("keydown", onKeyDown);
+		return () => {
+			document.body.style.overflow = "";
+			window.removeEventListener("keydown", onKeyDown);
+		};
+	}, [mobileOpen]);
+
 	const isHash = (to: string) => to.includes("#");
 
 	useEffect(() => {
@@ -349,13 +366,18 @@ export const Navbar: React.FC = () => {
 				</div>
 
 				<button
-					className="md:hidden p-2 text-slate-400 cursor-pointer"
+					type="button"
+					id="site-mobile-nav-toggle"
+					className="md:hidden p-2 text-slate-400 cursor-pointer rounded-lg hover:bg-white/5 focus-visible:outline-none"
+					aria-label={mobileOpen ? "Close menu" : "Open menu"}
+					aria-expanded={mobileOpen}
+					aria-controls="site-mobile-nav"
 					onClick={() => setMobileOpen(!mobileOpen)}
 				>
 					{mobileOpen ? (
-						<IoClose className="w-6 h-6" />
+						<IoClose className="w-6 h-6" aria-hidden />
 					) : (
-						<IoMenu className="w-6 h-6" />
+						<IoMenu className="w-6 h-6" aria-hidden />
 					)}
 				</button>
 			</div>
@@ -363,11 +385,12 @@ export const Navbar: React.FC = () => {
 			<AnimatePresence>
 				{mobileOpen && (
 					<motion.div
+						id="site-mobile-nav"
 						initial={{ opacity: 0, height: 0 }}
 						animate={{ opacity: 1, height: "auto" }}
 						exit={{ opacity: 0, height: 0 }}
 						transition={{ duration: 0.2 }}
-						className="md:hidden bg-dark-surface/95 backdrop-blur-xl border-t border-white/6 px-6 py-4 space-y-3 overflow-hidden"
+						className="md:hidden bg-dark-surface/95 backdrop-blur-xl border-t border-white/6 px-6 py-4 space-y-3 overflow-y-auto max-h-[min(70vh,calc(100dvh-4rem))]"
 					>
 						{navLinks.map((link) =>
 							isHash(link.to) ? (

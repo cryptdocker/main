@@ -195,6 +195,7 @@ export const NewsAnalysis: React.FC = () => {
 						transition={{ duration: 0.5 }}
 						onSubmit={onSubmit}
 						className="glass rounded-2xl p-5 sm:p-6"
+						aria-busy={loading}
 					>
 						<label className="flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-slate-400 mb-3">
 							<IoPricetagOutline className="w-4 h-4 text-teal-400" />
@@ -344,10 +345,12 @@ export const NewsAnalysis: React.FC = () => {
 
 						<div className="mt-4 flex justify-end">
 							<Button
+								type="submit"
 								size="lg"
 								disabled={loading || (keywords.length === 0 && !draft.trim())}
+								aria-busy={loading}
 							>
-								<IoSearchOutline className="w-5 h-5 mr-2" />
+								<IoSearchOutline className="w-5 h-5 mr-2 shrink-0" aria-hidden />
 								{loading ? "Analyzing…" : "Analyze news"}
 							</Button>
 						</div>

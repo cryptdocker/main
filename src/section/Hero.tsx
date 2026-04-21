@@ -12,6 +12,14 @@ import { Button } from "../component/Button";
 import { PATH } from "../const";
 import { detectOS } from "../utils/detectOS";
 
+const MotionLink = motion(Link);
+
+const HERO_ROTATING_LABELS = [
+	"Built-in AI tools & Chrome extensions",
+	"Per-site proxies & session isolation",
+	"One secure desktop for exchanges, DeFi & research",
+] as const;
+
 const DOWNLOAD_URL_WINDOWS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
 const DOWNLOAD_URL_MACOS =
@@ -35,8 +43,6 @@ export const Hero: React.FC = () => {
 	const [visible, setVisible] = useState(true);
 	const [slideIndex, setSlideIndex] = useState(0);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-	const HERO_LABELS: string[] = useMemo(() => [], []);
-
 	const clientOS = useMemo(() => detectOS(), []);
 	const isWindows = clientOS === "Windows";
 	const isMacOS = clientOS === "macOS";
@@ -46,7 +52,7 @@ export const Hero: React.FC = () => {
 	const cycle = useCallback(() => {
 		setVisible(false);
 		timeoutRef.current = setTimeout(() => {
-			setLabelIndex((prev) => (prev + 1) % HERO_LABELS.length);
+			setLabelIndex((prev) => (prev + 1) % HERO_ROTATING_LABELS.length);
 			setVisible(true);
 		}, FADE_MS);
 	}, []);
@@ -77,27 +83,27 @@ export const Hero: React.FC = () => {
 			<div className="absolute top-40 left-[20%] w-48 h-48 bg-amber-500/5 rounded-full blur-3xl animate-float" />
 
 			<div className="relative z-10 max-w-8xl mx-auto px-6 text-center pt-24 pb-16 w-full">
-				{HERO_LABELS.length > 0 && (
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.1 }}
-						className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 glass">
-						<span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-						<span
-							aria-live="polite"
-							className="transition-opacity duration-300 text-slate-300"
-							style={{ opacity: visible ? 1 : 0 }}>
-							{HERO_LABELS[labelIndex]}
-						</span>
-					</motion.div>
-				)}
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.6, delay: 0.1 }}
+					className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 glass"
+				>
+					<span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse motion-reduce:animate-none" />
+					<span
+						aria-live="polite"
+						className="transition-opacity duration-300 text-slate-300"
+						style={{ opacity: visible ? 1 : 0 }}
+					>
+						{HERO_ROTATING_LABELS[labelIndex]}
+					</span>
+				</motion.div>
 
 				<motion.h1
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7, delay: 0.2 }}
-					className="text-8xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+					className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.1] sm:leading-tight mb-6 tracking-tight px-1 sm:px-0">
 					A Dedicated, Secure
 					<br />
 					<span className="text-gradient animate-shimmer">
@@ -149,16 +155,20 @@ export const Hero: React.FC = () => {
 							Download for {clientOS}
 						</Button>
 						{!canDownload && (
-							<span className="text-xs text-slate-500">
-								Coming soon for Linux
+							<span className="text-xs text-slate-500 text-center max-w-xs">
+								Desktop installers are available for Windows, macOS, and Linux only.
 							</span>
 						)}
 					</div>
-					<Link to={PATH.DOCUMENTATION}>
-						<Button variant="outline" size="lg">
-							Learn More
-						</Button>
-					</Link>
+					<MotionLink
+						to={PATH.DOCUMENTATION}
+						className="inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 cursor-pointer border border-white/12 text-slate-300 hover:border-teal-500/50 hover:text-teal-300 hover:bg-white/3 px-8 py-3 text-base"
+						whileHover={{ scale: 1.02 }}
+						whileTap={{ scale: 0.98 }}
+						transition={{ type: "spring", stiffness: 400, damping: 17 }}
+					>
+						Learn More
+					</MotionLink>
 				</motion.div>
 
 				<motion.div

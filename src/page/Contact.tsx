@@ -156,7 +156,11 @@ export const Contact: React.FC = () => {
 								</p>
 							</motion.div>
 						) : (
-							<form className="space-y-5" onSubmit={handleSubmit}>
+							<form
+								className="space-y-5"
+								onSubmit={handleSubmit}
+								aria-busy={formState.submitting}
+							>
 								<div className="grid sm:grid-cols-2 gap-5">
 									<div>
 										<label className="block text-sm font-medium text-slate-300 mb-1.5">

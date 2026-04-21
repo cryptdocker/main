@@ -130,6 +130,34 @@ body {
 		radial-gradient(ellipse at 50% 50%, rgba(251, 191, 36, 0.04) 0%, transparent 50%);
 }
 
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	.animate-float,
+	.animate-float-slow,
+	.animate-shimmer,
+	.animate-glow-pulse,
+	.animate-gradient-shift {
+		animation: none !important;
+	}
+}
+
+/* Anchor targets clear the fixed navbar (h-16) */
+.section-scroll-target {
+	scroll-margin-top: 5.5rem;
+}
+
+:focus-visible {
+	outline: 2px solid rgba(45, 212, 191, 0.65);
+	outline-offset: 3px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+	outline: none;
+}
+
 .prose-dark {
 	--tw-prose-body: #94a3b8;
 	--tw-prose-headings: #f1f5f9;
