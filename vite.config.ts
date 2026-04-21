@@ -10,7 +10,8 @@ export default defineConfig({
 		port: 5200,
 		host: "0.0.0.0",
 	},
-	base: "./",
+	// Absolute asset paths so deep routes (e.g. /tools/...) do not break on refresh.
+	base: "/",
 	build: {
 		outDir: "dist",
 		emptyOutDir: true,
