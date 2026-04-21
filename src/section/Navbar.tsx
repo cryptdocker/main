@@ -8,6 +8,7 @@ import {
 	IoWalletOutline,
 	IoGlobeOutline,
 	IoNewspaperOutline,
+	IoLogoBitcoin,
 } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../component/Button";
@@ -250,6 +251,18 @@ export const Navbar: React.FC = () => {
 												Soon
 											</span>
 										</div>
+										<div
+											role="menuitem"
+											aria-disabled="true"
+											className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed"
+											title="Coming soon"
+										>
+											<IoLogoBitcoin className="w-4 h-4" />
+											SafeBinanceTradingBot
+											<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-600">
+												Soon
+											</span>
+										</div>
 
 										<div className="my-2 h-px bg-white/6" />
 										<p className="px-4 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
@@ -463,6 +476,17 @@ export const Navbar: React.FC = () => {
 									>
 										<IoExtensionPuzzleOutline />
 										MentalShield
+										<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-600">
+											Soon
+										</span>
+									</div>
+									<div
+										aria-disabled="true"
+										className="flex items-center gap-2 text-sm text-slate-600 py-2 cursor-not-allowed"
+										title="Coming soon"
+									>
+										<IoLogoBitcoin />
+										SafeBinanceTradingBot
 										<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-600">
 											Soon
 										</span>
