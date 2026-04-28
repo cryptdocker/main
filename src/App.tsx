@@ -15,6 +15,10 @@ import { Documentation } from "./page/Documentation";
 import { WalletAnalysis } from "./page/WalletAnalysis";
 import { SiteAnalysis } from "./page/SiteAnalysis";
 import { NewsAnalysis } from "./page/NewsAnalysis";
+import { SignIn } from "./page/SignIn";
+import { SignUp } from "./page/SignUp";
+import { Dashboard } from "./page/Dashboard";
+import { RequireAuth } from "./component/RequireAuth";
 
 function App() {
 	return (
@@ -38,6 +42,16 @@ function App() {
 					/>
 					<Route path={PATH.SITE_ANALYSIS} element={<SiteAnalysis />} />
 					<Route path={PATH.NEWS_ANALYSIS} element={<NewsAnalysis />} />
+					<Route path={PATH.SIGN_IN} element={<SignIn />} />
+					<Route path={PATH.SIGN_UP} element={<SignUp />} />
+					<Route
+						path={PATH.DASHBOARD}
+						element={
+							<RequireAuth>
+								<Dashboard />
+							</RequireAuth>
+						}
+					/>
 				</Route>
 			</Routes>
 		</BrowserRouter>

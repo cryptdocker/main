@@ -176,3 +176,7 @@ a:focus:not(:focus-visible) {
 	--tw-prose-th-borders: rgba(255,255,255,0.1);
 	--tw-prose-td-borders: rgba(255,255,255,0.06);
 }
+
+*:focus {
+	outline: none;
+}

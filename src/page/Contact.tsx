@@ -58,7 +58,7 @@ export const Contact: React.FC = () => {
 
 	useEffect(() => {
 		if (formState.succeeded && !prevSucceeded.current) {
-			setShowConfirmation(true);
+			const t = window.setTimeout(() => setShowConfirmation(true), 0);
 			const timer = setTimeout(() => {
 				setShowConfirmation(false);
 				setName("");
@@ -68,7 +68,10 @@ export const Contact: React.FC = () => {
 				setErrors({});
 				setTouched({});
 			}, 5000);
-			return () => clearTimeout(timer);
+			return () => {
+				clearTimeout(timer);
+				clearTimeout(t);
+			};
 		}
 		prevSucceeded.current = formState.succeeded;
 	}, [formState.succeeded]);

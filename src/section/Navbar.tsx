@@ -16,6 +16,7 @@ import { PATH } from "../const";
 import { detectOS } from "../utils/detectOS";
 import { IoIosDesktop } from "react-icons/io";
 import { RiRobot2Line } from "react-icons/ri";
+import { useAuth } from "../auth/useAuth";
 
 const DOWNLOAD_URL_WINDOWS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
@@ -38,10 +39,12 @@ const resourceLinks = [
 ];
 
 export const Navbar: React.FC = () => {
+	const { user, signOut } = useAuth();
 	const [scrolled, setScrolled] = useState(false);
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [resourcesOpen, setResourcesOpen] = useState(false);
 	const [productsOpen, setProductsOpen] = useState(false);
+	const [profileOpen, setProfileOpen] = useState(false);
 	const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
 	const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
 	const location = useLocation();
@@ -52,6 +55,7 @@ export const Navbar: React.FC = () => {
 	const canDownload = isWindows || isMacOS || isLinux;
 	const resourcesRef = useRef<HTMLDivElement | null>(null);
 	const productsRef = useRef<HTMLDivElement | null>(null);
+	const profileRef = useRef<HTMLDivElement | null>(null);
 
 	const downloadNow = () => {
 		if (isWindows) {
@@ -89,11 +93,15 @@ export const Navbar: React.FC = () => {
 	const isHash = (to: string) => to.includes("#");
 
 	useEffect(() => {
-		setResourcesOpen(false);
-		setProductsOpen(false);
-		setMobileOpen(false);
-		setMobileResourcesOpen(false);
-		setMobileProductsOpen(false);
+		const t = window.setTimeout(() => {
+			setResourcesOpen(false);
+			setProductsOpen(false);
+			setProfileOpen(false);
+			setMobileOpen(false);
+			setMobileResourcesOpen(false);
+			setMobileProductsOpen(false);
+		}, 0);
+		return () => clearTimeout(t);
 	}, [location.pathname]);
 
 	useEffect(() => {
@@ -125,6 +133,20 @@ export const Navbar: React.FC = () => {
 			document.removeEventListener("touchstart", onPointerDown);
 		};
 	}, [productsOpen]);
+
+	useEffect(() => {
+		if (!profileOpen) return;
+		const onPointerDown = (e: MouseEvent | TouchEvent) => {
+			if (!profileRef.current) return;
+			if (!profileRef.current.contains(e.target as Node)) setProfileOpen(false);
+		};
+		document.addEventListener("mousedown", onPointerDown);
+		document.addEventListener("touchstart", onPointerDown);
+		return () => {
+			document.removeEventListener("mousedown", onPointerDown);
+			document.removeEventListener("touchstart", onPointerDown);
+		};
+	}, [profileOpen]);
 
 	return (
 		<motion.nav
@@ -354,6 +376,82 @@ export const Navbar: React.FC = () => {
 				</div>
 
 				<div className="hidden md:flex items-center gap-3">
+					{user ? (
+						<div className="relative" ref={profileRef}>
+							<button
+								type="button"
+								className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 hover:bg-white/8 transition-colors cursor-pointer overflow-hidden"
+								aria-haspopup="menu"
+								aria-expanded={profileOpen}
+								onClick={() => setProfileOpen((v) => !v)}
+								title={user.email}
+							>
+								{user.avatar ? (
+									<img
+										src={user.avatar}
+										alt={user.fullName || user.email}
+										className="w-full h-full object-cover"
+										referrerPolicy="no-referrer"
+									/>
+								) : (
+									<span className="text-sm font-semibold text-slate-200">
+										{(user.fullName || user.email || "U")
+											.trim()
+											.slice(0, 1)
+											.toUpperCase()}
+									</span>
+								)}
+							</button>
+
+							<AnimatePresence>
+								{profileOpen && (
+									<motion.div
+										initial={{ opacity: 0, y: 8, scale: 0.98 }}
+										animate={{ opacity: 1, y: 0, scale: 1 }}
+										exit={{ opacity: 0, y: 8, scale: 0.98 }}
+										transition={{ duration: 0.15 }}
+										role="menu"
+										aria-label="Account menu"
+										className="absolute top-full mt-3 right-0 w-56 rounded-xl bg-dark-surface border border-white/8 shadow-xl shadow-black/40 overflow-hidden"
+									>
+										<div className="px-4 py-3 border-b border-white/6">
+											<p className="text-sm text-slate-200 font-medium truncate">
+												{user.fullName || "Account"}
+											</p>
+											<p className="text-xs text-slate-500 truncate">{user.email}</p>
+										</div>
+										<div className="py-2">
+											<Link
+												to={PATH.DASHBOARD}
+												role="menuitem"
+												className="block px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400"
+												onClick={() => setProfileOpen(false)}
+											>
+												Dashboard
+											</Link>
+											<button
+												type="button"
+												role="menuitem"
+												className="w-full text-left px-4 py-2.5 text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400 cursor-pointer"
+												onClick={() => {
+													setProfileOpen(false);
+													signOut();
+												}}
+											>
+												Log out
+											</button>
+										</div>
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
+					) : (
+						<Link to={PATH.SIGN_IN}>
+							<Button size="sm" variant="outline">
+								Sign in
+							</Button>
+						</Link>
+					)}
 					<Button
 						size="sm"
 						disabled={!canDownload}
