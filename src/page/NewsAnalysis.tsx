@@ -16,6 +16,8 @@ import {
 import { PageHeader } from "../layout/PageHeader";
 import { Button } from "../component/Button";
 import { SEO } from "../component/SEO";
+import { useAuth } from "../auth/useAuth";
+import { SignInCtaModal } from "../component/SignInCtaModal";
 import {
 	analyzeNews,
 	type NewsAnalysisResponse,
@@ -78,6 +80,9 @@ function sentimentStyle(sentiment: string | undefined) {
 }
 
 export const NewsAnalysis: React.FC = () => {
+	const { user, token } = useAuth();
+	const authed = !!user && !!token;
+	const [signInOpen, setSignInOpen] = useState(false);
 	const [keywords, setKeywords] = useState<string[]>([]);
 	const [draft, setDraft] = useState("");
 	const [savedCustomKeywords, setSavedCustomKeywords] = useState<string[]>(
@@ -98,6 +103,10 @@ export const NewsAnalysis: React.FC = () => {
 			// ignore quota / private mode
 		}
 	}, [savedCustomKeywords]);
+
+	useEffect(() => {
+		if (!authed) setSignInOpen(true);
+	}, [authed]);
 
 	const addKeyword = (raw: string) => {
 		const v = raw.trim().replace(/^#/, "");
@@ -148,6 +157,10 @@ export const NewsAnalysis: React.FC = () => {
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (!authed) {
+			setSignInOpen(true);
+			return;
+		}
 		if (loading) return;
 
 		const finalKeywords =
@@ -176,6 +189,7 @@ export const NewsAnalysis: React.FC = () => {
 
 	return (
 		<>
+			<SignInCtaModal open={signInOpen} onClose={() => setSignInOpen(false)} />
 			<SEO
 				title="News Analysis"
 				description="Track the crypto news flow on your watchlist. Enter keywords and get an AI-summarized sentiment read with headlines and sources."

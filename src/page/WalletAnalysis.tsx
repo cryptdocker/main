@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
 	IoWalletOutline,
@@ -11,6 +11,8 @@ import {
 import { PageHeader } from "../layout/PageHeader";
 import { Button } from "../component/Button";
 import { SEO } from "../component/SEO";
+import { useAuth } from "../auth/useAuth";
+import { SignInCtaModal } from "../component/SignInCtaModal";
 import {
 	analyzeWallet,
 	type RadarRiskResponse,
@@ -59,17 +61,28 @@ function riskColor(level: string | undefined) {
 }
 
 export const WalletAnalysis: React.FC = () => {
+	const { user, token } = useAuth();
+	const authed = !!user && !!token;
+	const [signInOpen, setSignInOpen] = useState(false);
 	const [input, setInput] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [data, setData] = useState<RadarRiskResponse | null>(null);
 	const [showSignals, setShowSignals] = useState(false);
 
+	useEffect(() => {
+		if (!authed) setSignInOpen(true);
+	}, [authed]);
+
 	const trimmed = input.trim();
 	const valid = isValidPayload(trimmed);
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (!authed) {
+			setSignInOpen(true);
+			return;
+		}
 		if (!valid || loading) return;
 		setLoading(true);
 		setError(null);
@@ -93,6 +106,7 @@ export const WalletAnalysis: React.FC = () => {
 
 	return (
 		<>
+			<SignInCtaModal open={signInOpen} onClose={() => setSignInOpen(false)} />
 			<SEO
 				title="Wallet Analysis"
 				description="Scan any wallet or contract address for sanctions, blacklists, threat intelligence, and on-chain risk signals — powered by FailSafe Radar."

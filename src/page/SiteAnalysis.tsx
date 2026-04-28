@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
 	IoGlobeOutline,
@@ -13,6 +13,8 @@ import {
 import { PageHeader } from "../layout/PageHeader";
 import { Button } from "../component/Button";
 import { SEO } from "../component/SEO";
+import { useAuth } from "../auth/useAuth";
+import { SignInCtaModal } from "../component/SignInCtaModal";
 import {
 	analyzeSite,
 	type SiteAnalysisResponse,
@@ -54,16 +56,27 @@ function sentimentStyle(sentiment: string | undefined) {
 }
 
 export const SiteAnalysis: React.FC = () => {
+	const { user, token } = useAuth();
+	const authed = !!user && !!token;
+	const [signInOpen, setSignInOpen] = useState(false);
 	const [input, setInput] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [data, setData] = useState<SiteAnalysisResponse | null>(null);
+
+	useEffect(() => {
+		if (!authed) setSignInOpen(true);
+	}, [authed]);
 
 	const host = extractHost(input);
 	const valid = !!host;
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (!authed) {
+			setSignInOpen(true);
+			return;
+		}
 		if (!valid || loading) return;
 		setLoading(true);
 		setError(null);
@@ -83,6 +96,7 @@ export const SiteAnalysis: React.FC = () => {
 
 	return (
 		<>
+			<SignInCtaModal open={signInOpen} onClose={() => setSignInOpen(false)} />
 			<SEO
 				title="Site Analysis"
 				description="Get AI-summarized news sentiment and headlines for any domain before you connect your wallet."
