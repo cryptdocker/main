@@ -17,7 +17,6 @@ import { detectOS } from "../utils/detectOS";
 import { IoIosDesktop } from "react-icons/io";
 import { RiRobot2Line } from "react-icons/ri";
 import { useAuth } from "../auth/useAuth";
-import { AiOutlineChrome } from "react-icons/ai";
 
 const DOWNLOAD_URL_WINDOWS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
