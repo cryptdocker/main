@@ -17,6 +17,7 @@ import { detectOS } from "../utils/detectOS";
 import { IoIosDesktop } from "react-icons/io";
 import { RiRobot2Line } from "react-icons/ri";
 import { useAuth } from "../auth/useAuth";
+import { AiOutlineChrome } from "react-icons/ai";
 
 const DOWNLOAD_URL_WINDOWS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.exe";
@@ -24,6 +25,10 @@ const DOWNLOAD_URL_MACOS =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker.dmg";
 const DOWNLOAD_URL_LINUX =
 	"https://cryptdocker.s3.eu-north-1.amazonaws.com/setup/CryptDocker-1.0.0.AppImage";
+
+/** MentalShield (MV3) on Chrome Web Store */
+const MENTALSHIELD_CHROME_STORE_URL =
+	"https://chromewebstore.google.com/detail/cpeblpceimlpngbfddfikhdlpcdmbhgl";
 
 const navLinks = [
 	{ label: "Features", to: `${PATH.HOME}#features` },
@@ -260,18 +265,41 @@ export const Navbar: React.FC = () => {
 											<RiRobot2Line className="w-4 h-4 text-teal-400" />
 											TradeGPT
 										</button>
-										<div
-											role="menuitem"
-											aria-disabled="true"
-											className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed"
-											title="Coming soon"
-										>
-											<IoExtensionPuzzleOutline className="w-4 h-4" />
-											MentalShield
-											<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-600">
-												Soon
-											</span>
-										</div>
+										{user ? (
+											<Link
+												to={PATH.DASHBOARD}
+												role="menuitem"
+												className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors duration-200 ${
+													location.pathname === PATH.DASHBOARD
+														? "text-teal-400 bg-teal-500/10 font-medium"
+														: "text-slate-300 hover:bg-white/5 hover:text-teal-400"
+												}`}
+												onClick={() => setProductsOpen(false)}
+											>
+												<IoExtensionPuzzleOutline className="w-4 h-4 text-teal-400" />
+												MentalShield
+											</Link>
+										) : (
+											<button
+												type="button"
+												role="menuitem"
+												className="flex items-center gap-2.5 px-4 py-2.5 w-full text-left text-sm transition-colors duration-200 text-slate-300 hover:bg-white/5 hover:text-teal-400 cursor-pointer"
+												onClick={() => {
+													setProductsOpen(false);
+													window.open(
+														MENTALSHIELD_CHROME_STORE_URL,
+														"_blank",
+														"noopener,noreferrer",
+													);
+												}}
+											>
+												<IoExtensionPuzzleOutline className="w-4 h-4 text-teal-400" />
+												MentalShield
+												<span className="ml-auto uppercase tracking-wider text-slate-500">
+													<img src={IMG.Store} className="w-4 h-4" />
+												</span>
+											</button>
+										)}
 										<div className="my-2 h-px bg-white/6" />
 										<p className="px-4 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
 											Analysis Tools
@@ -553,17 +581,39 @@ export const Navbar: React.FC = () => {
 										<RiRobot2Line />
 										TradeGPT
 									</button>
-									<div
-										aria-disabled="true"
-										className="flex items-center gap-2 text-sm text-slate-600 py-2 cursor-not-allowed"
-										title="Coming soon"
-									>
-										<IoExtensionPuzzleOutline />
-										MentalShield
-										<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-600">
-											Soon
-										</span>
-									</div>
+									{user ? (
+										<Link
+											to={PATH.DASHBOARD}
+											className={`flex items-center gap-2 text-sm py-2 ${
+												location.pathname === PATH.DASHBOARD
+													? "text-teal-400 font-medium"
+													: "text-slate-400 hover:text-teal-400"
+											}`}
+											onClick={() => setMobileOpen(false)}
+										>
+											<IoExtensionPuzzleOutline />
+											MentalShield
+										</Link>
+									) : (
+										<button
+											type="button"
+											className="flex items-center gap-2 w-full text-left text-sm text-slate-400 hover:text-teal-400 py-2 cursor-pointer"
+											onClick={() => {
+												window.open(
+													MENTALSHIELD_CHROME_STORE_URL,
+													"_blank",
+													"noopener,noreferrer",
+												);
+												setMobileOpen(false);
+											}}
+										>
+											<IoExtensionPuzzleOutline />
+											MentalShield
+											<span className="ml-auto text-[10px] uppercase tracking-wider text-slate-500">
+												Chrome
+											</span>
+										</button>
+									)}
 									<p className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 pt-3">
 										Analysis Tools
 									</p>
