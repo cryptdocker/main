@@ -29,6 +29,12 @@ const DOWNLOAD_URL_LINUX =
 const MENTALSHIELD_CHROME_STORE_URL =
 	"https://chromewebstore.google.com/detail/cpeblpceimlpngbfddfikhdlpcdmbhgl";
 
+const DEMO_URL = "https://demo.cryptdocker.com";
+
+const openDemo = () => {
+	window.location.assign(DEMO_URL);
+};
+
 const navLinks = [
 	{ label: "Features", to: `${PATH.HOME}#features` },
 	{ label: "AI Tools", to: `${PATH.HOME}#ai` },
@@ -403,6 +409,9 @@ export const Navbar: React.FC = () => {
 				</div>
 
 				<div className="hidden md:flex items-center gap-3">
+					<Button size="sm" variant="outline" onClick={openDemo}>
+						View Demo
+					</Button>
 					{user ? (
 						<div className="relative" ref={profileRef}>
 							<button
@@ -678,7 +687,18 @@ export const Navbar: React.FC = () => {
 						<div className="flex gap-3 pt-2">
 							<Button
 								size="sm"
-								className="w-full"
+								variant="outline"
+								className="flex-1"
+								onClick={() => {
+									openDemo();
+									setMobileOpen(false);
+								}}
+							>
+								View Demo
+							</Button>
+							<Button
+								size="sm"
+								className="flex-1"
 								disabled={!canDownload}
 								title={!canDownload ? "Coming soon for your OS" : undefined}
 								onClick={() => {
