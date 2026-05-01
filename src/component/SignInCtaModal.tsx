@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IoLockClosedOutline } from "react-icons/io5";
+import { IoLockClosedOutline, IoLogInOutline, IoPersonAddOutline, IoArrowBackOutline } from "react-icons/io5";
 import { PATH } from "../const";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
@@ -41,6 +41,11 @@ export function SignInCtaModal({
 		});
 	};
 
+	const notNow = () => {
+		onClose();
+		navigate("/");
+	};
+
 	return (
 		<Modal open={open} title={title} onClose={onClose} closeOnOverlayClick={false} closeButton={false}>
 			<div className="flex items-start gap-3">
@@ -55,11 +60,17 @@ export function SignInCtaModal({
 				</div>
 			</div>
 
-			<div className="mt-5 flex flex-col sm:flex-row gap-2 sm:justify-end">
+			<div className="mt-5 flex flex-col-reverse sm:flex-row gap-2 sm:items-center">
+				<Button variant="ghost" type="button" size="sm" onClick={notNow} className="sm:mr-auto">
+					<IoArrowBackOutline className="w-4 h-4" />
+					Not Now
+				</Button>
 				<Button variant="outline" type="button" onClick={goSignUp}>
-					Create account
+					<IoPersonAddOutline className="w-4 h-4" />
+					Sign Up for Free
 				</Button>
 				<Button type="button" onClick={goSignIn}>
+					<IoLogInOutline className="w-4 h-4" />
 					Sign in
 				</Button>
 			</div>

@@ -43,7 +43,7 @@ export const Button: React.FC<ButtonProps> = ({
 			whileHover={disabled ? undefined : { scale: 1.02 }}
 			whileTap={disabled ? undefined : { scale: 0.98 }}
 			transition={{ type: "spring", stiffness: 400, damping: 17 }}
-			className={`inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 ${
+			className={`inline-flex items-center justify-center gap-2 font-medium rounded-xl transition-all duration-300 ${
 				disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"
 			} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
 			{...props}
