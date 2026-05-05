@@ -51,8 +51,8 @@ export function PaymentCheckout({ token, onSuccess, onCancel }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(0);
-  const pollRef = useRef<ReturnType<typeof setInterval>>();
-  const timerRef = useRef<ReturnType<typeof setInterval>>();
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -99,11 +99,11 @@ export function PaymentCheckout({ token, onSuccess, onCancel }: Props) {
     if (phase !== "pay" && phase !== "confirming") return;
     timerRef.current = setInterval(() => {
       setSecondsLeft((s) => {
-        if (s <= 1) { clearInterval(timerRef.current); return 0; }
+        if (s <= 1) { clearInterval(timerRef.current as ReturnType<typeof setInterval>); return 0; }
         return s - 1;
       });
     }, 1000);
-    return () => clearInterval(timerRef.current);
+    return () => clearInterval(timerRef.current as ReturnType<typeof setInterval>);
   }, [phase]);
 
   useEffect(() => {
@@ -117,7 +117,7 @@ export function PaymentCheckout({ token, onSuccess, onCancel }: Props) {
         if (stopped) return;
         if (logsResult.status === "confirmed") {
           setPhase("confirmed");
-          clearInterval(pollRef.current);
+          clearInterval(pollRef.current as ReturnType<typeof setInterval>);
           setTimeout(onSuccess, PAYMENT_SUCCESS_HOLD_MS);
           return;
         }
@@ -126,18 +126,18 @@ export function PaymentCheckout({ token, onSuccess, onCancel }: Props) {
         const statusResult = await apiGetPaymentStatus(token, checkout.paymentId);
         if (stopped) return;
         if (statusResult.status === "confirmed") {
-          setPhase("confirmed"); clearInterval(pollRef.current); setTimeout(onSuccess, PAYMENT_SUCCESS_HOLD_MS);
+          setPhase("confirmed"); clearInterval(pollRef.current as ReturnType<typeof setInterval>); setTimeout(onSuccess, PAYMENT_SUCCESS_HOLD_MS);
         } else if (statusResult.status === "confirming") {
           setPhase("confirming");
         } else if (statusResult.status === "expired") {
-          setPhase("error"); setError("Payment session expired. Please try again."); clearInterval(pollRef.current);
+          setPhase("error"); setError("Payment session expired. Please try again."); clearInterval(pollRef.current as ReturnType<typeof setInterval>);
         }
       } catch { /* retry next interval */ }
     };
 
     pollRef.current = setInterval(poll, PAYMENT_POLL_INTERVAL_MS);
     const initial = setTimeout(poll, PAYMENT_POLL_INITIAL_DELAY_MS);
-    return () => { stopped = true; clearInterval(pollRef.current); clearTimeout(initial); };
+    return () => { stopped = true; clearInterval(pollRef.current as ReturnType<typeof setInterval>); clearTimeout(initial); };
   }, [checkout, phase, token, onSuccess]);
 
   const copyAddress = useCallback(async () => {
@@ -184,7 +184,7 @@ export function PaymentCheckout({ token, onSuccess, onCancel }: Props) {
           <button
             type="button"
             onClick={() => setPhase("select")}
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-teal-glow hover:from-teal-500 hover:to-emerald-500"
+            className="inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-teal-600 to-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-teal-glow hover:from-teal-500 hover:to-emerald-500"
           >
             <FiRefreshCw aria-hidden className="h-4 w-4" />
             Try again
@@ -206,7 +206,7 @@ export function PaymentCheckout({ token, onSuccess, onCancel }: Props) {
   if (phase === "confirmed") {
     return (
       <div className="flex flex-col items-center gap-4 py-10">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 shadow-teal-glow">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-br from-teal-500 to-emerald-600 shadow-teal-glow">
           <FiCheckCircle aria-hidden className="h-8 w-8 text-white" />
         </div>
         <div className="text-center">
@@ -291,7 +291,7 @@ export function PaymentCheckout({ token, onSuccess, onCancel }: Props) {
             type="button"
             onClick={startCheckout}
             disabled={!networks.length}
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 px-4 py-2.5 text-sm font-semibold text-white shadow-teal-glow transition-colors hover:from-teal-500 hover:via-emerald-500 hover:to-cyan-500 disabled:opacity-50"
+            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-linear-to-r from-teal-600 via-emerald-600 to-cyan-600 px-4 py-2.5 text-sm font-semibold text-white shadow-teal-glow transition-colors hover:from-teal-500 hover:via-emerald-500 hover:to-cyan-500 disabled:opacity-50"
           >
             <FiArrowRight aria-hidden className="h-4 w-4" />
             Continue to payment
