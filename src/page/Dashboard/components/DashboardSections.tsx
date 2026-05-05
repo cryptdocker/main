@@ -1,19 +1,12 @@
 import { Button } from "../../../component/Button";
-import type { siteUserService } from "../../../services/user.service";
-import type {
-	MeResponse,
-	UserSiteUser,
-	UserWorkspace,
-} from "../../../services/user.service";
+import type { MeResponse } from "../../../services/user.service";
 import {
-	IoAddOutline,
-	IoBriefcaseOutline,
 	IoCameraOutline,
 	IoCalendarOutline,
 	IoCashOutline,
+	IoCheckmarkCircleOutline,
 	IoCloseCircleOutline,
 	IoCopyOutline,
-	IoSearchOutline,
 	IoHourglassOutline,
 	IoLogOutOutline,
 	IoMailOutline,
@@ -21,11 +14,8 @@ import {
 	IoRefreshOutline,
 	IoSaveOutline,
 	IoSparklesOutline,
-	IoTrashOutline,
 	IoWalletOutline,
 } from "react-icons/io5";
-import { AppRow } from "./AppRow";
-import { AddAppModal } from "./AddAppModal";
 import { cx, fmt, INPUT } from "./shared";
 import { Badge, Section, Select, Stat } from "./ui";
 import type { CreatePaymentResult } from "../../../services/payment.service";
@@ -200,6 +190,7 @@ export function PlanBillingSection({
 		onAmountChange: (v: string) => void;
 		method: string;
 		onMethodChange: (v: string) => void;
+		minimumAmount: number;
 		busy: boolean;
 		payment: CreatePaymentResult | null;
 		onPay: () => void;
@@ -317,6 +308,9 @@ export function PlanBillingSection({
 								className={INPUT}
 								placeholder="10"
 							/>
+							<p className="text-xs text-slate-600">
+								Minimum for {topUp.method.toUpperCase()}: ${topUp.minimumAmount}
+							</p>
 						</label>
 					</div>
 
@@ -336,9 +330,9 @@ export function PlanBillingSection({
 					</div>
 
 					{topUp.payment && (
-						<div className="mt-4 rounded-xl border border-white/10 bg-white/3 px-4 py-3">
+						<div className="mt-4 flex items-center gap-4">
 							{qrImageSrc && (
-								<div className="mb-3 flex justify-center">
+								<div className="flex justify-center">
 									<div className="rounded-xl border border-white/10 bg-dark-card/40 p-3">
 										<img
 											src={qrImageSrc}
@@ -348,6 +342,7 @@ export function PlanBillingSection({
 									</div>
 								</div>
 							)}
+							<div className="flex flex-col gap-2">
 							<p className="text-xs font-semibold text-slate-500 mb-1">
 								Send {topUp.payment.amount}{" "}
 								{topUp.payment.ticker.toLowerCase().includes("usdc")
@@ -371,240 +366,30 @@ export function PlanBillingSection({
 									<IoCopyOutline className="text-base" />
 								</Button>
 							</div>
-							<p className="mt-2 text-xs text-slate-600">
-								Status:{" "}
-								<span className="text-slate-300 font-medium">
-									{topUp.payment.status ?? "pending"}
-								</span>{" "}
-								· This will auto-refresh when confirmed.
-							</p>
-						</div>
-					)}
-				</div>
-			)}
-		</Section>
-	);
-}
-
-export function AppsSection({
-	appsTotal,
-	appsSlice,
-	workspaces,
-	rowBusy,
-	onPatchSiteUser,
-	onRemoveSiteUser,
-	search,
-	addApp,
-	pagination,
-}: {
-	appsTotal: number;
-	appsSlice: UserSiteUser[];
-	workspaces: UserWorkspace[];
-	rowBusy: Record<string, boolean>;
-	onPatchSiteUser: (uuid: string, body: Parameters<typeof siteUserService.update>[2]) => void;
-	onRemoveSiteUser: (uuid: string) => void;
-	search: { value: string; onChange: (v: string) => void };
-	addApp: {
-		open: boolean;
-		onToggle: () => void;
-		query: string;
-		onQueryChange: (v: string) => void;
-		categoryUuid: string;
-		onCategoryChange: (v: string) => void;
-		sites: Array<{
-			uuid: string;
-			title: string | null;
-			url?: string | null;
-			image?: string | null;
-			categories?: Array<{ uuid: string; name: string }>;
-			description?: string | null;
-			endpoint?: string | null;
-		}>;
-		loading: boolean;
-		addingSiteUuid: string | null;
-		workspaces: UserWorkspace[];
-		onAdd: (args: { siteUuid: string; workspaceUuid?: string; endpoint?: string | null }) => void;
-	};
-	pagination: {
-		pageSize: number;
-		page: number;
-		totalPages: number;
-		onPrev: () => void;
-		onNext: () => void;
-		showingStart: number;
-		showingEnd: number;
-	};
-}) {
-	return (
-		<Section
-			title={`Apps${appsTotal > 0 ? ` (${appsTotal})` : ""}`}
-			subtitle="Notifications, sound, sleep, and workspace for each app.">
-			<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
-				<div className={cx(INPUT, "flex items-center gap-2 sm:max-w-sm")}>
-					<IoSearchOutline className="text-slate-500" />
-					<input
-						value={search.value}
-						onChange={(e) => search.onChange(e.target.value)}
-						placeholder="Search apps…"
-						className="w-full bg-transparent text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none"
-					/>
-				</div>
-				<Button size="sm" variant="outline" onClick={addApp.onToggle}>
-					<span className="inline-flex items-center gap-1.5">
-						<IoAddOutline className="text-base" />
-						Add app
-					</span>
-				</Button>
-			</div>
-
-			<AddAppModal
-				open={addApp.open}
-				onClose={addApp.onToggle}
-				sites={addApp.sites}
-				loading={addApp.loading}
-				workspaces={addApp.workspaces}
-				addingSiteUuid={addApp.addingSiteUuid}
-				onAdd={addApp.onAdd}
-			/>
-
-			{appsTotal === 0 ? (
-				<p className="text-sm text-slate-500 py-2">
-					No apps yet. Add apps in CryptDocker to see them here.
-				</p>
-			) : (
-				<>
-					<div className="space-y-3 mb-4">
-						{appsSlice.map((su) => (
-							<AppRow
-								key={su.uuid}
-								row={su}
-								workspaces={workspaces}
-								busy={!!rowBusy[su.uuid]}
-								onPatch={(body) => onPatchSiteUser(su.uuid, body)}
-								onRemove={() => onRemoveSiteUser(su.uuid)}
-							/>
-						))}
-					</div>
-
-					{pagination.totalPages > 1 && (
-						<div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-4">
-							<p className="text-xs text-slate-500">
-								Showing{" "}
-								<span className="text-slate-300 font-medium">
-									{pagination.showingStart}–{pagination.showingEnd}
-								</span>{" "}
-								of{" "}
-								<span className="text-slate-300 font-medium">{appsTotal}</span>
-								<span className="text-slate-600">
-									{" "}
-									· Page {pagination.page} / {pagination.totalPages}
-								</span>
-							</p>
-							<div className="flex items-center gap-2">
-								<Button
-									size="sm"
-									variant="outline"
-									disabled={pagination.page <= 1}
-									onClick={pagination.onPrev}>
-									Previous
-								</Button>
-								<Button
-									size="sm"
-									variant="outline"
-									disabled={pagination.page >= pagination.totalPages}
-									onClick={pagination.onNext}>
-									Next
-								</Button>
-							</div>
-						</div>
-					)}
-				</>
-			)}
-		</Section>
-	);
-}
-
-export function WorkspacesSection({
-	workspaces,
-	newWorkspaceName,
-	setNewWorkspaceName,
-	workspaceCreating,
-	onCreateWorkspace,
-	onDeleteWorkspace,
-	siteUsersByWorkspace,
-}: {
-	workspaces: UserWorkspace[];
-	newWorkspaceName: string;
-	setNewWorkspaceName: (v: string) => void;
-	workspaceCreating: boolean;
-	onCreateWorkspace: () => void;
-	onDeleteWorkspace: (uuid: string) => void;
-	siteUsersByWorkspace: Record<string, UserSiteUser[]>;
-}) {
-	return (
-		<Section title="Workspaces" subtitle="Separate identities, strategies, or exchanges.">
-			<div className="mb-4">
-				<label className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 mb-1">
-					<IoBriefcaseOutline className="text-sm" />
-					New workspace
-				</label>
-				<div className="flex gap-2">
-					<input
-						value={newWorkspaceName}
-						onChange={(e) => setNewWorkspaceName(e.target.value)}
-						onKeyDown={(e) => {
-							if (e.key === "Enter") onCreateWorkspace();
-						}}
-						maxLength={32}
-						className={cx(INPUT, "flex-1")}
-						placeholder="Workspace name"
-					/>
-					<Button
-						size="sm"
-						onClick={onCreateWorkspace}
-						disabled={workspaceCreating || !newWorkspaceName.trim()}>
-						<span className="inline-flex items-center gap-1.5">
-							<IoAddOutline className="text-base" />
-							{workspaceCreating ? "…" : "Create"}
-						</span>
-					</Button>
-				</div>
-			</div>
-			<div className="space-y-2">
-				{workspaces.length === 0 ? (
-					<p className="text-sm text-slate-500">No workspaces yet.</p>
-				) : (
-					workspaces.map((w) => (
-						<div
-							key={w.uuid}
-							className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-dark-card/40 px-4 py-3">
-							<div className="min-w-0 flex items-start gap-2">
-								<div className="mt-0.5 text-slate-500 shrink-0">
-									<IoBriefcaseOutline className="text-base" />
-								</div>
-								<div className="min-w-0">
-									<p className="text-sm font-semibold text-slate-200 truncate">
-										{w.name}
+							{String(topUp.payment.status).toLowerCase() === "confirmed" ? (
+								<div className="mt-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2">
+									<p className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-300">
+										<IoCheckmarkCircleOutline className="text-base" />
+										Payment confirmed
 									</p>
-								<p className="text-xs text-slate-600 truncate">
-									{(siteUsersByWorkspace[w.uuid] ?? []).length} app
-									{(siteUsersByWorkspace[w.uuid] ?? []).length !== 1 ? "s" : ""}
-								</p>
+									<p className="mt-1 text-xs text-emerald-200/90">
+										Your balance has been updated successfully.
+									</p>
 								</div>
+							) : (
+								<p className="mt-2 text-xs text-slate-600">
+									Status:{" "}
+									<span className="text-amber-300 font-semibold uppercase tracking-wide">
+										{topUp.payment.status ?? "pending"}
+									</span>{" "}
+									· Waiting for confirmation. This updates automatically.
+								</p>
+							)}
 							</div>
-							<Button
-								size="sm"
-								variant="outline"
-								onClick={() => onDeleteWorkspace(w.uuid)}>
-								<span className="inline-flex items-center gap-1.5">
-									<IoTrashOutline className="text-base" />
-									Delete
-								</span>
-							</Button>
 						</div>
-					))
-				)}
-			</div>
+					)}
+				</div>
+			)}
 		</Section>
 	);
 }
@@ -612,8 +397,8 @@ export function WorkspacesSection({
 export function DevicesSection({ me }: { me: MeResponse | null }) {
 	return (
 		<Section
-			title="Devices"
-			subtitle="Devices linked to your account for sign-in protection."
+			title="Sign In History"
+			subtitle="Devices and locations associated with your account sign-ins."
 			badge={<Badge>{(me?.userDevices ?? []).length}</Badge>}>
 			<div className="space-y-2">
 				{(me?.userDevices ?? []).length === 0 ? (

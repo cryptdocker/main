@@ -68,7 +68,7 @@ export function Section({
 	badge?: React.ReactNode;
 }) {
 	return (
-		<section className="glass-strong rounded-2xl border border-white/8 p-6 max-h-min">
+		<section className="glass-strong rounded-2xl border border-white/8 h-full p-6">
 			<div className="flex items-start justify-between gap-4 mb-5">
 				<div className="min-w-0">
 					<h2 className="text-base font-semibold text-white">{title}</h2>
