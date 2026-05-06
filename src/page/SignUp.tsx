@@ -37,7 +37,7 @@ export const SignUp: React.FC = () => {
 	};
 
 	return (
-		<div className="max-w-xl mx-auto px-6 py-20">
+		<div className="max-w-xl w-full mx-auto px-6 py-20">
 			<div className="glass-strong rounded-2xl p-8">
 				<h1 className="text-2xl font-bold text-white">Create account</h1>
 				<p className="text-slate-400 mt-2">

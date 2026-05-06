@@ -42,6 +42,22 @@ export type UserDevice = {
 	};
 };
 
+export type SignInHistory = {
+	uuid: string;
+	type: "App" | "Web";
+	createdAt: string;
+	ipAddress?: string | null;
+	country?: string | null;
+	location?: string | null;
+};
+
+export type PaginatedSignInHistory = {
+	items: SignInHistory[];
+	total: number;
+	page: number;
+	limit: number;
+};
+
 export type MeResponse = {
 	uuid: string;
 	email: string;
@@ -60,6 +76,7 @@ export type MeResponse = {
 	proCancelAtPeriodEnd?: boolean;
 	siteUsers?: UserSiteUser[];
 	userDevices?: UserDevice[];
+	signInHistory?: SignInHistory[];
 };
 
 function authHeaders(token: string): HeadersInit {
@@ -68,6 +85,19 @@ function authHeaders(token: string): HeadersInit {
 
 export const userService = {
 	getMe: (token: string) => apiFetch<MeResponse>("/user", { headers: authHeaders(token) }),
+	getSignInHistory: (
+		token: string,
+		params: { type: "App" | "Web"; page?: number; limit?: number },
+	) => {
+		const qs = new URLSearchParams({
+			type: params.type,
+			page: String(params.page ?? 1),
+			limit: String(params.limit ?? 10),
+		});
+		return apiFetch<PaginatedSignInHistory>(`/user/signin-history?${qs.toString()}`, {
+			headers: authHeaders(token),
+		});
+	},
 	updateMe: (token: string, body: Partial<MeResponse> & { uuid: string }) =>
 		apiFetch<{ message?: string }>("/user", {
 			method: "PUT",

@@ -92,7 +92,7 @@ export function ChatComposer({
             type="button"
             disabled={disabled || !val.trim()}
             onClick={submit}
-            className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 text-white shadow-teal-glow transition-opacity hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+            className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-teal-500 to-emerald-600 text-white shadow-teal-glow transition-opacity hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
             aria-label="Send message"
           >
             <FiSend aria-hidden className="h-4 w-4" />

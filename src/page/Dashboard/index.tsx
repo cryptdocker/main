@@ -3,6 +3,7 @@ import { useAuth } from "../../auth/useAuth";
 import { ApiError } from "../../services/api";
 import type { CreatePaymentResult } from "../../services/payment.service";
 import { paymentService } from "../../services/payment.service";
+import { siteService } from "../../services/site.service";
 import { userService, type MeResponse } from "../../services/user.service";
 import { DashboardHeader } from "./components/DashboardHeader";
 import { DashboardSkeleton } from "./components/DashboardSkeleton";
@@ -13,13 +14,18 @@ import {
 	DevicesSection,
 	PlanBillingSection,
 } from "./components/DashboardSections";
+import { IoCashOutline, IoGlobeOutline, IoPersonOutline } from "react-icons/io5";
 
 type DashboardMainTab = "user" | "billing" | "signins";
 
-const DASHBOARD_MAIN_TABS: { id: DashboardMainTab; label: string }[] = [
-	{ id: "user", label: "User" },
-	{ id: "billing", label: "Plan & Billing" },
-	{ id: "signins", label: "Sign In History" },
+const DASHBOARD_MAIN_TABS: {
+	id: DashboardMainTab;
+	label: string;
+	icon: React.ReactNode;
+}[] = [
+	{ id: "user", label: "Account", icon: <IoPersonOutline className="text-base" /> },
+	{ id: "billing", label: "Plan & Billing", icon: <IoCashOutline className="text-base" /> },
+	{ id: "signins", label: "Sign In History", icon: <IoGlobeOutline className="text-base" /> },
 ];
 
 const getMinimumTopUpAmount = (ticker: string): number => {
@@ -36,6 +42,8 @@ export const Dashboard: React.FC = () => {
 	const [me, setMe] = useState<MeResponse | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [catalogSiteCount, setCatalogSiteCount] = useState<number | null>(null);
+	const [catalogCategoryCount, setCatalogCategoryCount] = useState<number | null>(null);
 
 	// profile
 	const [savingProfile, setSavingProfile] = useState(false);
@@ -43,7 +51,6 @@ export const Dashboard: React.FC = () => {
 	const [avatarUploading, setAvatarUploading] = useState(false);
 
 	// billing/top-up
-	const [topUpOpen, setTopUpOpen] = useState(false);
 	const [topUpAmount, setTopUpAmount] = useState("");
 	const [topUpMethod, setTopUpMethod] = useState("usdt-erc20");
 	const [topUpBusy, setTopUpBusy] = useState(false);
@@ -60,10 +67,19 @@ export const Dashboard: React.FC = () => {
 		setLoading(true);
 		setError(null);
 		try {
-			const meRes = await userService.getMe(token);
+			const [meRes, allSites] = await Promise.all([
+				userService.getMe(token),
+				siteService.getAll(),
+			]);
 
 			setMe(meRes);
 			setProfileFullName(meRes.fullName ?? "");
+			setCatalogSiteCount(allSites.length);
+			setCatalogCategoryCount(
+				new Set(
+					allSites.flatMap((s) => (s.categories ?? []).map((c) => c.uuid ?? c.name)),
+				).size,
+			);
 		} catch (e) {
 			if (e instanceof ApiError && e.status === 401) {
 				signOut();
@@ -239,7 +255,7 @@ export const Dashboard: React.FC = () => {
 
 	return (
 		<div className="max-w-8xl w-full mx-auto px-5 py-12">
-			<DashboardHeader loading={loading} onRefresh={loadAll} />
+			<DashboardHeader />
 
 			<ErrorBanner error={error} onDismiss={() => setError(null)} />
 
@@ -265,7 +281,10 @@ export const Dashboard: React.FC = () => {
 										: "text-slate-500 hover:text-slate-200 border-b-2 border-transparent",
 								)}
 								onClick={() => setMainTab(t.id)}>
-								{t.label}
+								<span className="inline-flex items-center justify-center gap-2">
+									<span className="text-slate-400">{t.icon}</span>
+									<span>{t.label}</span>
+								</span>
 							</button>
 						))}
 					</div>
@@ -282,9 +301,10 @@ export const Dashboard: React.FC = () => {
 								savingProfile={savingProfile}
 								onSaveProfile={saveProfile}
 								onResetProfile={() => setProfileFullName(me?.fullName ?? "")}
-								onLogout={signOut}
 								avatarUploading={avatarUploading}
 								onUploadAvatar={uploadAvatar}
+								catalogSiteCount={catalogSiteCount}
+								catalogCategoryCount={catalogCategoryCount}
 							/>
 						</div>
 					)}
@@ -297,8 +317,6 @@ export const Dashboard: React.FC = () => {
 								onUpgrade={upgrade}
 								onCancelPro={cancelPro}
 								topUp={{
-									open: topUpOpen,
-									onToggle: () => setTopUpOpen((p) => !p),
 									amount: topUpAmount,
 									onAmountChange: setTopUpAmount,
 									method: topUpMethod,
@@ -318,7 +336,7 @@ export const Dashboard: React.FC = () => {
 
 					{mainTab === "signins" && (
 						<div role="tabpanel"className="space-y-5 h-[calc(100vh-310px)]" aria-labelledby="dashboard-tab-signins">
-							<DevicesSection me={me} />
+							<DevicesSection />
 						</div>
 					)}
 				</div>

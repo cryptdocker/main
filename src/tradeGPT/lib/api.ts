@@ -6,6 +6,7 @@ export type AuthUser = {
   email: string;
   fullName?: string;
   avatar?: string;
+  balance?: number;
 };
 
 export type SubscriptionInfo = {
@@ -15,6 +16,7 @@ export type SubscriptionInfo = {
   trialDaysLeft: number;
   trialEndsAt: string;
   accountCreatedAt: string;
+  balance: number;
 };
 
 export async function apiRegister(body: {
@@ -132,6 +134,61 @@ export async function apiGetSubscription(token: string): Promise<SubscriptionInf
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(getApiErrorMessage(data, "Unable to load your subscription details."));
   return data.subscription;
+}
+
+export async function apiUpgradeSubscription(token: string): Promise<{
+  subscription: SubscriptionInfo;
+  message?: string;
+}> {
+  const res = await fetch(`${API_BASE}/subscription/upgrade`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(getApiErrorMessage(data, "Unable to upgrade right now."));
+  return data;
+}
+
+const MAIN_API_BASE = API_BASE.replace(/\/trade-gpt$/, "");
+
+export type TopUpPaymentResult = {
+  uuid: string;
+  addressIn: string;
+  amount: number;
+  ticker: string;
+  minimumTransactionCoin: number;
+  status: string;
+};
+
+export type TopUpPaymentStatus = {
+  uuid: string;
+  status: string;
+  addressIn: string | null;
+  amount: number;
+  ticker: string;
+  minimumTransactionCoin: number | null;
+};
+
+export async function apiCreateTopUpPayment(
+  userUuid: string,
+  amount: number,
+  ticker: string,
+): Promise<TopUpPaymentResult> {
+  const res = await fetch(`${MAIN_API_BASE}/payment`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userUuid, amount, ticker }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(getApiErrorMessage(data, "Unable to create top up payment."));
+  return data;
+}
+
+export async function apiGetTopUpPaymentStatus(paymentUuid: string): Promise<TopUpPaymentStatus> {
+  const res = await fetch(`${MAIN_API_BASE}/payment/${paymentUuid}/status`);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(getApiErrorMessage(data, "Unable to check top up payment status."));
+  return data;
 }
 
 export type PaymentNetworkId = "eth" | "bsc" | "tron" | "sol";

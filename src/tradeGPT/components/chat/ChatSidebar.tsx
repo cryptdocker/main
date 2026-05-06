@@ -196,7 +196,7 @@ export function ChatSidebar({
             title="Account menu"
             aria-label="Account menu"
           >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm">
               {userEmail.charAt(0).toUpperCase()}
             </div>
             <div className="min-w-0 flex-1">
@@ -244,7 +244,7 @@ export function ChatSidebar({
           userMenuOpen || collapsedRailMenuExiting ? "overflow-visible" : "overflow-hidden"
         } ${
           /* Keep lift until exit animation finishes, or main paints over the fading menu */
-          collapsed && (userMenuOpen || collapsedRailMenuExiting) ? "z-[70]" : "z-0"
+          collapsed && (userMenuOpen || collapsedRailMenuExiting) ? "z-70" : "z-0"
         }`}
       >
         <div className="relative h-full min-h-0 w-full">
@@ -293,7 +293,7 @@ export function ChatSidebar({
                   title="Account menu"
                   aria-label="Account menu"
                   data-state={userMenuOpen ? "open" : "closed"}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm ring-2 ring-transparent transition-[box-shadow,transform] hover:ring-teal-400/40 data-[state=open]:ring-teal-400/50"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm ring-2 ring-transparent transition-[box-shadow,transform] hover:ring-teal-400/40 data-[state=open]:ring-teal-400/50"
                 >
                   {userEmail.charAt(0).toUpperCase()}
                 </button>
@@ -305,7 +305,7 @@ export function ChatSidebar({
                   {userMenuOpen && collapsed && (
                     <AccountMenuPanel
                       key="account-menu-rail"
-                      className="absolute bottom-full left-0 z-[1] mb-1 min-w-[12rem] w-[min(240px,calc(100vw-env(safe-area-inset-left)-0.75rem))]"
+                      className="absolute bottom-full left-0 z-1 mb-1 min-w-48 w-[min(240px,calc(100vw-env(safe-area-inset-left)-0.75rem))]"
                       reduceMotion={reduceMotion}
                       onOpenSettings={() => {
                         setUserMenuOpen(false);
@@ -369,7 +369,7 @@ export function ChatSidebar({
         transition={drawerSpring}
         style={{ pointerEvents: mobileOpen ? "auto" : "none" }}
         aria-hidden={!mobileOpen}
-        className="fixed inset-y-0 left-0 z-50 flex h-[100dvh] w-[min(288px,88vw)] flex-col border-r border-th-border/90 bg-th-sidebar/95 pl-[env(safe-area-inset-left)] shadow-2xl backdrop-blur-md will-change-transform motion-reduce:will-change-auto"
+        className="fixed inset-y-0 left-0 z-50 flex h-dvh w-[min(288px,88vw)] flex-col border-r border-th-border/90 bg-th-sidebar/95 pl-[env(safe-area-inset-left)] shadow-2xl backdrop-blur-md will-change-transform motion-reduce:will-change-auto"
       >
         {expandedBody}
       </motion.aside>

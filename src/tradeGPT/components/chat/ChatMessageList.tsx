@@ -207,7 +207,7 @@ export function ChatMessageList({
                         </span>
                       </div>
                     )}
-                    <div className="rounded-2xl border border-teal-500/20 bg-gradient-to-br from-teal-500/10 via-th-surface to-emerald-500/5 px-4 py-3 text-th-text shadow-sm">
+                    <div className="rounded-2xl border border-teal-500/20 bg-linear-to-br from-teal-500/10 via-th-surface to-emerald-500/5 px-4 py-3 text-th-text shadow-sm">
                       <p className="whitespace-pre-wrap text-sm leading-relaxed">{m.content}</p>
                     </div>
                     <div className="flex justify-end">
@@ -226,7 +226,7 @@ export function ChatMessageList({
                 </div>
               ) : (
                 <div className="flex gap-2 sm:gap-4">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-teal-500 to-emerald-600 text-[10px] font-bold text-white shadow-sm sm:h-8 sm:w-8 sm:text-xs">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-linear-to-br from-teal-500 to-emerald-600 text-[10px] font-bold text-white shadow-sm sm:h-8 sm:w-8 sm:text-xs">
                     AI
                   </div>
                   <div className="min-w-0 flex-1 text-th-text">
@@ -286,7 +286,7 @@ export function ChatMessageList({
           ))}
           {streamingContent && (
             <li className="group flex gap-2 sm:gap-4">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-teal-500 to-emerald-600 text-[10px] font-bold text-white shadow-sm sm:h-8 sm:w-8 sm:text-xs">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-linear-to-br from-teal-500 to-emerald-600 text-[10px] font-bold text-white shadow-sm sm:h-8 sm:w-8 sm:text-xs">
                 AI
               </div>
               <div className="min-w-0 flex-1 text-th-text">

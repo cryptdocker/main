@@ -198,22 +198,6 @@ a:focus:not(:focus-visible) {
 
 /* ── TradeGPT theme variables ────────────────────────────── */
 :root {
-	--color-bg: 248 250 252;
-	--color-sidebar: 241 245 249;
-	--color-surface: 255 255 255;
-	--color-input: 255 255 255;
-	--color-input-hover: 241 245 249;
-	--color-code: 241 245 249;
-	--color-border: 226 232 240;
-	--color-border-muted: 203 213 225;
-	--color-text: 15 23 42;
-	--color-text-muted: 100 116 139;
-	--color-tgpt-accent: 13 148 136;
-	--color-tgpt-accent-soft: 20 184 166;
-	--color-tgpt-accent-glow: 45 212 191;
-}
-
-.dark {
 	--color-bg: 6 22 24;
 	--color-sidebar: 8 28 31;
 	--color-surface: 13 38 42;
