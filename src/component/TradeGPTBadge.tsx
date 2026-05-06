@@ -15,7 +15,7 @@ export const TradeGPTBadge: React.FC = () => {
 			type="button"
 			onClick={() =>
 				window.open(
-					"https://trade.cryptdocker.com",
+					"https://cryptdocker.com/trade-gpt",
 					"_blank",
 					"noopener,noreferrer",
 				)

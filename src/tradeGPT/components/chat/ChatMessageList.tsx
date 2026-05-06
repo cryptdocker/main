@@ -101,7 +101,7 @@ function MessageToolbar({
   onEdit?: () => void;
 }) {
   return (
-    <div className="mt-1 flex items-center gap-1 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
+    <div className="mt-1 flex items-center justify-end gap-1 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
       <button
         type="button"
         onClick={onCopy}
@@ -244,7 +244,7 @@ export function ChatMessageList({
                       lastIsAssistant &&
                       i === messages.length - 1 &&
                       !streamingContent && (
-                        <div className="mt-4 border-t border-th-border pt-4">
+                        <div className="pt-4">
                           {followUpByMessageId[m.id]?.length ? (
                             <>
                               <p className="mb-2 text-xs font-medium text-th-text-muted">
