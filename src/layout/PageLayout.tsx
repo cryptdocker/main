@@ -13,6 +13,9 @@ export const PageLayout: React.FC = () => {
 	const hideFooterForTradeGPT =
 		location.pathname.startsWith(PATH.TRADE_GPT) && Boolean(user && token);
 	const hideFooterForDashboard = location.pathname === PATH.DASHBOARD;
+	const motionKey = location.pathname.startsWith(PATH.TRADE_GPT)
+		? PATH.TRADE_GPT
+		: location.pathname;
 
 	return (
 		<div className="relative flex min-h-dvh w-full flex-col overflow-x-hidden bg-dark-base">
@@ -28,7 +31,7 @@ export const PageLayout: React.FC = () => {
 			<AnimatePresence mode="wait">
 				<motion.main
 					id="main-content"
-					key={location.pathname}
+					key={motionKey}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
