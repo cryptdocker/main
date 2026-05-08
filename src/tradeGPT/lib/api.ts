@@ -15,6 +15,8 @@ export type SubscriptionInfo = {
   trialActive: boolean;
   trialDaysLeft: number;
   trialEndsAt: string;
+  /** ISO timestamp for next renewal when on paid plan (or null). */
+  nextBillingDate?: string | null;
   accountCreatedAt: string;
   balance: number;
 };
@@ -146,6 +148,19 @@ export async function apiUpgradeSubscription(token: string): Promise<{
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(getApiErrorMessage(data, "Unable to upgrade right now."));
+  return data;
+}
+
+export async function apiDowngradeSubscription(token: string): Promise<{
+  subscription: SubscriptionInfo;
+  message?: string;
+}> {
+  const res = await fetch(`${API_BASE}/subscription/downgrade`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(getApiErrorMessage(data, "Unable to downgrade right now."));
   return data;
 }
 

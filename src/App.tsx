@@ -19,6 +19,9 @@ import { SiteAnalysis } from "./page/SiteAnalysis";
 import { NewsAnalysis } from "./page/NewsAnalysis";
 import { SignIn } from "./page/SignIn";
 import { SignUp } from "./page/SignUp";
+import { ForgotPassword } from "./page/ForgotPassword";
+import { VerifyPasswordReset } from "./page/VerifyPasswordReset";
+import { ResetPassword } from "./page/ResetPassword";
 import { Dashboard } from "./page/Dashboard";
 import { RequireAuth } from "./component/RequireAuth";
 import { TradeGPTApp } from "./tradeGPT/TradeGPTApp";
@@ -61,6 +64,9 @@ function App() {
 					<Route path={PATH.NEWS_ANALYSIS} element={<NewsAnalysis />} />
 					<Route path={PATH.SIGN_IN} element={<SignIn />} />
 					<Route path={PATH.SIGN_UP} element={<SignUp />} />
+					<Route path={PATH.FORGOT_PASSWORD} element={<ForgotPassword />} />
+					<Route path={PATH.VERIFY_PASSWORD_RESET} element={<VerifyPasswordReset />} />
+					<Route path={PATH.RESET_PASSWORD} element={<ResetPassword />} />
 					<Route
 						path={PATH.DASHBOARD}
 						element={

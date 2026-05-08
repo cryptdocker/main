@@ -76,3 +76,47 @@ export async function loginWithGoogleCode(params: {
 	return { user: normalizeUser(res.user), token: res.token };
 }
 
+export async function forgotPassword(params: { email: string }): Promise<void> {
+	await apiFetch<{ success: true }>("/auth/forgot-password", {
+		method: "POST",
+		body: JSON.stringify({ email: params.email.trim() }),
+	});
+}
+
+export async function verifyPasswordResetCode(params: {
+	email: string;
+	code: string;
+}): Promise<{ resetToken: string }> {
+	return await apiFetch<{ resetToken: string }>("/auth/verify-password-reset-code", {
+		method: "POST",
+		body: JSON.stringify({ email: params.email.trim(), code: params.code.trim() }),
+	});
+}
+
+export async function resetPassword(params: {
+	resetToken: string;
+	newPassword: string;
+}): Promise<void> {
+	await apiFetch<{ success: true }>("/auth/reset-password", {
+		method: "POST",
+		body: JSON.stringify({ resetToken: params.resetToken, newPassword: params.newPassword }),
+	});
+}
+
+export async function changePassword(params: {
+	token: string;
+	currentPassword: string;
+	newPassword: string;
+	confirmPassword: string;
+}): Promise<{ message: string }> {
+	return await apiFetch<{ message: string }>("/auth/change-password", {
+		method: "POST",
+		headers: { Authorization: `Bearer ${params.token}` },
+		body: JSON.stringify({
+			currentPassword: params.currentPassword,
+			newPassword: params.newPassword,
+			confirmPassword: params.confirmPassword,
+		}),
+	});
+}
+

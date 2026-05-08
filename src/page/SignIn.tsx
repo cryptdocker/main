@@ -69,9 +69,18 @@ export const SignIn: React.FC = () => {
 						/>
 					</div>
 					<div className="space-y-1.5">
-						<label className="text-sm text-slate-300" htmlFor="password">
-							Password
-						</label>
+						<div className="flex items-center justify-between gap-3">
+							<label className="text-sm text-slate-300" htmlFor="password">
+								Password
+							</label>
+							<Link
+								to={PATH.FORGOT_PASSWORD}
+								state={{ ...(location.state ?? {}), email }}
+								className="text-xs text-teal-300 hover:text-teal-200 underline"
+							>
+								Forgot?
+							</Link>
+						</div>
 						<input
 							id="password"
 							type="password"

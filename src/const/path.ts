@@ -16,6 +16,9 @@ export const NEWS_ANALYSIS = "/tools/news-analysis";
 
 export const SIGN_IN = "/sign-in";
 export const SIGN_UP = "/sign-up";
+export const FORGOT_PASSWORD = "/forgot-password";
+export const VERIFY_PASSWORD_RESET = "/verify-password-reset";
+export const RESET_PASSWORD = "/reset-password";
 
 export const DASHBOARD = "/dashboard";
 
