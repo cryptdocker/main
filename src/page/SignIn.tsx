@@ -23,7 +23,7 @@ export const SignIn: React.FC = () => {
 		try {
 			const res = await authService.loginWithEmail({ email, password });
 			signIn(res);
-			navigate(resolvePostAuthRedirect(location.state, PATH.HOME), { replace: true });
+			navigate(resolvePostAuthRedirect(location.state, PATH.DASHBOARD), { replace: true });
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Failed to sign in.");
 		} finally {

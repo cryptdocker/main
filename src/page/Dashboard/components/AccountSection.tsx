@@ -250,16 +250,8 @@ export function AccountSection({
 										Password
 									</label>
 									<div className="flex items-center gap-2">
-										<input
-											value="••••••••"
-											disabled
-											className={cx(
-												INPUT,
-												"text-slate-500 cursor-not-allowed flex-1",
-											)}
-										/>
 										<Button size="sm" variant="outline" onClick={openPw}>
-											Change
+											Change Password
 										</Button>
 									</div>
 								</div>
