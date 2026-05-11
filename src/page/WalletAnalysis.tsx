@@ -185,9 +185,6 @@ export const WalletAnalysis: React.FC = () => {
 											<p className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
 												KyberSwap Exploit Address
 											</p>
-											<p className="mt-0.5 text-[10px] text-slate-600 leading-snug">
-												Illustrative sample — not sent to the risk API.
-											</p>
 											<button
 												type="button"
 												onMouseDown={(e) => e.preventDefault()}
@@ -206,9 +203,6 @@ export const WalletAnalysis: React.FC = () => {
 										<div>
 											<p className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
 												Trust Wallet Drainer Address
-											</p>
-											<p className="mt-0.5 text-[10px] text-slate-600 leading-snug">
-												Illustrative sample — not sent to the risk API.
 											</p>
 											<button
 												type="button"
