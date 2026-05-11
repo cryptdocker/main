@@ -497,9 +497,11 @@ export const Navbar: React.FC = () => {
 				</div>
 
 				<div className="hidden md:flex items-center gap-3">
-					<Button size="sm" variant="outline" onClick={openDemo}>
-						View Demo
-					</Button>
+					{!user && (
+						<Button size="sm" variant="outline" onClick={openDemo}>
+							View Demo
+						</Button>
+					)}
 					{user ? (
 						<div className="relative" ref={profileRef}>
 							<button
@@ -839,17 +841,19 @@ export const Navbar: React.FC = () => {
 						)}
 
 						<div className="flex gap-3 pt-2">
-							<Button
-								size="sm"
-								variant="outline"
-								className="flex-1"
-								onClick={() => {
-									openDemo();
-									setMobileOpen(false);
-								}}
-							>
-								View Demo
-							</Button>
+							{!user && (
+								<Button
+									size="sm"
+									variant="outline"
+									className="flex-1"
+									onClick={() => {
+										openDemo();
+										setMobileOpen(false);
+									}}
+								>
+									View Demo
+								</Button>
+							)}
 							<Link
 								to={PATH.DOWNLOAD}
 								className="flex-1 min-w-0"

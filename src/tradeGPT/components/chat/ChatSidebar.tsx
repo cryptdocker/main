@@ -15,6 +15,8 @@ import {
   sidebarContentTransition,
   sidebarWidthTransition,
 } from "../../config/motion";
+import { useTradeGPTUser } from "../../context/TradeGPTUserContext";
+import { Tooltip } from "react-tooltip";
 
 type Conv = { id: string; title: string; mode: string };
 
@@ -24,6 +26,15 @@ const SIDEBAR_EXPANDED_PX = 260;
 /** Header / collapsed-rail icon buttons (same look in both states). */
 const sidebarHeaderIconBtnClass =
   "flex rounded-full bg-transparent p-3 text-teal-700 transition-colors hover:bg-teal-300/20 dark:text-teal-300 dark:hover:bg-teal-500/20";
+
+function formatShortDate(iso: string | null | undefined): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" }).format(
+    d,
+  );
+}
 
 type Props = {
   conversations: Conv[];
@@ -56,6 +67,7 @@ export function ChatSidebar({
   onCloseMobile,
 }: Props) {
   const reduceMotion = useReducedMotion();
+  const { user, subscription, loading: subscriptionLoading } = useTradeGPTUser();
   const [confirmDeleteAllOpen, setConfirmDeleteAllOpen] = useState(false);
   /** True while collapsed-rail account menu exit animation runs (keeps z-index/overflow until done). */
   const prevDesktopCollapsedRef = useRef(collapsed);
@@ -63,6 +75,45 @@ export function ChatSidebar({
   const widthSpring = sidebarWidthTransition(reduceMotion);
   const contentCrossfade = sidebarContentTransition(reduceMotion);
   const drawerSpring = drawerTransition(reduceMotion);
+
+  const planInfo = (() => {
+    if (!user) return null;
+    if (!subscription) {
+      return {
+        planLabel: subscriptionLoading ? "Loading…" : "Free",
+        dateLabel: null as string | null,
+        dateValue: null as string | null,
+        title: null as string | null,
+      };
+    }
+
+    if (subscription.plan === "pro") {
+      const nextBilling = formatShortDate(subscription.nextBillingDate);
+      return {
+        planLabel: "Pro",
+        dateLabel: nextBilling ? "Next billing" : null,
+        dateValue: nextBilling,
+        title: nextBilling ? `Pro • Next billing ${nextBilling}` : "Pro",
+      };
+    }
+
+    if (subscription.trialActive) {
+      const expires = formatShortDate(subscription.trialEndsAt);
+      return {
+        planLabel: "Trial",
+        dateLabel: expires ? "Expires" : null,
+        dateValue: expires,
+        title: expires ? `Trial • Expires ${expires}` : "Trial",
+      };
+    }
+
+    return {
+      planLabel: "Free",
+      dateLabel: null,
+      dateValue: null,
+      title: "Free",
+    };
+  })();
 
   useEffect(() => {
     if (isMobileLayout) return;
@@ -143,23 +194,51 @@ export function ChatSidebar({
       </nav>
 
       <div className="border-t border-th-border p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-        <div className="grid gap-1">
-          <button
-            type="button"
-            onClick={onExportData}
-            className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-th-text transition-colors hover:bg-th-input"
-          >
-            <FiDownload aria-hidden className="h-4 w-4 shrink-0 text-th-text-muted" />
-            Export data
-          </button>
-          <button
-            type="button"
-            onClick={() => setConfirmDeleteAllOpen(true)}
-            className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-red-500 transition-colors hover:bg-th-input"
-          >
-            <FiTrash2 aria-hidden className="h-4 w-4 shrink-0 opacity-80" />
-            Delete all conversations
-          </button>
+        <div className="flex items-center justify-between gap-2">
+          {planInfo && (
+            <div
+              className="flex min-w-0 items-center justify-end gap-2 rounded-xl bg-th-surface/40"
+              title={planInfo.title ?? undefined}
+              aria-label="Plan details"
+            >
+              <span className="shrink-0 rounded-full border border-th-border/70 bg-th-input/60 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-th-text/80">
+                {planInfo.planLabel.toUpperCase()}
+              </span>
+              {planInfo.dateValue && (
+                <span className="truncate text-xs text-th-text-muted">{planInfo.dateValue}</span>
+              )}
+            </div>
+          )}
+
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={onExportData}
+              aria-label="Export data"
+              data-tooltip-id="tradegpt-sidebar-tooltips"
+              data-tooltip-content="Export data"
+              data-tooltip-place="top"
+              className="inline-flex items-center justify-center rounded-lg p-2 text-th-text-muted transition-colors hover:bg-th-input hover:text-th-text"
+            >
+              <FiDownload aria-hidden className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setConfirmDeleteAllOpen(true)}
+              aria-label="Delete all conversations"
+              data-tooltip-id="tradegpt-sidebar-tooltips"
+              data-tooltip-content="Delete all conversations"
+              data-tooltip-place="top-end"
+              className="inline-flex items-center justify-center rounded-lg p-2 text-red-500 transition-colors hover:bg-red-500/10"
+            >
+              <FiTrash2 aria-hidden className="h-4 w-4" />
+            </button>
+            <Tooltip
+              id="tradegpt-sidebar-tooltips"
+              place="top"
+              className="rounded-lg! border border-th-border/80 bg-th-surface! p-0! th-text shadow-xl"
+            />
+          </div>
         </div>
       </div>
     </>
@@ -215,6 +294,17 @@ export function ChatSidebar({
               </div>
               <div className="mt-auto flex w-full flex-col items-center pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-2">
                 <div className="flex w-full flex-col items-center gap-2">
+                  {planInfo && (
+                    <div
+                      className="w-full px-1"
+                      title={planInfo.title ?? undefined}
+                      aria-label="Plan details"
+                    >
+                      <div className="w-full rounded-lg border border-th-border/60 bg-th-surface/40 py-1 text-center text-[10px] font-semibold tracking-wide text-th-text/80">
+                        {planInfo.planLabel.toUpperCase()}
+                      </div>
+                    </div>
+                  )}
                   <button
                     type="button"
                     onClick={onExportData}
