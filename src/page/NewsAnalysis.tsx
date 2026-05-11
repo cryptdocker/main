@@ -22,6 +22,10 @@ import {
 	analyzeNews,
 	type NewsAnalysisResponse,
 } from "../services/analysis.service";
+import { userFacingOpenAiAnalysisError } from "../lib/openAiAnalysisUserError";
+
+const NEWS_ANALYSIS_AI_UNAVAILABLE =
+	"We couldn't generate an AI summary for this news search right now. Please try again in a little while.";
 
 const SUGGESTIONS = [
 	"Bitcoin",
@@ -177,9 +181,21 @@ export const NewsAnalysis: React.FC = () => {
 		try {
 			const res = await analyzeNews(finalKeywords);
 			if (res.success) setData(res);
-			else setError(res.error || "Analysis failed.");
+			else {
+				setError(
+					userFacingOpenAiAnalysisError(
+						res.error || "Analysis failed.",
+						NEWS_ANALYSIS_AI_UNAVAILABLE,
+					),
+				);
+			}
 		} catch (err) {
-			setError(err instanceof Error ? err.message : "Request failed.");
+			setError(
+				userFacingOpenAiAnalysisError(
+					err instanceof Error ? err.message : "Request failed.",
+					NEWS_ANALYSIS_AI_UNAVAILABLE,
+				),
+			);
 		} finally {
 			setLoading(false);
 		}

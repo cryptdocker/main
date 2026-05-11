@@ -15,6 +15,8 @@ import { useAuth } from "../auth/useAuth";
 import { SignInCtaModal } from "../component/SignInCtaModal";
 import {
 	analyzeWallet,
+	WALLET_ANALYSIS_CLIENT_ONLY_KYBER_SWAP,
+	WALLET_ANALYSIS_CLIENT_ONLY_TRUST_DRAINER,
 	type RadarRiskResponse,
 } from "../services/analysis.service";
 
@@ -31,6 +33,21 @@ const FLAG_LABELS: Record<string, string> = {
 function isValidPayload(value: string): boolean {
 	const v = value.trim();
 	return EVM_ADDRESS_REGEX.test(v) || EVM_TX_REGEX.test(v);
+}
+
+/** Backend sometimes returns `error` as JSON text `{"detailed":"..."}`; show only the human message. */
+function formatWalletAnalysisError(raw: string): string {
+	const s = raw.trim();
+	if (!s.startsWith("{")) return raw;
+	try {
+		const parsed = JSON.parse(s) as { detail?: unknown };
+		if (typeof parsed?.detail === "string" && parsed.detail.trim()) {
+			return parsed.detail.trim();
+		}
+	} catch {
+		// leave raw as-is
+	}
+	return raw;
 }
 
 function riskColor(level: string | undefined) {
@@ -69,6 +86,7 @@ export const WalletAnalysis: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [data, setData] = useState<RadarRiskResponse | null>(null);
 	const [showSignals, setShowSignals] = useState(false);
+	const [addressFocused, setAddressFocused] = useState(false);
 
 	useEffect(() => {
 		if (!authed) setSignInOpen(true);
@@ -76,6 +94,7 @@ export const WalletAnalysis: React.FC = () => {
 
 	const trimmed = input.trim();
 	const valid = isValidPayload(trimmed);
+	const showDemoWalletHints = addressFocused && trimmed === "";
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -93,10 +112,14 @@ export const WalletAnalysis: React.FC = () => {
 			if (res.success && res.data) {
 				setData(res.data);
 			} else {
-				setError(res.error || "Analysis failed.");
+				setError(formatWalletAnalysisError(res.error || "Analysis failed."));
 			}
 		} catch (err) {
-			setError(err instanceof Error ? err.message : "Request failed.");
+			setError(
+				formatWalletAnalysisError(
+					err instanceof Error ? err.message : "Request failed.",
+				),
+			);
 		} finally {
 			setLoading(false);
 		}
@@ -133,15 +156,74 @@ export const WalletAnalysis: React.FC = () => {
 							Wallet or contract address
 						</label>
 						<div className="flex flex-col sm:flex-row gap-3">
-							<input
-								type="text"
-								autoComplete="off"
-								spellCheck={false}
-								placeholder="0x… (address or tx hash)"
-								value={input}
-								onChange={(e) => setInput(e.target.value)}
-								className="flex-1 min-w-0 px-4 py-3 rounded-xl border border-white/8 bg-white/4 text-slate-200 placeholder:text-slate-600 font-mono text-sm focus:outline-none focus:ring-1 focus:ring-teal-500/30 focus:border-teal-500/50 transition"
-							/>
+							<div className="relative flex-1 min-w-0">
+								<input
+									type="text"
+									autoComplete="off"
+									spellCheck={false}
+									placeholder="0x… (address or tx hash)"
+									value={input}
+									onChange={(e) => setInput(e.target.value)}
+									onFocus={() => setAddressFocused(true)}
+									onBlur={() => setAddressFocused(false)}
+									aria-describedby={
+										showDemoWalletHints ? "wallet-client-address-hints" : undefined
+									}
+									className="w-full px-4 py-3 rounded-xl border border-white/8 bg-white/4 text-slate-200 placeholder:text-slate-600 font-mono text-sm focus:outline-none focus:ring-1 focus:ring-teal-500/30 focus:border-teal-500/50 transition"
+								/>
+								{showDemoWalletHints && (
+									<motion.div
+										id="wallet-client-address-hints"
+										role="group"
+										aria-label="Illustrative sample addresses (no live scan)"
+										initial={{ opacity: 0, y: 4 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ duration: 0.15 }}
+										className="absolute left-0 right-0 top-full z-20 mt-1.5 max-h-[min(70vh,22rem)] overflow-y-auto rounded-xl border border-white/10 bg-dark-surface/95 px-3 py-2.5 shadow-lg shadow-black/30 backdrop-blur-sm"
+									>
+										<div>
+											<p className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+												KyberSwap Exploit Address
+											</p>
+											<p className="mt-0.5 text-[10px] text-slate-600 leading-snug">
+												Illustrative sample — not sent to the risk API.
+											</p>
+											<button
+												type="button"
+												onMouseDown={(e) => e.preventDefault()}
+												onClick={() =>
+													setInput(WALLET_ANALYSIS_CLIENT_ONLY_KYBER_SWAP)
+												}
+												className="mt-1 w-full text-left font-mono text-xs text-teal-300 hover:text-teal-200 hover:underline cursor-pointer wrap-break-word"
+											>
+												{WALLET_ANALYSIS_CLIENT_ONLY_KYBER_SWAP}
+											</button>
+										</div>
+										<div
+											className="my-2.5 border-t border-white/10"
+											aria-hidden
+										/>
+										<div>
+											<p className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+												Trust Wallet Drainer Address
+											</p>
+											<p className="mt-0.5 text-[10px] text-slate-600 leading-snug">
+												Illustrative sample — not sent to the risk API.
+											</p>
+											<button
+												type="button"
+												onMouseDown={(e) => e.preventDefault()}
+												onClick={() =>
+													setInput(WALLET_ANALYSIS_CLIENT_ONLY_TRUST_DRAINER)
+												}
+												className="mt-1 w-full text-left font-mono text-xs text-teal-300 hover:text-teal-200 hover:underline cursor-pointer wrap-break-word"
+											>
+												{WALLET_ANALYSIS_CLIENT_ONLY_TRUST_DRAINER}
+											</button>
+										</div>
+									</motion.div>
+								)}
+							</div>
 							<Button
 								type="submit"
 								size="lg"

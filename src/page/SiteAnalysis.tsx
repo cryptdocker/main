@@ -19,6 +19,7 @@ import {
 	analyzeSite,
 	type SiteAnalysisResponse,
 } from "../services/analysis.service";
+import { userFacingOpenAiAnalysisError } from "../lib/openAiAnalysisUserError";
 
 function extractHost(input: string): string | null {
 	const v = input.trim();
@@ -33,6 +34,9 @@ function extractHost(input: string): string | null {
 		return null;
 	}
 }
+
+const SITE_ANALYSIS_AI_UNAVAILABLE =
+	"We couldn't generate an AI summary for this site right now. Please try again in a little while.";
 
 function sentimentStyle(sentiment: string | undefined) {
 	const s = (sentiment || "").toLowerCase();
@@ -84,9 +88,21 @@ export const SiteAnalysis: React.FC = () => {
 		try {
 			const res = await analyzeSite(input.trim());
 			if (res.success) setData(res);
-			else setError(res.error || "Analysis failed.");
+			else {
+				setError(
+					userFacingOpenAiAnalysisError(
+						res.error || "Analysis failed.",
+						SITE_ANALYSIS_AI_UNAVAILABLE,
+					),
+				);
+			}
 		} catch (err) {
-			setError(err instanceof Error ? err.message : "Request failed.");
+			setError(
+				userFacingOpenAiAnalysisError(
+					err instanceof Error ? err.message : "Request failed.",
+					SITE_ANALYSIS_AI_UNAVAILABLE,
+				),
+			);
 		} finally {
 			setLoading(false);
 		}
